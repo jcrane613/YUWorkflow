@@ -1,2 +1,2 @@
 # YUWorkflow
-A group of coders try to be mekash shem shamim
+A group of coders try to be mekadesh shem shamayim
