@@ -23,7 +23,7 @@ public class RequestForChangeTorahStudy extends Form {
     private SchoolAttending schoolAttending;
     private CurrentClass currentClass;
 
-    public LeaveOfAbsenceForm(String submitterName, String submitterEmail, int submitterYUID, String mailAddress, String city, String state, int zipCode, int phoneNumber,
+    public RequestForChangeTorahStudy(String submitterName, String submitterEmail, int submitterYUID, String mailAddress, String city, String state, int zipCode, int phoneNumber,
                               CurrentProgram currentProgram, CurrentProgram switchToProgram, SchoolAttending schoolAttending, CurrentClass currentClass)
     {
         super(submitterName, submitterEmail, submitterYUID);
