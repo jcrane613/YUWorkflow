@@ -1,5 +1,3 @@
-package RedTeam;
-
 /**
  * Hello world!
  */
