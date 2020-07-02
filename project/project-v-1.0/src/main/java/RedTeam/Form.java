@@ -1,8 +1,6 @@
+package; 
 import java.util.Date;
 import java.util.UUID;
-
-import java.util.UUID;
-import java.util.Date;
 
 public abstract class Form {
     
@@ -36,7 +34,7 @@ public abstract class Form {
 
     @Override 
     public String toString() {
-        String res "";
+        String res = "";
         // TO-DO
         return res;
     }
