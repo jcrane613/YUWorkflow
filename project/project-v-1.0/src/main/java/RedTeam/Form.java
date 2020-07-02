@@ -22,11 +22,12 @@ public abstract class Form {
 
     public Form(String submitterEmail, String submitterName, int submitterYUID) {
         // instantiate form data
+        //chcecker to determine if the inputted email address is valid
         if (isValid(submitterEmail))
         {
             this.submitterEmail = submitterEmail;
         }
-        else System.err.println("You submitted an email that was invalid")
+        else System.err.println("You submitted an email that was invalid");
         this.submitterName = submitterName;
         this.submitterYUID = submitterYUID;
 
