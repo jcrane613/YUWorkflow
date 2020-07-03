@@ -1,9 +1,9 @@
-package RedTeam;
+package main.java.RedTeam;
 
 import java.util.List;
 
 public class LeaveOfAbsenceForm extends Form {
-    
+
     public enum UndergradSchool{
         KATZ, SCW, SSSB, YC;
     }

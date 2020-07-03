@@ -1,4 +1,4 @@
-package RedTeam;
+package main.java.RedTeam;
 import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Matcher;

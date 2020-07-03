@@ -1,10 +1,10 @@
-package RedTeam;
+package main.java.RedTeam;
 
 import java.util.Queue;
 import java.util.UUID;
 
 public abstract class User {
-    
+
     String firstName;
     String middleName;
     String lastName;

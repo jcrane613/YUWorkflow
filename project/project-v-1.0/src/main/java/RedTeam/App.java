@@ -1,3 +1,5 @@
+package main.java.RedTeam;
+
 /**
  * Hello world!
  */

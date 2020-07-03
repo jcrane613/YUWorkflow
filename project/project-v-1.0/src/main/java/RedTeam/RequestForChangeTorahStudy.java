@@ -1,4 +1,4 @@
-package RedTeam;
+package main.java.RedTeam;
 import java.util.List;
 
 public class RequestForChangeTorahStudy extends Form {
@@ -16,8 +16,8 @@ public class RequestForChangeTorahStudy extends Form {
     private String mailAddress;
     private String city;
     private String state;
-    private int zipCode;
-    private int phoneNumber;
+    private int zipcode;
+    private int phonenumber;
     private CurrentProgram currentProgram;
     private CurrentProgram switchToProgram;
     private SchoolAttending schoolAttending;
