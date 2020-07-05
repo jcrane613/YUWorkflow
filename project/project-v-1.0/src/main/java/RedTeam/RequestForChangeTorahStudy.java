@@ -1,5 +1,7 @@
 package main.java.RedTeam;
+import java.lang.reflect.Type;
 import java.util.List;
+import main.java.Enums.Types;
 
 public class RequestForChangeTorahStudy extends Form {
 
@@ -18,13 +20,13 @@ public class RequestForChangeTorahStudy extends Form {
     private String state;
     private int zipcode;
     private int phonenumber;
-    private CurrentProgram currentProgram;
-    private CurrentProgram switchToProgram;
-    private SchoolAttending schoolAttending;
-    private CurrentClass currentClass;
+    private Types.TorahStudiesProgram currentProgram;
+    private Types.TorahStudiesProgram switchToProgram;
+    private Types.School schoolAttending;
+    private Types.ClassStanding currentClass;
 
     public RequestForChangeTorahStudy(String submitterName, String submitterEmail, int submitterYUID, String mailAddress, String city, String state, int zipCode, int phoneNumber,
-                              CurrentProgram currentProgram, CurrentProgram switchToProgram, SchoolAttending schoolAttending, CurrentClass currentClass)
+                              Types.TorahStudiesProgram currentProgram,  Types.TorahStudiesProgram switchToProgram, Types.School schoolAttending, Types.ClassStanding currentClass)
     {
         super(submitterName, submitterEmail, submitterYUID);
         this.mailAddress = mailAddress;
@@ -37,5 +39,9 @@ public class RequestForChangeTorahStudy extends Form {
         this.schoolAttending = schoolAttending;
         this.currentClass = currentClass;
     }
+
+    //An Attempt to model the workflow
+    
+
 }
 
