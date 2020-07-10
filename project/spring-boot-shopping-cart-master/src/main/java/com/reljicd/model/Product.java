@@ -31,6 +31,21 @@ public class Product {
     @DecimalMin(value = "0.00", message = "*Price has to be non negative number")
     private BigDecimal price;
 
+    @Column(name = "status")
+    private Status status;
+    
+    public enum Status {
+    	OPEN, APPROVED, DENIED
+    }
+    
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+    
     public Long getId() {
         return id;
     }

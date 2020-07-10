@@ -48,6 +48,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         } else {
             products.put(product, 1);
         }
+        product.setStatus(Product.Status.OPEN);
     }
 
     /**
