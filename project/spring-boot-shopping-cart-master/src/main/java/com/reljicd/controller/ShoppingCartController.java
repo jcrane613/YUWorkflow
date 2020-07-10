@@ -41,6 +41,18 @@ public class ShoppingCartController {
         productService.findById(productId).ifPresent(shoppingCartService::removeProduct);
         return shoppingCart();
     }
+    
+    @GetMapping("/shoppingCart/approveProduct/{productId}")
+    public ModelAndView approveProductFromCart(@PathVariable("productId") Long productId) {
+        productService.findById(productId).ifPresent(shoppingCartService::approveProduct);
+        return shoppingCart();
+    }
+    
+    @GetMapping("/shoppingCart/denyProduct/{productId}")
+    public ModelAndView denyProductFromCart(@PathVariable("productId") Long productId) {
+        productService.findById(productId).ifPresent(shoppingCartService::denyProduct);
+        return shoppingCart();
+    }
 
     @GetMapping("/shoppingCart/checkout")
     public ModelAndView checkout() {

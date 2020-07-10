@@ -17,4 +17,8 @@ public interface ShoppingCartService {
     void checkout() throws NotEnoughProductsInStockException;
 
     BigDecimal getTotal();
+
+	void approveProduct(Product product);
+
+	void denyProduct(Product product);
 }

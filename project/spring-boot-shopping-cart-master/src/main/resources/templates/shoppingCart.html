@@ -27,10 +27,10 @@
             <div th:inline="text" class="col-md-2">Price: [[${product.getKey().price}]] $</div>
             <div th:inline="text" class="col-md-9">Quantity: [[${product.getValue()}]]</div>
 			<br></br>
-			<a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}" class="col-md-1">
+			<a th:href="@{'/shoppingCart/approveProduct/{id}'(id=${product.getKey().id})}" class="col-md-1">
                 <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
             </a>
-			<a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}" class="col-md-1">
+			<a th:href="@{'/shoppingCart/denyProduct/{id}'(id=${product.getKey().id})}" class="col-md-1">
                 <button type="button" class="btn btn-primary" th:text="Deny">Deny</button>
             </a>
 			 <a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}" class="col-md-1">

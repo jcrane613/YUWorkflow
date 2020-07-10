@@ -67,6 +67,42 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             }
         }
     }
+    
+    /**
+     * If product is in the map with quantity > 1, just decrement quantity by 1.
+     * If product is in the map with quantity 1, remove it from map
+     *
+     * @param product
+     */
+    @Override
+    public void approveProduct(Product product) {
+        if (products.containsKey(product)) {
+            if (products.get(product) > 1)
+                products.replace(product, products.get(product) - 1);
+            else if (products.get(product) == 1) {
+                products.remove(product);
+                product.setStatus(Product.Status.APPROVED);
+            }
+        }
+    }
+    
+    /**
+     * If product is in the map with quantity > 1, just decrement quantity by 1.
+     * If product is in the map with quantity 1, remove it from map
+     *
+     * @param product
+     */
+    @Override
+    public void denyProduct(Product product) {
+        if (products.containsKey(product)) {
+            if (products.get(product) > 1)
+                products.replace(product, products.get(product) - 1);
+            else if (products.get(product) == 1) {
+                products.remove(product);
+                product.setStatus(Product.Status.DENIED);
+            }
+        }
+    }
 
     /**
      * @return unmodifiable copy of the map
