@@ -47,6 +47,10 @@
                 <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
                     <li class="active"><a th:href="@{/logout}">Sign Out</a></li>
                 </ul>
+                <!-- show sign out only if user is authenticated -->
+                <ul class="nav navbar-nav" sec:authorize="true">
+                    <li class="active"><a th:href="@{/form}">Form</a></li>
+                </ul>
             </div>
         </div>
     </nav>
