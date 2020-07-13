@@ -31,14 +31,39 @@ public class Product {
     @DecimalMin(value = "0.00", message = "*Price has to be non negative number")
     private BigDecimal price;
 
-    @Column(name = "status")
+    @OneToOne(cascade={CascadeType.ALL})
+    private Workflow workflow;
+    
+	@Column(name = "status")
     private Status status;
     
     public enum Status {
     	OPEN, APPROVED, DENIED
     }
     
-    public Status getStatus() {
+    public Product() {
+    	this(new Long(42), "TODOname");
+    }
+    
+    public Workflow getWorkflow() {
+		return workflow;
+	}
+
+	public void setWorkflow(Workflow workflow) {
+		this.workflow = workflow;
+	}
+
+    
+    public Product(Long id, String name) {
+		// TODO Auto-generated constructor stub
+    	this.id = id;
+    	this.name = name;
+    	this.description = "description";
+    	this.price = new BigDecimal(0.01);
+    	this.quantity = new Integer(1);
+	}
+
+	public Status getStatus() {
         return this.status;
     }
 
@@ -100,4 +125,9 @@ public class Product {
     public int hashCode() {
         return id.hashCode();
     }
+
+	public void nextStep() {
+		// TODO Auto-generated method stub
+		this.workflow.setCurrentStep(this.workflow.getCurrentStep()+1);
+	}
 }

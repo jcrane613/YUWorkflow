@@ -81,8 +81,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 products.replace(product, products.get(product) - 1);
             else if (products.get(product) == 1) {
                 products.remove(product);
-                product.setStatus(Product.Status.APPROVED);
             }
+            product.setStatus(Product.Status.APPROVED);
+            product.nextStep();
         }
     }
     
@@ -99,8 +100,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 products.replace(product, products.get(product) - 1);
             else if (products.get(product) == 1) {
                 products.remove(product);
-                product.setStatus(Product.Status.DENIED);
             }
+            product.setStatus(Product.Status.DENIED);
         }
     }
 
