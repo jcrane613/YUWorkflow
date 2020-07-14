@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ProductService {
 
     Optional<Product> findById(Long id);
-
     Page<Product> findAllProductsPageable(Pageable pageable);
+    Optional<Product> findByUser(int id); 
 
 }

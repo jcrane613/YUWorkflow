@@ -1,6 +1,7 @@
 package com.reljicd.controller;
 
 import com.reljicd.exception.NotEnoughProductsInStockException;
+import com.reljicd.model.Product;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,6 @@ public class ShoppingCartController {
         productService.findById(productId).ifPresent(shoppingCartService::removeProduct);
         return shoppingCart();
     }
-
     @GetMapping("/shoppingCart/checkout")
     public ModelAndView checkout() {
         try {

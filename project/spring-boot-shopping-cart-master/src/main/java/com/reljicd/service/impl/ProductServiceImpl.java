@@ -16,7 +16,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository)
+     {
         this.productRepository = productRepository;
     }
 
@@ -29,4 +30,10 @@ public class ProductServiceImpl implements ProductService {
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
+
+    @Override
+    public Page<Product> findByUser(Pageable pageable) {
+       return productRepository.findByUser(pageable, user); 
+    }
+
 }

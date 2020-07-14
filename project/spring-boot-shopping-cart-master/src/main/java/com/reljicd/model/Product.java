@@ -5,6 +5,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
+
+import com.fasterxml.jackson.databind.ser.std.StdArraySerializers.IntArraySerializer;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -30,7 +33,19 @@ public class Product {
     @Column(name = "price", nullable = false)
     @DecimalMin(value = "0.00", message = "*Price has to be non negative number")
     private BigDecimal price;
-
+    
+    //Added this code to get the admin later
+    @Column(name = "user")
+    private int user;
+    
+    public void SetAdmin(int user)
+    {
+        this.user = user; 
+    }
+    public int SetAdmin()
+    {
+        return user; 
+    }
     public Long getId() {
         return id;
     }
@@ -70,6 +85,7 @@ public class Product {
     public void setPrice(BigDecimal unitPrice) {
         this.price = unitPrice;
     }
+   
 
     @Override
     public boolean equals(Object o) {

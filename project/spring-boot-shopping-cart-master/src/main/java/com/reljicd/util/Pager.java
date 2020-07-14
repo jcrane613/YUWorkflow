@@ -1,6 +1,8 @@
 package com.reljicd.util;
 
 
+import java.util.Optional;
+
 import com.reljicd.model.Product;
 import org.springframework.data.domain.Page;
 
@@ -11,8 +13,8 @@ public class Pager {
 
     private final Page<Product> products;
 
-    public Pager(Page<Product> products) {
-        this.products = products;
+    public Pager(Page<Product> products2) {
+        this.products = products2;
     }
 
     public int getPageIndex() {
