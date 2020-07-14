@@ -6,6 +6,7 @@ import com.reljicd.model.Product;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Set;
 
 public interface ShoppingCartService {
 
@@ -20,4 +21,6 @@ public interface ShoppingCartService {
     void checkout() throws NotEnoughProductsInStockException;
 
     BigDecimal getTotal();
+
+	Set<Form> getFormsInCart();
 }

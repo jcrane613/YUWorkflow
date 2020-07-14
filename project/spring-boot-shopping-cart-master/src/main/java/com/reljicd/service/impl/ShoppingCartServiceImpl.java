@@ -15,7 +15,9 @@ import org.springframework.web.context.WebApplicationContext;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Shopping Cart is implemented with a Map, and as a session bean
@@ -30,6 +32,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ProductRepository productRepository;
 
     private Map<Product, Integer> products = new HashMap<>();
+    private Set<Form> forms = new HashSet<>();
 
     @Autowired
     public ShoppingCartServiceImpl(ProductRepository productRepository) {
@@ -53,7 +56,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public void addForm(Form form) {
-        System.out.println("Got to addForm in SC-service-impl");
+    	System.out.println("Got to addForm in SC-service-impl");
+    	forms.add(form);
     }
 
     /**
@@ -79,6 +83,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public Map<Product, Integer> getProductsInCart() {
         return Collections.unmodifiableMap(products);
+    }
+    
+    @Override
+    public Set<Form> getFormsInCart() {
+    	return Collections.unmodifiableSet(this.forms);
     }
 
     /**

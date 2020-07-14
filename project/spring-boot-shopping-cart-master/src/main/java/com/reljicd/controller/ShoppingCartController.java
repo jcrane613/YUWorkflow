@@ -30,6 +30,7 @@ public class ShoppingCartController {
         ModelAndView modelAndView = new ModelAndView("/shoppingCart");
         modelAndView.addObject("products", shoppingCartService.getProductsInCart());
         modelAndView.addObject("total", shoppingCartService.getTotal().toString());
+        modelAndView.addObject("forms", shoppingCartService.getFormsInCart());
         return modelAndView;
     }
 
