@@ -31,6 +31,10 @@ public class Form {
 	private String major;
 
 
+	@Column(name = "approver")
+	private String approver = "Dean Joe";
+
+
 	public Long getId() {
 		return id;
 	}
@@ -63,4 +67,11 @@ public class Form {
 		this.major = major;
 	}
 
+	public String getApprover() {
+		return approver;
+	}
+
+	public void setApprover(String approver) {
+		this.approver = approver;
+	}
 }
