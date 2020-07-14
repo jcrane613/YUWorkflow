@@ -7,7 +7,7 @@
     <!-- Pagination -->
     <div class="pagination" th:with="baseUrl=${URLparameter}">
         <span th:if="${pager.indexOutOfBounds()}">
-            Page is out of bounds. Go back to <a class="pageLink"
+            Hooray! You have no pending approvals. Go back to <a class="pageLink"
                                                  th:href="@{${baseUrl}(page=1)}">Home</a>.
         </span>
 
