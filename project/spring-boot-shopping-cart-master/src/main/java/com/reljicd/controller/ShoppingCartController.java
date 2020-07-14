@@ -1,6 +1,7 @@
 package com.reljicd.controller;
 
 import com.reljicd.exception.NotEnoughProductsInStockException;
+import com.reljicd.service.FormService;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
     private final ProductService productService;
+    private final FormService formService;
 
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService, FormService formService) {
         this.shoppingCartService = shoppingCartService;
         this.productService = productService;
+        this.formService = formService;
     }
 
     @GetMapping("/shoppingCart")
@@ -33,6 +36,12 @@ public class ShoppingCartController {
     @GetMapping("/shoppingCart/addProduct/{productId}")
     public ModelAndView addProductToCart(@PathVariable("productId") Long productId) {
         productService.findById(productId).ifPresent(shoppingCartService::addProduct);
+        return shoppingCart();
+    }
+    
+    @GetMapping("/shoppingCart/processForm/{formId}")
+    public ModelAndView addFormToCart(@PathVariable("formId") Long formId) {
+        formService.findById(formId).ifPresent(shoppingCartService::addForm);
         return shoppingCart();
     }
 

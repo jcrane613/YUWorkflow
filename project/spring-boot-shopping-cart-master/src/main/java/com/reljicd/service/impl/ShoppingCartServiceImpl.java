@@ -1,6 +1,7 @@
 package com.reljicd.service.impl;
 
 import com.reljicd.exception.NotEnoughProductsInStockException;
+import com.reljicd.model.Form;
 import com.reljicd.model.Product;
 import com.reljicd.repository.ProductRepository;
 import com.reljicd.service.ShoppingCartService;
@@ -48,6 +49,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         } else {
             products.put(product, 1);
         }
+    }
+    
+    @Override
+    public void addForm(Form form) {
+        System.out.println("Got to addForm in SC-service-impl");
     }
 
     /**

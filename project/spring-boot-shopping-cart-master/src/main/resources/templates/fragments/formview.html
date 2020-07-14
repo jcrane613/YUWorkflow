@@ -11,10 +11,13 @@
         <div class="panel-heading">
             Form #<h1 th:text="${form.id}"></h1>
         </div>
-        Student Name:<h3 th:text="${form.name}" class="panel-body">Major</h3>
+        Student Name:<h3 th:text="${form.name}" class="panel-body">StudentName</h3>
         <br></br>
         Major Declaration:<h3 th:text="${form.major}" class="panel-body">Major</h3>
-        <br></br>
+		<a th:href="@{'/shoppingCart/processForm/{id}' (id=${form.id})}" class="col-md-1"
+               sec:authorize="isAuthenticated()" >
+                <button type="button" class="btn btn-primary" th:text="Process">Process</button>
+            </a>
     </div>
 </div>
 
