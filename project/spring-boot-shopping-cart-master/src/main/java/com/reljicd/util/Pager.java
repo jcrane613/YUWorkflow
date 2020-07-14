@@ -1,6 +1,7 @@
 package com.reljicd.util;
 
 
+import com.reljicd.model.Form;
 import com.reljicd.model.Product;
 import org.springframework.data.domain.Page;
 
@@ -9,34 +10,34 @@ import org.springframework.data.domain.Page;
  */
 public class Pager {
 
-    private final Page<Product> products;
+    private final Page<Form> forms;
 
-    public Pager(Page<Product> products) {
-        this.products = products;
+    public Pager(Page<Form> forms) {
+        this.forms = forms;
     }
 
     public int getPageIndex() {
-        return products.getNumber() + 1;
+        return forms.getNumber() + 1;
     }
 
     public int getPageSize() {
-        return products.getSize();
+        return forms.getSize();
     }
 
     public boolean hasNext() {
-        return products.hasNext();
+        return forms.hasNext();
     }
 
     public boolean hasPrevious() {
-        return products.hasPrevious();
+        return forms.hasPrevious();
     }
 
     public int getTotalPages() {
-        return products.getTotalPages();
+        return forms.getTotalPages();
     }
 
     public long getTotalElements() {
-        return products.getTotalElements();
+        return forms.getTotalElements();
     }
 
     public boolean indexOutOfBounds() {

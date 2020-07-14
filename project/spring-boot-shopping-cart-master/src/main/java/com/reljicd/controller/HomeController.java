@@ -1,6 +1,8 @@
 package com.reljicd.controller;
 
+import com.reljicd.model.Form;
 import com.reljicd.model.Product;
+import com.reljicd.service.FormService;
 import com.reljicd.service.ProductService;
 import com.reljicd.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,11 @@ public class HomeController {
 
     private static final int INITIAL_PAGE = 0;
 
-    private final ProductService productService;
+    private final FormService formService;
 
     @Autowired
-    public HomeController(ProductService productService) {
-        this.productService = productService;
+    public HomeController(FormService formService) {
+        this.formService = formService;
     }
 
     @GetMapping("/home")
@@ -33,11 +35,11 @@ public class HomeController {
         // param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-        Page<Product> products = productService.findAllProductsPageable(new PageRequest(evalPage, 5));
-        Pager pager = new Pager(products);
+        Page<Form> forms = formService.findAllFormsPageable(new PageRequest(evalPage, 5));
+        Pager pager = new Pager(forms);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("products", products);
+        modelAndView.addObject("forms", forms);
         modelAndView.addObject("pager", pager);
         modelAndView.setViewName("/home");
         return modelAndView;
