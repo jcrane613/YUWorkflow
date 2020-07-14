@@ -21,12 +21,18 @@
     <div class="panel-default well" th:each="form : ${forms}">
         <div class="panel-heading">
             <h1 ><a th:inline="text" th:href="@{'google.com'}">Form Id: [[${form.id}]]</a></h1>
-            <!-- <h3 th:text="${form.major}">Major</h3> -->
+            <h3 th:inline="text">Status: [[${form.status}]]</h3>
         </div>
         <div class="row panel-body">
             <div th:inline="text" class="col-md-2">First Name: [[${form.name}]]</div>
             <div th:inline="text" class="col-md-2">Last Name: [[${form.lastName}]]</div>           
-            <div th:inline="text" class="col-md-2">Major Declaration: [[${form.major}]]</div>           
+            <div th:inline="text" class="col-md-2">Major Declaration: [[${form.major}]]</div>    
+       		<a th:href="@{'/shoppingCart/approveForm/{id}' (id=${form.id})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
+            </a>
+			<a th:href="@{'/shoppingCart/denyForm/{id}' (id=${form.id})}" class="col-md-1">
+            <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
+            </a>
         </div>
         <br></br>
     </div>

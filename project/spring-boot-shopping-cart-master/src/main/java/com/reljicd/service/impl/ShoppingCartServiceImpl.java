@@ -59,6 +59,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     	System.out.println("Got to addForm in SC-service-impl");
     	forms.add(form);
     }
+    
+    @Override
+    public void approveForm(Form form) {
+    	System.out.println("Got to approveForm in SC-service-impl");
+    	form.setStatus("APPROVED");
+    	forms.clear();
+    }
+    
+    @Override
+    public void denyForm(Form form) {
+    	System.out.println("Got to denyForm in SC-service-impl");
+    	form.setStatus("DENIED");
+    	forms.clear();
+    }
 
     /**
      * If product is in the map with quantity > 1, just decrement quantity by 1.

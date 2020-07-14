@@ -13,7 +13,11 @@ public interface ShoppingCartService {
     void addProduct(Product product);
     
     void addForm(Form form);
+    
+    void approveForm(Form form);
 
+    void denyForm(Form form);
+    
     void removeProduct(Product product);
 
     Map<Product, Integer> getProductsInCart();

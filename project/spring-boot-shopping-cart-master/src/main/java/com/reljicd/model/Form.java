@@ -33,7 +33,9 @@ public class Form {
 
 	@Column(name = "approver")
 	private String approver = "Dean Joe";
-
+	
+	@Column(name = "status")
+	private String status = "OPEN";
 
 	public Long getId() {
 		return id;
@@ -73,5 +75,13 @@ public class Form {
 
 	public void setApprover(String approver) {
 		this.approver = approver;
+	}
+	
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
