@@ -40,6 +40,9 @@ public class FormController {
 
 
 			formService.saveForm(form);
+			/*if(form.getMajor() == ART){
+				form.aprovver = "dean joe"
+			}*/
 
 			modelAndView.addObject("successMessage", "Submitted successfully");
 			modelAndView.addObject("form", new Form());

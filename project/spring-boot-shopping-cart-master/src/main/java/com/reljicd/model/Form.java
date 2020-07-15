@@ -32,7 +32,7 @@ public class Form {
 
 
 	@Column(name = "approver")
-	private String approver = "Dean Joe";
+	private String approver;
 	
 	@Column(name = "status")
 	private String status = "OPEN";

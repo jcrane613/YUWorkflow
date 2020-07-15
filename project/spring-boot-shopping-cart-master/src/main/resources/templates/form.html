@@ -40,6 +40,14 @@
                 <input type="text" th:field="*{major}" placeholder="Major"
                        class="form-control input-lg"/>
             </div>
+            <div class="form-group">
+                Approver:
+                <label th:if="${#fields.hasErrors('approver')}" th:errors="*{approver}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{approver}" placeholder="Approver"
+                       class="form-control input-lg"/>
+            </div>
+
 
 
             <div class="row">

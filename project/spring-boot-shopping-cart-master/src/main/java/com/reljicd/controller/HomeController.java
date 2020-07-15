@@ -8,6 +8,9 @@ import com.reljicd.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,8 +37,18 @@ public class HomeController {
         // prevent exception), return initial size. Otherwise, return value of
         // param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        Page<Form> forms = formService.findAllFormsPageableByApprover(new PageRequest(evalPage, 5) , username);
+        /*for(Form form : forms){
 
-        Page<Form> forms = formService.findAllFormsPageable(new PageRequest(evalPage, 5));
+        }*/
+        System.out.println(username);
         Pager pager = new Pager(forms);
 
         ModelAndView modelAndView = new ModelAndView();
