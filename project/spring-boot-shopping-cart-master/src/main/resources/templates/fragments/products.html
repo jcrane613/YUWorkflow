@@ -13,8 +13,8 @@
         </div>
         <h3 th:text="${product.description}" class="panel-body">Description</h3>
         <div class="row panel-footer">
-            <div th:inline="text" class="col-md-2">Price: [[${product.price}]] $</div>
-            <div th:inline="text" class="col-md-9">In Stock: [[${product.quantity}]]</div>
+            <div th:inline="text" class="col-md-2">User Number: [[${product.id}]] </div>
+            <div th:inline="text" class="col-md-7">In Stock: [[${product.user}]]</div>
             <a th:href="@{'/shoppingCart/addProduct/{id}'(id=${product.id})}" class="col-md-1"
                sec:authorize="isAuthenticated()" th:if="${product.quantity}>0">
                 <button type="button" class="btn btn-primary" th:text="Buy">Buy</button>

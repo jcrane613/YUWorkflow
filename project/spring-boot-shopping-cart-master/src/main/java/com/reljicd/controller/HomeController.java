@@ -6,11 +6,15 @@ import com.reljicd.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -33,12 +37,18 @@ public class HomeController {
         // param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-        Page<Product> products = productService.findAllProductsPageable(new PageRequest(evalPage, 5));
-        Pager pager = new Pager(products);
-
+        List<Product> products = productService.findAll();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<Product> adminProducts = new ArrayList<>();
+        for (Product pag : products)
+        {
+            if (pag.getQuantity() == auth.getPrincipal())
+            {
+                adminProducts.add(pag);
+            }
+        }
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("products", products);
-        modelAndView.addObject("pager", pager);
+        modelAndView.addObject("products", adminProducts);
         modelAndView.setViewName("/home");
         return modelAndView;
     }

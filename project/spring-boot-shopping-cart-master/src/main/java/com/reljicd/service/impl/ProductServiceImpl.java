@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,18 +23,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findAllProductsPageable(Pageable pageable) {
-        return productRepository.findAll(pageable);
-    }
-
-    @Override
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
 
     @Override
-    public Page<Product> findByUser(Pageable pageable) {
-       return productRepository.findByUser(pageable, user); 
+    public List<Product> findAll(){
+        return productRepository.findAll();
     }
-
 }

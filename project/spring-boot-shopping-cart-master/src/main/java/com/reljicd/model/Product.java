@@ -6,8 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 
-import com.fasterxml.jackson.databind.ser.std.StdArraySerializers.IntArraySerializer;
-
 import java.math.BigDecimal;
 
 @Entity
@@ -35,16 +33,11 @@ public class Product {
     private BigDecimal price;
     
     //Added this code to get the admin later
-    @Column(name = "user")
-    private int user;
-    
-    public void SetAdmin(int user)
+    @Column(name = "username")
+    private String username = "user";
+    public String getUsername()
     {
-        this.user = user; 
-    }
-    public int SetAdmin()
-    {
-        return user; 
+        return username;
     }
     public Long getId() {
         return id;
