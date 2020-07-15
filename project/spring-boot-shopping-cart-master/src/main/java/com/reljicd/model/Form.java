@@ -25,7 +25,12 @@ public class Form {
 	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
 
+	@Column(name = "email", unique = true, nullable = false)
+	@Email(message = "*Please provide a valid Email")
+	@NotEmpty(message = "*Please provide an email")
+	private String email;
 
+	@Column (name = "YU_ID", )
 	@Column(name = "major")
 	@NotEmpty(message = "*Please provide your major")
 	private String major;

@@ -34,16 +34,8 @@ public class FormController {
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public ModelAndView formSubmit(@Valid Form form, BindingResult bindingResult) {
 
-
-
 		ModelAndView modelAndView = new ModelAndView();
-
-
 			formService.saveForm(form);
-			/*if(form.getMajor() == ART){
-				form.aprovver = "dean joe"
-			}*/
-
 			modelAndView.addObject("successMessage", "Submitted successfully");
 			modelAndView.addObject("form", new Form());
 			modelAndView.setViewName("/form");
