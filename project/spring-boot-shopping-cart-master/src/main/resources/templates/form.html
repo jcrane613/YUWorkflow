@@ -37,8 +37,14 @@
                 Major to Declare:
                 <label th:if="${#fields.hasErrors('major')}" th:errors="*{major}"
                        class="alert alert-danger"></label>
-                <input type="text" th:field="*{major}" placeholder="Major"
-                       class="form-control input-lg"/>
+                <select name = "major" th:field="*{major}" placeholder="Major" >
+                    <option value="COM">Computer Science</option>
+                    <option value="ART">ART</option>
+                    <option value="JST">Jewish Theology</option>
+                    <option value="HIS">History</option>
+                    <option value="LAW">Law School</option>
+                    <option value="GEM">Gemara</option>
+                    </select>
             </div>
           
             <div class="row">
