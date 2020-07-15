@@ -34,8 +34,13 @@ public class Form {
 	@Column(name = "approver")
 	private String approver;
 	
+	@Column(name = "comment")
+	private String comment;
+	
 	@Column(name = "status")
 	private String status = "OPEN";
+	
+	
 
 	public Long getId() {
 		return id;
@@ -83,5 +88,13 @@ public class Form {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getComment() {
+		return this.comment;
+	}
+	
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

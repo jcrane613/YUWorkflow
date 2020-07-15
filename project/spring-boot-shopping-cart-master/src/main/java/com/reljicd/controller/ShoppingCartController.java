@@ -1,9 +1,13 @@
 package com.reljicd.controller;
 
 import com.reljicd.exception.NotEnoughProductsInStockException;
+import com.reljicd.model.Form;
 import com.reljicd.service.FormService;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +35,7 @@ public class ShoppingCartController {
         modelAndView.addObject("products", shoppingCartService.getProductsInCart());
         modelAndView.addObject("total", shoppingCartService.getTotal().toString());
         modelAndView.addObject("forms", shoppingCartService.getFormsInCart());
+        modelAndView.addObject("comment", "blank");
         return modelAndView;
     }
 
@@ -46,9 +51,11 @@ public class ShoppingCartController {
         return shoppingCart();
     }
     
-    @GetMapping("/shoppingCart/approveForm/{formId}")
-    public ModelAndView approveForm(@PathVariable("formId") Long formId) {
-        formService.findById(formId).ifPresent(shoppingCartService::approveForm);
+    @GetMapping("/shoppingCart/approveForm/{formId}/{comment}")
+    public ModelAndView approveForm(@PathVariable("formId") Long formId, @PathVariable("comment") String comment) {
+        Optional<Form> optionalForm = formService.findById(formId);
+        optionalForm.ifPresent(shoppingCartService::approveForm);
+        optionalForm.ifPresent(form -> form.setComment(comment) );
         return shoppingCart();
     }
     
