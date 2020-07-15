@@ -7,6 +7,7 @@ import com.reljicd.service.ProductService;
 import com.reljicd.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -44,15 +48,32 @@ public class HomeController {
         } else {
             username = principal.toString();
         }
-        Page<Form> forms = formService.findAllFormsPageableByApprover(new PageRequest(evalPage, 5) , username);
-        /*for(Form form : forms){
+        Page<Form> formsByApprover1 = formService.findAllFormsPageableByApprover1(new PageRequest(evalPage, 5) , username);
+        Page<Form> formsByApprover2 = formService.findAllFormsPageableByApprover2(new PageRequest(evalPage, 5) , username);
+        List<Form> list = new ArrayList<>();
+        for(Form form : formsByApprover1){
+            if(form.getCurrent() == 1){
+                list.add(form);
+            }
+        }
+        for(Form form : formsByApprover2){
+            if(form.getCurrent() == 2){
+                list.add(form);
+            }
+        }
+        Page<Form> allFormsPage = new PageImpl<>(list);
+        /*for (Iterator<Form> it = forms.iterator(); it.hasNext(); ) {
+            Form form = it.next();
+            if(form.getCurrent() != 1){
+                it.remove();
 
+            }
         }*/
-        System.out.println(username);
-        Pager pager = new Pager(forms);
+
+        Pager pager = new Pager(allFormsPage);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("forms", forms);
+        modelAndView.addObject("forms", allFormsPage);
         modelAndView.addObject("pager", pager);
         modelAndView.setViewName("/home");
         return modelAndView;

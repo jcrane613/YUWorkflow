@@ -14,6 +14,7 @@
         Student Name:<h3 th:text="${form.name}" class="panel-body">StudentName</h3>
         <br></br>
         Major Declaration:<h3 th:text="${form.major}" class="panel-body">Major</h3>
+        Step in Approval:<h3 th:text="${form.current}" class="panel-body">Major</h3>
 		<a th:href="@{'/shoppingCart/processForm/{id}' (id=${form.id})}" class="col-md-1"
                sec:authorize="isAuthenticated()" >
                 <button type="button" class="btn btn-primary" th:text="Process">Process</button>

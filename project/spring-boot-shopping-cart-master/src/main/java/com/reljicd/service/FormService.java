@@ -14,6 +14,8 @@ public interface FormService {
 
 	Form saveForm(Form form);
 	Page<Form> findAllFormsPageable(Pageable pageable);
-	Page<Form> findAllFormsPageableByApprover(Pageable pageable , String approver);
+	Page<Form> findAllFormsPageableByApprover1(Pageable pageable , String approver1);
+	Page<Form> findAllFormsPageableByApprover2(Pageable pageable , String approver2);
+
 
 }

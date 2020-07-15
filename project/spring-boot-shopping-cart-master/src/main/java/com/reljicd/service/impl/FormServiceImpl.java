@@ -35,8 +35,12 @@ public class FormServiceImpl implements FormService {
 	}
 
 	@Override
-	public Page<Form> findAllFormsPageableByApprover(Pageable pageable, String approver) {
-		return formRepository.findAllByApprover(pageable,approver);
+	public Page<Form> findAllFormsPageableByApprover1(Pageable pageable, String approver1) {
+		return formRepository.findAllByApprover1(pageable,approver1);
+	}
+	@Override
+	public Page<Form> findAllFormsPageableByApprover2(Pageable pageable, String approver2) {
+		return formRepository.findAllByApprover2(pageable,approver2);
 	}
 
 	@Override

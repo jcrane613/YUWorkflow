@@ -41,12 +41,27 @@
                        class="form-control input-lg"/>
             </div>
             <div class="form-group">
-                Approver:
-                <label th:if="${#fields.hasErrors('approver')}" th:errors="*{approver}"
+                Approver1:
+                <label th:if="${#fields.hasErrors('approver1')}" th:errors="*{approver1}"
                        class="alert alert-danger"></label>
-                <input type="text" th:field="*{approver}" placeholder="Approver"
+                <input type="text" th:field="*{approver1}" placeholder="Approver1"
                        class="form-control input-lg"/>
             </div>
+            <div class="form-group">
+                Approver2:
+                <label th:if="${#fields.hasErrors('approver2')}" th:errors="*{approver2}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{approver2}" placeholder="Approver2"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                Current:
+                <label th:if="${#fields.hasErrors('current')}" th:errors="*{current}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{current}" placeholder="Current"
+                       class="form-control input-lg"/>
+            </div>
+
 
 
 

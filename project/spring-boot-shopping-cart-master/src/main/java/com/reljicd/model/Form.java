@@ -31,8 +31,15 @@ public class Form {
 	private String major;
 
 
-	@Column(name = "approver")
-	private String approver;
+	@Column(name = "approver1")
+	private String approver1;
+
+
+	@Column(name = "approver2")
+	private String approver2;
+
+	@Column(name = "current")
+	private Integer current;
 	
 	@Column(name = "status")
 	private String status = "OPEN";
@@ -69,13 +76,30 @@ public class Form {
 		this.major = major;
 	}
 
-	public String getApprover() {
-		return approver;
+	public String getApprover1() {
+		return approver1;
 	}
 
-	public void setApprover(String approver) {
-		this.approver = approver;
+	public void setApprover1(String approver1) {
+		this.approver1 = approver1;
 	}
+
+	public String getApprover2() {
+		return approver2;
+	}
+
+	public void setApprover2(String approver2) {
+		this.approver2 = approver2;
+	}
+
+	public Integer getCurrent() {
+		return current;
+	}
+
+	public void setCurrent(Integer current) {
+		this.current = current;
+	}
+
 	
 	public String getStatus() {
 		return this.status;
