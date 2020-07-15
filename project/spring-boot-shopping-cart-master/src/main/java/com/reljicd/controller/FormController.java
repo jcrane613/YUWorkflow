@@ -12,15 +12,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class FormController {
 
+	private Map<String , String> majorToApproverMap = new HashMap<>();
 	private final FormService formService;
 
 	@Autowired
 	public FormController(FormService formService) {
 		this.formService = formService;
+		populateMap();
+	}
+	private void populateMap(){
+		majorToApproverMap.put("COM" , "approver1");
+		majorToApproverMap.put("ART" , "approver2");
+		majorToApproverMap.put("MAT" , "approver3");
+		majorToApproverMap.put("JST" , "approver4");
+		majorToApproverMap.put("HIS" , "approver5");
+		majorToApproverMap.put("LAW" , "approver6");
+		majorToApproverMap.put("GEM" , "approver7");
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
@@ -39,12 +52,12 @@ public class FormController {
 		ModelAndView modelAndView = new ModelAndView();
 
 
+			form.setApprover1(majorToApproverMap.get((form.getMajor())));
+			form.setApprover2("registrar");
 			formService.saveForm(form);
-			/*if(form.getMajor() == ART){
-				form.aprovver = "dean joe"
-			}*/
 
-			modelAndView.addObject("successMessage", "Submitted successfully");
+
+		modelAndView.addObject("successMessage", "Submitted successfully");
 			modelAndView.addObject("form", new Form());
 			modelAndView.setViewName("/form");
 
