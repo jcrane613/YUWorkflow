@@ -39,8 +39,11 @@ public class Form {
 	private String approver2;
 
 	@Column(name = "current")
-	private Integer current;
+	private Integer current = 1;
 	
+	@Column(name = "total_steps")
+	private Integer totalSteps = 2;
+
 	@Column(name = "status")
 	private String status = "OPEN";
 
@@ -108,4 +111,10 @@ public class Form {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+
+	public Integer getTotalSteps() {
+		return totalSteps;
+	}
+
 }

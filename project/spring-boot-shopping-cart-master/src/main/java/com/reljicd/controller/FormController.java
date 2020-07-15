@@ -53,7 +53,7 @@ public class FormController {
 
 
 			form.setApprover1(majorToApproverMap.get((form.getMajor())));
-			form.setApprover2("registrar");
+			form.setApprover2("user");
 			formService.saveForm(form);
 
 
