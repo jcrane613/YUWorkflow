@@ -2,6 +2,8 @@ package com.reljicd.controller;
 
 import com.reljicd.model.Form;
 import com.reljicd.model.User;
+import com.reljicd.repository.UserRepository;
+import com.reljicd.service.EmailService;
 import com.reljicd.service.FormService;
 import com.reljicd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,14 @@ public class FormController {
 
 	private Map<String , String> majorToApproverMap = new HashMap<>();
 	private final FormService formService;
+	private final EmailService emailService;
+	private final UserRepository userRepository;
 
 	@Autowired
-	public FormController(FormService formService) {
+	public FormController(FormService formService, EmailService emailService, UserRepository userRepository) {
 		this.formService = formService;
+		this.emailService = emailService;
+		this.userRepository = userRepository;
 		populateMap();
 	}
 	private void populateMap(){
@@ -55,10 +61,13 @@ public class FormController {
 			modelAndView.setViewName("/form");
 		} else {
 
+			String approver1 = majorToApproverMap.get((form.getMajor()));
 			form.setApprover1(majorToApproverMap.get((form.getMajor())));
 			form.setApprover2("user");
 			formService.saveForm(form);
-
+			
+			String approverEmail = userRepository.findByUsername(approver1).get().getEmail();
+			emailService.sendSimpleMessage(approverEmail, "Registrar Forms Update", "You have a form to approve!");
 
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("form", new Form());

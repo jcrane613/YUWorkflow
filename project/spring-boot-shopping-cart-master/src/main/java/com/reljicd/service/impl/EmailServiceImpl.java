@@ -16,6 +16,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private SimpleMailMessage templateSimpleMessage;
  
+    @Override
     public void sendSimpleMessage(String to, String subject, String text) {
         
         SimpleMailMessage message = new SimpleMailMessage(); 

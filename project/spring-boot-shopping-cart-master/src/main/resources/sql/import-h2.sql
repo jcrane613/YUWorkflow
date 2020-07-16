@@ -13,7 +13,7 @@ VALUES (3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'name
         'Surname', 1);
 INSERT INTO USER (user_id, password, email, username, name, last_name, active)
 VALUES
-  (4, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'j@j.com', 'approver1', 'approver1', 'Doe', 1);
+  (4, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'yaircaplan@gmail.com', 'approver1', 'approver1', 'Doe', 1);
 INSERT INTO USER (user_id, password, email, username, name, last_name, active)
 VALUES
   (5, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'j@a.com', 'approver2', 'approver2', 'Doe', 1);
