@@ -1,6 +1,7 @@
 package com.reljicd.controller;
 
 import com.reljicd.exception.NotEnoughProductsInStockException;
+import com.reljicd.service.EmailService;
 import com.reljicd.service.FormService;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
@@ -17,12 +18,14 @@ public class ShoppingCartController {
 
     private final ProductService productService;
     private final FormService formService;
+    private final EmailService emailService;
 
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService, FormService formService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService, FormService formService, EmailService emailService) {
         this.shoppingCartService = shoppingCartService;
         this.productService = productService;
         this.formService = formService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/shoppingCart")
@@ -49,6 +52,7 @@ public class ShoppingCartController {
     @GetMapping("/shoppingCart/approveForm/{formId}")
     public String approveForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::approveForm);
+        emailService.sendNextMessage(formId, "Registrar Forms Update", "You have a form to approve!");
         return "redirect:/home";
     }
     
