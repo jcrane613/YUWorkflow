@@ -51,16 +51,19 @@ public class FormController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("/form");
+		} else {
 
 			form.setApprover1(majorToApproverMap.get((form.getMajor())));
 			form.setApprover2("user");
 			formService.saveForm(form);
 
 
-		modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
+			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("form", new Form());
 			modelAndView.setViewName("/form");
-
+		}
 		return modelAndView;
 	}
 
