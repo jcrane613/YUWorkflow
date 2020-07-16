@@ -37,7 +37,6 @@ public class EmailServiceImpl implements EmailService {
  
     @Override
     public void sendSimpleMessage(String to, String subject, String text) {
-        
         SimpleMailMessage message = new SimpleMailMessage(); 
         message.setFrom("noreply@yuredteam.com");
         message.setTo(to); 
@@ -47,31 +46,45 @@ public class EmailServiceImpl implements EmailService {
     }
     
     public void sendSimpleTemplatedMessage(String to, String subject, String text) { 
-    	        SimpleMailMessage message = this.templateSimpleMessage; 
-    	        message.setFrom("noreply@yuredteam.com");
-    	        message.setTo(to); 
-    	        message.setSubject(subject); 
-    	        String formattedText = String.format(message.getText(), text);
-    	        message.setText(formattedText);
-    	        emailSender.send(message);
+        SimpleMailMessage message = this.templateSimpleMessage; 
+        message.setFrom("noreply@yuredteam.com");
+        message.setTo(to); 
+        message.setSubject(subject); 
+        String formattedText = String.format(message.getText(), text);
+        message.setText(formattedText);
+        emailSender.send(message);
     }
 
 	@Override
-	public void sendNextMessage(Long formId, String subject, String text) {
+	public void sendNextMessage(Long formId, String subject) {
 		String nextApproverEmail = "";
 		Form form = formRepository.findById(formId).get();
 		int currentStep = form.getCurrent();
-		switch (currentStep) {
+		int totalSteps = form.getTotalSteps();
+		if (currentStep <= totalSteps) { // there are still approvers left
+			switch (currentStep) {
 			case 2:
 				String username = form.getApprover2();
 				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
+				break;
+			}	
+			SimpleMailMessage message = new SimpleMailMessage(); 
+	        message.setFrom("noreply@yuredteam.com");
+	        message.setTo(nextApproverEmail); 
+	        message.setSubject(subject); 
+	        message.setText("You have a form to approve!");
+	        emailSender.send(message);
 		}
-			
-		SimpleMailMessage message = new SimpleMailMessage(); 
-        message.setFrom("noreply@yuredteam.com");
-        message.setTo(nextApproverEmail); 
-        message.setSubject(subject); 
-        message.setText(text);
-        emailSender.send(message); 		
+		else {                          // the workflow has ended
+			nextApproverEmail = "jcrane@mail.yu.edu";
+			SimpleMailMessage message = new SimpleMailMessage(); 
+	        message.setFrom("noreply@yuredteam.com");
+	        message.setTo(nextApproverEmail); 
+	        message.setSubject(subject); 
+	        message.setText("The workflow has ended!");
+	        emailSender.send(message);
+		}
+		
+		 		
 	}
 }

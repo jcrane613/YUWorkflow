@@ -52,7 +52,7 @@ public class ShoppingCartController {
     @GetMapping("/shoppingCart/approveForm/{formId}")
     public String approveForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::approveForm);
-        emailService.sendNextMessage(formId, "Registrar Forms Update", "You have a form to approve!");
+        emailService.sendNextMessage(formId, "Registrar Forms Update");
         return "redirect:/home";
     }
     
