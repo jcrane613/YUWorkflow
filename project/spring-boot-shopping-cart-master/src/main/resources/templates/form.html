@@ -22,7 +22,7 @@
                 First Name:
                 <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                        class="alert alert-danger"></label>
-                <input type="text" th:field="*{name}" placeholder="Name"
+                <input type="text" th:field="*{name}" placeholder="First Name"
                        class="form-control input-lg"/>
             </div>
 
@@ -38,7 +38,7 @@
                 <label th:if="${#fields.hasErrors('major')}" th:errors="*{major}"
                        class="alert alert-danger"></label>
                 <select name = "major" th:field="*{major}" placeholder="Major" >
-                    <option value="COM">Computer Science</option>
+                    <option value="COM">Computers</option>
                     <option value="ART">ART</option>
                     <option value="JST">Jewish Theology</option>
                     <option value="HIS">History</option>
@@ -46,7 +46,29 @@
                     <option value="GEM">Gemara</option>
                     </select>
             </div>
-          
+         <!--
+            <div class="form-group">
+                YU ID:
+                <label th:if="${#fields.hasErrors('YUID')}" th:errors="*{YUID}"
+                       class="alert alert-danger"></label>
+                <input type="number" th:field="*{YUID}" name="YUID" maxlength="4" size="4"  value="800000000"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                Email Address
+                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                       class="alert alert-danger"></label>
+                <input type="email" th:field="*{email}" placeholder="email"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                Phone Number
+                <label th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{phoneNumber}" placeholder="Phone Number"
+                       class="form-control input-lg"/>
+            </div>
+            -->
             <div class="row">
                 <div class="col-sm-3" style="float: none; margin: 0 auto;">
                     <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
