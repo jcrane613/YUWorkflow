@@ -47,15 +47,15 @@ public class ShoppingCartController {
     }
     
     @GetMapping("/shoppingCart/approveForm/{formId}")
-    public ModelAndView approveForm(@PathVariable("formId") Long formId) {
+    public String approveForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::approveForm);
-        return shoppingCart();
+        return "redirect:/home";
     }
     
     @GetMapping("/shoppingCart/denyForm/{formId}")
-    public ModelAndView denyForm(@PathVariable("formId") Long formId) {
+    public String denyForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::denyForm);
-        return shoppingCart();
+        return "redirect:/home";
     }
 
     @GetMapping("/shoppingCart/removeProduct/{productId}")

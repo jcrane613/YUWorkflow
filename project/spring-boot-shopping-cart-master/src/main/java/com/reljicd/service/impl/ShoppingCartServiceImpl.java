@@ -56,8 +56,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public void addForm(Form form) {
-
-    	forms.add(form);
+    	if (forms.isEmpty()) forms.add(form);
     }
     
     @Override
