@@ -6,6 +6,10 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Entity
@@ -18,22 +22,31 @@ public class Form {
 	private Long id;
 
 	@Column(name = "name")
-	@NotEmpty(message = "*Please provide your name")
+	@NotEmpty(message = "*Please provide your first name")
 	private String name;
 
 	@Column(name = "last_name")
 	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
 
-
 	@Column(name = "major")
 	@NotEmpty(message = "*Please provide your major")
 	private String major;
 
+	//@Column (name = "YUID")
+	//private int YUID;
+
+	//@Column(name = "email", unique = true, nullable = false)
+	//@Email(message = "*Please provide a valid Email")
+	//@NotEmpty(message = "*Please provide an email")
+	//private String email;
+
+	//@Column (name = "phoneNumber")
+	//@Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")
+	//private int phoneNumber;
 
 	@Column(name = "approver1")
 	private String approver1;
-
 
 	@Column(name = "approver2")
 	private String approver2;
@@ -116,5 +129,6 @@ public class Form {
 	public Integer getTotalSteps() {
 		return totalSteps;
 	}
+
 
 }
