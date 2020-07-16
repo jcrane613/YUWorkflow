@@ -30,20 +30,24 @@ public class Form {
 	private String lastName;
 
 	@Column(name = "major")
-	@NotEmpty(message = "*Please provide your major")
+	@NotEmpty(message = "*Please provide the major you would like to switch into")
 	private String major;
 
-	//@Column (name = "YUID")
-	//private int YUID;
+	@Column (name = "YUID")
+	@NotEmpty(message = "*Please provide your YU ID")
+	@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
+	private String YUID;
 
-	//@Column(name = "email", unique = true, nullable = false)
-	//@Email(message = "*Please provide a valid Email")
-	//@NotEmpty(message = "*Please provide an email")
-	//private String email;
+	@Column(name = "email", unique = true, nullable = false)
+	@Email(message = "*Please provide a valid Email")
+	@NotEmpty(message = "*Please provide an email")
+	private String email;
 
-	//@Column (name = "phoneNumber")
+	@Column (name = "phoneNumber")
+	@NotEmpty(message = "*Please provide your number")
+	@Length(min = 10, max = 10, message = "*Your Phone number must have exactly 10 numbers")
 	//@Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")
-	//private int phoneNumber;
+	private String phoneNumber;
 
 	@Column(name = "approver1")
 	private String approver1;
@@ -131,4 +135,27 @@ public class Form {
 	}
 
 
+	public String  getYUID() {
+		return YUID;
+	}
+
+	public void setYUID(String YUID) {
+		this.YUID = YUID;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 }
