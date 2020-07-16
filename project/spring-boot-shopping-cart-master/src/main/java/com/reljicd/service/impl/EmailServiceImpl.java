@@ -17,6 +17,10 @@ import com.reljicd.repository.ProductRepository;
 import com.reljicd.repository.UserRepository;
 import com.reljicd.service.EmailService;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
 @Component
 public class EmailServiceImpl implements EmailService {
  
@@ -83,8 +87,23 @@ public class EmailServiceImpl implements EmailService {
 	        message.setSubject(subject); 
 	        message.setText("The workflow has ended!");
 	        emailSender.send(message);
-		}
-		
-		 		
+		} 		
 	}
+	
+	@Override
+	public void sendHtmlMessage(String to, String subject, String text, String linkUrl) throws MessagingException {
+		MimeMessage mimeMessage = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+		String htmlMsg = String.format(
+				"<h3>%s</h3>"
+				+ "<br></br>"
+				+ "<h4> Please click <a href=\"" + linkUrl + "\" >here</a> to process it! </h4>"	
+				, text);
+		helper.setText(htmlMsg, true);
+		helper.setTo(to);
+		helper.setSubject(subject);
+		helper.setFrom("yuredteam@gmail.com");
+		emailSender.send(mimeMessage);
+	}
+	
 }
