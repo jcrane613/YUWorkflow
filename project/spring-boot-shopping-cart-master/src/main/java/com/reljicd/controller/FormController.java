@@ -57,7 +57,7 @@ public class FormController {
 			formService.saveForm(form);
 
 
-		modelAndView.addObject("successMessage", "Submitted successfully");
+		modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("form", new Form());
 			modelAndView.setViewName("/form");
 

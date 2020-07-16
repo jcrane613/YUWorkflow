@@ -56,13 +56,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public void addForm(Form form) {
-    	System.out.println("Got to addForm in SC-service-impl");
+
     	forms.add(form);
     }
     
     @Override
     public void approveForm(Form form) {
-    	System.out.println("Got to approveForm in SC-service-impl");
+
     	form.setCurrent(form.getCurrent() + 1);
     	if (form.getCurrent() > form.getTotalSteps()) {
         	form.setStatus("APPROVED");
@@ -72,7 +72,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public void denyForm(Form form) {
-    	System.out.println("Got to denyForm in SC-service-impl");
+
     	form.setStatus("DENIED");
     	int denialStep = form.getCurrent();
     	form.setCurrent(new Integer(-1*denialStep));

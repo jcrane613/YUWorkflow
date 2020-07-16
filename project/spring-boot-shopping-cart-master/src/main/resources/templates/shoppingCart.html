@@ -20,7 +20,7 @@
 
     <div class="panel-default well" th:each="form : ${forms}">
         <div class="panel-heading">
-            <h1 ><a th:inline="text" th:href="@{'google.com'}">Form Id: [[${form.id}]]</a></h1>
+            <h1 th:inline="text"> Form Id: [[${form.id}]]</h1>
             <h3 th:inline="text">Status: [[${form.status}]]</h3>
         </div>
         <div class="row panel-body">
@@ -36,14 +36,14 @@
         </div>
         <br></br>
     </div>
-
+    <!--
     <div class="row panel-body">
         <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
         <a th:href="@{'/shoppingCart/checkout'}" class="col-md-1">
             <button type="button" class="btn btn-danger" th:text="Checkout">Checkout</button>
         </a>
     </div>
-
+    -->
 </div>
 
 <div th:replace="/fragments/footer :: footer"/>
