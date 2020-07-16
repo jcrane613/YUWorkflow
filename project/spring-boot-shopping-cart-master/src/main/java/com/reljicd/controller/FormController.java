@@ -63,7 +63,7 @@ public class FormController {
 
 			String approver1 = majorToApproverMap.get((form.getMajor()));
 			form.setApprover1(majorToApproverMap.get((form.getMajor())));
-			form.setApprover2("user");
+			form.setApprover2("approver2");
 			formService.saveForm(form);
 			
 			String approverEmail = userRepository.findByUsername(approver1).get().getEmail();
