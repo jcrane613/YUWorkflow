@@ -65,9 +65,9 @@ public class FormController {
 			form.setApprover2("approver2");
 			formService.saveForm(form);
 			
-			String approverEmail = userRepository.findByUsername(approver1).get().getEmail();
+			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendHtmlMessage(approverEmail, "Registrar Forms Update", "You have a new approval!", ("http://localhost:8075/shoppingCart/processForm/"+form.getId()) );
+				emailService.sendHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+form.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
