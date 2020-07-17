@@ -71,6 +71,7 @@ public class FormController {
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
+			emailService.sendSimpleMessage(form.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("form", new Form());
 			modelAndView.setViewName("/form");
