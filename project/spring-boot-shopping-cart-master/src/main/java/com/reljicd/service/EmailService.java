@@ -8,6 +8,8 @@ public interface EmailService {
 
 	public void sendNextMessage(Long formId, String subject);
 
-	void sendHtmlMessage(String to, String subject, String text, String linkUrl) throws MessagingException;
+	void sendNextHtmlMessage(Long formId, String subject);
+
+	void sendHtmlMessage(String to, String linkUrl) throws MessagingException;
 
 }

@@ -8,6 +8,8 @@ import com.reljicd.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -105,7 +107,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public Set<Form> getFormsInCart() {
-    	return Collections.unmodifiableSet(this.forms);
+    	Set<Form> result = new HashSet<>();
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        for (Form form: this.forms) {
+        	if (form.getCurrentApprover().equals(username)) result.add(form);
+        }
+    	return Collections.unmodifiableSet(result);
     }
 
     /**

@@ -91,19 +91,63 @@ public class EmailServiceImpl implements EmailService {
 	}
 	
 	@Override
-	public void sendHtmlMessage(String to, String subject, String text, String linkUrl) throws MessagingException {
+	public void sendHtmlMessage(String to, String linkUrl) throws MessagingException {
 		MimeMessage mimeMessage = emailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 		String htmlMsg = String.format(
-				"<h3>%s</h3>"
+				"<h3>You have a new approval!</h3>"
 				+ "<br></br>"
-				+ "<h4> Please click <a href=\"" + linkUrl + "\" >here</a> to process it! </h4>"	
-				, text);
+				+ "<h4> Please click <a href=\"%s\">here</a> to process it! </h4>"	
+				, linkUrl);
 		helper.setText(htmlMsg, true);
 		helper.setTo(to);
-		helper.setSubject(subject);
+		helper.setSubject("Registrar Forms Update");
 		helper.setFrom("yuredteam@gmail.com");
 		emailSender.send(mimeMessage);
+	}
+	
+	@Override
+	public void sendNextHtmlMessage(Long formId, String subject) {
+		String username = "", nextApproverEmail = "";
+		Form form = formRepository.findById(formId).get();
+		int currentStep = form.getCurrent();
+		int totalSteps = form.getTotalSteps();
+		if (currentStep <= totalSteps) { // there are still approvers left
+			switch (currentStep) {
+			case 2:
+				username = form.getApprover2();
+				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
+				break;
+			case 3:
+				username = form.getApprover2();
+				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
+				break;
+			case 4:
+				username = form.getApprover2();
+				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
+				break;
+			case 5:
+				username = form.getApprover2();
+				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
+				break;
+			}	
+			
+			SimpleMailMessage message = new SimpleMailMessage(); 
+	        message.setFrom("noreply@yuredteam.com");
+	        message.setTo(nextApproverEmail); 
+	        message.setSubject(subject); 
+	        message.setText("You have a form to approve!");
+	        emailSender.send(message);
+		}
+		else {                          // the workflow has ended
+			nextApproverEmail = "yaircaplan@gmail.com";
+			SimpleMailMessage message = new SimpleMailMessage(); 
+	        message.setFrom("noreply@yuredteam.com");
+	        message.setTo(nextApproverEmail); 
+	        message.setSubject(subject); 
+	        message.setText("The workflow has ended!");
+	        emailSender.send(message);
+		} 		
 	}
 	
 }
