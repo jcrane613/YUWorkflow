@@ -67,21 +67,14 @@ public class EmailServiceImpl implements EmailService {
 		int currentStep = form.getCurrent();
 		int totalSteps = form.getTotalSteps();
 		if (currentStep <= totalSteps) { // the workflow is still live
-			switch (currentStep) {
-				case 1:
-					nextApproverEmail = userRepository.findByUsername(form.getApprover1()).get().getEmail();
-					break;
-				case 2:
-					nextApproverEmail = userRepository.findByUsername(form.getApprover2()).get().getEmail();
-					break;
-			}	
+			nextApproverEmail = userRepository.findByUsername(form.getCurrentApprover()).get().getEmail();
 			this.sendHtmlMessage(nextApproverEmail, "http://localhost:8070/shoppingCart/processForm/"+form.getId());
 		}
 		else {                          // the workflow has ended
 			nextApproverEmail = "yaircaplan@gmail.com";
 			String text = String.format("Form #%d has just been completely approved", form.getId());
-			this.sendSimpleMessage(nextApproverEmail, "Regstrar Form Completion Notification", text);
-			this.sendSimpleMessage(form.getStudentEmail(), "Regstrar Form Completed", text);
+			this.sendSimpleMessage(nextApproverEmail, "Registrar Form Completion Notification", text);
+			this.sendSimpleMessage(form.getStudentEmail(), "Registrar Form Completed", text);
 		} 		
 	}
 	 
