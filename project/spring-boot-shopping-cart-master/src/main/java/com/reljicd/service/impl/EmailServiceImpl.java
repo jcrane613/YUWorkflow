@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.reljicd.model.Form;
 import com.reljicd.model.Product;
@@ -21,7 +22,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
-@Component
+@Service
 public class EmailServiceImpl implements EmailService {
  
 	private final FormRepository formRepository;
@@ -67,10 +68,12 @@ public class EmailServiceImpl implements EmailService {
 		int totalSteps = form.getTotalSteps();
 		if (currentStep <= totalSteps) { // the workflow is still live
 			switch (currentStep) {
-			case 2:
-				String username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
+				case 1:
+					nextApproverEmail = userRepository.findByUsername(form.getApprover1()).get().getEmail();
+					break;
+				case 2:
+					nextApproverEmail = userRepository.findByUsername(form.getApprover2()).get().getEmail();
+					break;
 			}	
 			this.sendHtmlMessage(nextApproverEmail, "http://localhost:8070/shoppingCart/processForm/"+form.getId());
 		}
