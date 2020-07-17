@@ -6,10 +6,15 @@ public interface EmailService {
 
 	public void sendSimpleMessage(String to, String subject, String text);
 
-	public void sendNextMessage(Long formId, String subject);
+	public void sendNextMessage(Long formId);
 
-	void sendNextHtmlMessage(Long formId, String subject);
+	public void sendNextHtmlMessage(Long formId, String subject);
 
-	void sendHtmlMessage(String to, String linkUrl) throws MessagingException;
+	public void sendHtmlMessage(String to, String linkUrl) throws MessagingException;
+
+	public void sendDenialMessage(Long formId);
+
+	public void sendApprovalMessage(Long formId);
+
 
 }

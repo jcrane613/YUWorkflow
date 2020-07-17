@@ -52,13 +52,14 @@ public class ShoppingCartController {
     @GetMapping("/shoppingCart/approveForm/{formId}")
     public String approveForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::approveForm);
-        emailService.sendNextMessage(formId, "Registrar Forms Update");
+        emailService.sendNextMessage(formId);
         return "redirect:/home";
     }
     
     @GetMapping("/shoppingCart/denyForm/{formId}")
     public String denyForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::denyForm);
+        emailService.sendDenialMessage(formId);
         return "redirect:/home";
     }
 

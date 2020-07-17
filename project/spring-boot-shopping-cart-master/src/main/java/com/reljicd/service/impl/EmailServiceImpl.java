@@ -60,7 +60,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
 	@Override
-	public void sendNextMessage(Long formId, String subject) {
+	public void sendNextMessage(Long formId) {
 		String nextApproverEmail = "";
 		Form form = formRepository.findById(formId).get();
 		int currentStep = form.getCurrent();
@@ -72,21 +72,13 @@ public class EmailServiceImpl implements EmailService {
 				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
 				break;
 			}	
-			SimpleMailMessage message = new SimpleMailMessage(); 
-	        message.setFrom("noreply@yuredteam.com");
-	        message.setTo(nextApproverEmail); 
-	        message.setSubject(subject); 
-	        message.setText("You have a form to approve!");
-	        emailSender.send(message);
+			this.sendSimpleMessage(nextApproverEmail, "Registrar Forms Update", "You have a new form to approve!");
 		}
 		else {                          // the workflow has ended
-			nextApproverEmail = "jcrane@mail.yu.edu";
-			SimpleMailMessage message = new SimpleMailMessage(); 
-	        message.setFrom("noreply@yuredteam.com");
-	        message.setTo(nextApproverEmail); 
-	        message.setSubject(subject); 
-	        message.setText("The workflow has ended!");
-	        emailSender.send(message);
+			nextApproverEmail = "yaircaplan@gmail.com";
+			String text = String.format("Form #%d has just been completely approved", form.getId());
+			this.sendSimpleMessage(nextApproverEmail, "Regstrar Form Completion Notification", text);
+			this.sendSimpleMessage(form.getStudentEmail(), "Regstrar Form Completed", text);
 		} 		
 	}
 	
@@ -118,20 +110,7 @@ public class EmailServiceImpl implements EmailService {
 				username = form.getApprover2();
 				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
 				break;
-			case 3:
-				username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
-			case 4:
-				username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
-			case 5:
-				username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
 			}	
-			
 			SimpleMailMessage message = new SimpleMailMessage(); 
 	        message.setFrom("noreply@yuredteam.com");
 	        message.setTo(nextApproverEmail); 
@@ -148,6 +127,22 @@ public class EmailServiceImpl implements EmailService {
 	        message.setText("The workflow has ended!");
 	        emailSender.send(message);
 		} 		
+	}
+
+	@Override
+	public void sendDenialMessage(Long formId) {
+		Form form =  formRepository.findById(formId).get();
+		String studentEmail = form.getStudentEmail();
+		String text = String.format("Your registrar form #%d has been denied by %s.", form.getId(), form.getDenyer());
+		this.sendSimpleMessage(studentEmail, "Registrar Form Denied", text);
+	}
+	
+	@Override
+	public void sendApprovalMessage(Long formId) {
+		Form form =  formRepository.findById(formId).get();
+		String studentEmail = form.getStudentEmail();
+		String text = String.format("Your registrar form #%d has been fully approved!", form.getId());
+		this.sendSimpleMessage(studentEmail, "Registrar Form Approved", text);
 	}
 	
 }

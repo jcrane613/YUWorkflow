@@ -123,6 +123,20 @@ public class Form {
  		}
 		return result;
 	}
+	
+	public String getDenyer() {
+		int denyStep = this.current * -1;
+		String result = "";
+		switch(denyStep) {
+	 		case 1:
+	 			result = this.approver1;
+	 			break;
+	 		case 2:
+	 			result = this.approver2;
+	 			break;
+		}
+		return result;
+	}
 
 	public void setCurrent(Integer current) {
 		this.current = current;
@@ -141,7 +155,5 @@ public class Form {
 	public Integer getTotalSteps() {
 		return totalSteps;
 	}
-
-	
 
 }
