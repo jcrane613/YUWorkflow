@@ -111,7 +111,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public Set<Form> getFormsInCart() {
     	Set<Form> result = new HashSet<>();
     	for (Form form: this.forms) {
-        	if (form.getCurrentApprover().equals(CurrentState.getCurrentUser())) result.add(form);
+        	if (form.getCurrentApprover().equals(CurrentState.getCurrentUsername())) result.add(form);
         }
     	return Collections.unmodifiableSet(result);
     }

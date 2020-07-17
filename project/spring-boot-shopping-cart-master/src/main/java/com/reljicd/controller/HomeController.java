@@ -4,6 +4,7 @@ import com.reljicd.model.Form;
 import com.reljicd.model.Product;
 import com.reljicd.service.FormService;
 import com.reljicd.service.ProductService;
+import com.reljicd.util.CurrentState;
 import com.reljicd.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,13 +42,7 @@ public class HomeController {
         // prevent exception), return initial size. Otherwise, return value of
         // param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
+        String username = CurrentState.getCurrentUsername();
         Page<Form> formsByApprover1 = formService.findAllFormsPageableByApprover1(new PageRequest(evalPage, 5) , username);
         Page<Form> formsByApprover2 = formService.findAllFormsPageableByApprover2(new PageRequest(evalPage, 5) , username);
         List<Form> list = new ArrayList<>();
