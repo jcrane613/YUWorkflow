@@ -5,6 +5,9 @@ import com.reljicd.service.EmailService;
 import com.reljicd.service.FormService;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
+
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +53,7 @@ public class ShoppingCartController {
     }
     
     @GetMapping("/shoppingCart/approveForm/{formId}")
-    public String approveForm(@PathVariable("formId") Long formId) {
+    public String approveForm(@PathVariable("formId") Long formId) throws MessagingException {
         formService.findById(formId).ifPresent(shoppingCartService::approveForm);
         emailService.sendNextMessage(formId);
         return "redirect:/home";
