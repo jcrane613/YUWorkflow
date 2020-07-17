@@ -24,7 +24,11 @@ public class Form {
 	@Column(name = "last_name")
 	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
-
+	
+	@Column(name = "student_email")
+    @Email(message = "*Please provide a valid Email")
+	@NotEmpty(message = "*Please provide your email address")
+	private String studentEmail;
 
 	@Column(name = "major")
 	@NotEmpty(message = "*Please provide your major")
@@ -70,6 +74,14 @@ public class Form {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public String getStudentEmail() {
+		return studentEmail;
+	}
+
+	public void setStudentEmail(String studentEmail) {
+		this.studentEmail = studentEmail;
 	}
 
 	public String getMajor() {
