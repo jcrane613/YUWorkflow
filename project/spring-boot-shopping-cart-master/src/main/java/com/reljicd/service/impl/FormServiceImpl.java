@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 @Service
 public class FormServiceImpl implements FormService {
@@ -41,6 +42,15 @@ public class FormServiceImpl implements FormService {
 	@Override
 	public Page<Form> findAllFormsPageableByApprover2(Pageable pageable, String approver2) {
 		return formRepository.findAllByApprover2(pageable,approver2);
+	}
+
+	@Override
+	public List<Form> findAllFormsByApprover1(String approver1) {
+		return formRepository.findAllByApprover1(approver1);
+	}
+	@Override
+	public List<Form> findAllFormsByApprover2(String approver2) {
+		return formRepository.findAllByApprover2(approver2);
 	}
 
 	@Override

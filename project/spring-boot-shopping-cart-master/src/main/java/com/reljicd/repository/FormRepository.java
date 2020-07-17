@@ -3,6 +3,7 @@ package com.reljicd.repository;
 import com.reljicd.model.Form;
 import com.reljicd.model.Product;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -14,6 +15,8 @@ public interface FormRepository extends JpaRepository<Form , Long> {
 
     Page<Form> findAllByApprover1(Pageable pageable, String approver1);
     Page<Form> findAllByApprover2(Pageable pageable, String approver2);
+    List<Form> findAllByApprover1(String approver1);
+    List<Form> findAllByApprover2(String approver2);
 
 
 }
