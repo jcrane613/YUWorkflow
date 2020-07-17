@@ -46,7 +46,7 @@ public class ShoppingCartController {
     @GetMapping("/shoppingCart/processForm/{formId}")
     public String addFormToCart(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::addForm);
-        return "redirect:/home";
+        return "redirect:/shoppingCart";
     }
     
     @GetMapping("/shoppingCart/approveForm/{formId}")
