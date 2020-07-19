@@ -28,6 +28,11 @@ public class Form {
 	@Column(name = "last_name")
 	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
+	
+	@Column(name = "studentEmail")
+    @Email(message = "*Please provide a valid Email")
+	@NotEmpty(message = "*Please provide your email address")
+	private String studentEmail;
 
 	@Column(name = "major")
 	@NotEmpty(message = "*Please provide the major you would like to switch into")
@@ -37,11 +42,6 @@ public class Form {
 	@NotEmpty(message = "*Please provide your YU ID")
 	@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
 	private String YUID;
-
-	@Column(name = "email", unique = true, nullable = false)
-	@Email(message = "*Please provide a valid Email")
-	@NotEmpty(message = "*Please provide an email")
-	private String email;
 
 	@Column (name = "phoneNumber")
 	@NotEmpty(message = "*Please provide your number")
@@ -88,6 +88,14 @@ public class Form {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public String getStudentEmail() {
+		return studentEmail;
+	}
+
+	public void setStudentEmail(String studentEmail) {
+		this.studentEmail = studentEmail;
+	}
 
 	public String getMajor() {
 		return major;
@@ -115,6 +123,33 @@ public class Form {
 	public Integer getCurrent() {
 		return current;
 	}
+	
+	public String getCurrentApprover() {
+ 		String result = "";
+		switch(this.current) {
+	 		case 1:
+	 			result = this.approver1;
+	 			break;
+	 		case 2:
+	 			result = this.approver2;
+	 			break;
+ 		}
+		return result;
+	}
+	
+	public String getDenyer() {
+		int denyStep = this.current * -1;
+		String result = "";
+		switch(denyStep) {
+	 		case 1:
+	 			result = this.approver1;
+	 			break;
+	 		case 2:
+	 			result = this.approver2;
+	 			break;
+		}
+		return result;
+	}
 
 	public void setCurrent(Integer current) {
 		this.current = current;
@@ -141,14 +176,6 @@ public class Form {
 
 	public void setYUID(String YUID) {
 		this.YUID = YUID;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPhoneNumber() {

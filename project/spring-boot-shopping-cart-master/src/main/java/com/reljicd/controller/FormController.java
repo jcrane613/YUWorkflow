@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,11 +51,9 @@ public class FormController {
 		modelAndView.setViewName("/form");
 		return modelAndView;
 	}
+	
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public ModelAndView formSubmit(@Valid Form form, BindingResult bindingResult) {
-
-
-
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (bindingResult.hasErrors()) {
@@ -66,9 +65,13 @@ public class FormController {
 			form.setApprover2("approver2");
 			formService.saveForm(form);
 			
-			String approverEmail = userRepository.findByUsername(approver1).get().getEmail();
-			emailService.sendSimpleMessage(approverEmail, "Registrar Forms Update", "You have a form to approve!");
-
+			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
+			try {
+				emailService.sendHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+form.getId()) );
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			emailService.sendSimpleMessage(form.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("form", new Form());
 			modelAndView.setViewName("/form");

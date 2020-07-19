@@ -48,7 +48,7 @@ public class ShoppingCartApplication {
     @Bean
 	CommandLineRunner runner(EmailServiceImpl emailServiceImpl) {
 		return args -> {
-			//emailServiceImpl.sendSimpleTemplatedMessage("yaircaplan@gmail.com", "Form Approval", "Your Form was approved!");
+			//emailServiceImpl.sendHtmlMessage("yaircaplan@gmail.com", "Form Approval HTML", "Your Form was approved with HTML!", "https://www.espn.com/");
 		};
 	}
     

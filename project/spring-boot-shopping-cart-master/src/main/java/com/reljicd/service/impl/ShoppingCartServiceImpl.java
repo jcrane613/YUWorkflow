@@ -5,9 +5,13 @@ import com.reljicd.model.Form;
 import com.reljicd.model.Product;
 import com.reljicd.repository.ProductRepository;
 import com.reljicd.service.ShoppingCartService;
+import com.reljicd.util.CurrentState;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -105,7 +109,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public Set<Form> getFormsInCart() {
-    	return Collections.unmodifiableSet(this.forms);
+    	Set<Form> result = new HashSet<>();
+    	for (Form form: this.forms) {
+        	if (form.getCurrentApprover().equals(CurrentState.getCurrentUsername())) result.add(form);
+        }
+    	return Collections.unmodifiableSet(result);
     }
 
     /**

@@ -35,6 +35,10 @@
                <!-- <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
                     <li class="active"><a th:href="@{/shoppingCart}">Shopping Cart</a></li>
                 </ul>-->
+				<!-- show reminders only if user is authenticated as an admin -->
+                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+                    <li class="active"><a th:href="@{/reminders}">Reminders</a></li>
+                </ul>
                 <!-- show registration only if user is not yet authenticated -->
                 <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
                     <li class="active"><a th:href="@{/registration}">Registration</a></li>
@@ -47,7 +51,7 @@
                 <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
                     <li class="active"><a th:href="@{/logout}">Sign Out</a></li>
                 </ul>
-                <!-- show sign out only if user is authenticated -->
+                <!-- show form submission always -->
                 <ul class="nav navbar-nav" sec:authorize="true">
                     <li class="active"><a th:href="@{/allforms}">All Forms</a></li>
                 </ul>
