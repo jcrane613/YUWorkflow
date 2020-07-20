@@ -18,5 +18,9 @@ public interface FormRepository extends JpaRepository<Form , Long> {
     List<Form> findAllByApprover1(String approver1);
     List<Form> findAllByApprover2(String approver2);
 
+	List<Form> findAllByStatus(String status);
+	
+    Optional<Form> findByTrackingId(String trackingId);
+
 
 }

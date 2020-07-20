@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.reljicd.model.Form;
 import com.reljicd.model.Product;
@@ -21,7 +22,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
-@Component
+@Service
 public class EmailServiceImpl implements EmailService {
  
 	private final FormRepository formRepository;
@@ -60,36 +61,23 @@ public class EmailServiceImpl implements EmailService {
     }
 
 	@Override
-	public void sendNextMessage(Long formId, String subject) {
+	public void sendNextMessage(Long formId) throws MessagingException {
 		String nextApproverEmail = "";
 		Form form = formRepository.findById(formId).get();
 		int currentStep = form.getCurrent();
 		int totalSteps = form.getTotalSteps();
-		if (currentStep <= totalSteps) { // there are still approvers left
-			switch (currentStep) {
-			case 2:
-				String username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
-			}	
-			SimpleMailMessage message = new SimpleMailMessage(); 
-	        message.setFrom("noreply@yuredteam.com");
-	        message.setTo(nextApproverEmail); 
-	        message.setSubject(subject); 
-	        message.setText("You have a form to approve!");
-	        emailSender.send(message);
+		if (currentStep <= totalSteps) { // the workflow is still live
+			nextApproverEmail = userRepository.findByUsername(form.getCurrentApprover()).get().getEmail();
+			this.sendHtmlMessage(nextApproverEmail, "http://localhost:8070/shoppingCart/processForm/"+form.getId());
 		}
 		else {                          // the workflow has ended
-			nextApproverEmail = "jcrane@mail.yu.edu";
-			SimpleMailMessage message = new SimpleMailMessage(); 
-	        message.setFrom("noreply@yuredteam.com");
-	        message.setTo(nextApproverEmail); 
-	        message.setSubject(subject); 
-	        message.setText("The workflow has ended!");
-	        emailSender.send(message);
+			nextApproverEmail = "yaircaplan@gmail.com";
+			String text = String.format("Form #%d has just been completely approved", form.getId());
+			this.sendSimpleMessage(nextApproverEmail, "Registrar Form Completion Notification", text);
+			this.sendSimpleMessage(form.getStudentEmail(), "Registrar Form Completed", text);
 		} 		
 	}
-	
+	 
 	@Override
 	public void sendHtmlMessage(String to, String linkUrl) throws MessagingException {
 		MimeMessage mimeMessage = emailSender.createMimeMessage();
@@ -105,49 +93,21 @@ public class EmailServiceImpl implements EmailService {
 		helper.setFrom("yuredteam@gmail.com");
 		emailSender.send(mimeMessage);
 	}
+
+	@Override
+	public void sendDenialMessage(Long formId) {
+		Form form =  formRepository.findById(formId).get();
+		String studentEmail = form.getStudentEmail();
+		String text = String.format("Your registrar form #%d has been denied by %s.", form.getId(), form.getDenyer());
+		this.sendSimpleMessage(studentEmail, "Registrar Form Denied", text);
+	}
 	
 	@Override
-	public void sendNextHtmlMessage(Long formId, String subject) {
-		String username = "", nextApproverEmail = "";
-		Form form = formRepository.findById(formId).get();
-		int currentStep = form.getCurrent();
-		int totalSteps = form.getTotalSteps();
-		if (currentStep <= totalSteps) { // there are still approvers left
-			switch (currentStep) {
-			case 2:
-				username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
-			case 3:
-				username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
-			case 4:
-				username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
-			case 5:
-				username = form.getApprover2();
-				nextApproverEmail = userRepository.findByUsername(username).get().getEmail();
-				break;
-			}	
-			
-			SimpleMailMessage message = new SimpleMailMessage(); 
-	        message.setFrom("noreply@yuredteam.com");
-	        message.setTo(nextApproverEmail); 
-	        message.setSubject(subject); 
-	        message.setText("You have a form to approve!");
-	        emailSender.send(message);
-		}
-		else {                          // the workflow has ended
-			nextApproverEmail = "yaircaplan@gmail.com";
-			SimpleMailMessage message = new SimpleMailMessage(); 
-	        message.setFrom("noreply@yuredteam.com");
-	        message.setTo(nextApproverEmail); 
-	        message.setSubject(subject); 
-	        message.setText("The workflow has ended!");
-	        emailSender.send(message);
-		} 		
+	public void sendApprovalMessage(Long formId) {
+		Form form =  formRepository.findById(formId).get();
+		String studentEmail = form.getStudentEmail();
+		String text = String.format("Your registrar form #%d has been fully approved!", form.getId());
+		this.sendSimpleMessage(studentEmail, "Registrar Form Approved", text);
 	}
 	
 }
