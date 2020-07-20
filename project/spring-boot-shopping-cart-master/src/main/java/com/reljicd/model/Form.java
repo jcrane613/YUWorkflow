@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.UUID;
 
 @Entity
 @Table(name = "form")
@@ -64,6 +65,9 @@ public class Form {
 	@Column(name = "status")
 	private String status = "OPEN";
 
+	@Column(name = "tracking_id")
+	private String trackingId = UUID.randomUUID().toString();
+	
 	public Long getId() {
 		return id;
 	}
@@ -184,5 +188,13 @@ public class Form {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public String getTrackingId() {
+		return trackingId;
+	}
+
+	public void setTrackingId(String trackingId) {
+		this.trackingId = trackingId;
 	}
 }
