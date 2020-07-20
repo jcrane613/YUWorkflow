@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      >
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+	
+	
+    <h1 class="jumbotron">
+		Enter your tracking number:
+		<form action="#" th:action="@{/tracking}"
+              th:object="${trackingIdHolder}" method="post" role="form">
+			 <div class="form-group">
+                Tracking #:
+                <input type="text" th:field="*{trackingId}" placeholder="Tracking #"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Find"/>
+                </div>
+            </div>
+			
+		</form>
+    </h1>
+	
+    <!--
+    <div class="row panel-body">
+        <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
+        <a th:href="@{'/shoppingCart/checkout'}" class="col-md-1">
+            <button type="button" class="btn btn-danger" th:text="Checkout">Checkout</button>
+        </a>
+    </div>
+    -->
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
