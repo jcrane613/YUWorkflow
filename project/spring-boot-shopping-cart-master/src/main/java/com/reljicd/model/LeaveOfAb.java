@@ -1,7 +1,6 @@
 package com.reljicd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Parent;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -14,8 +13,8 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Entity
-@Table(name = "form")
-public class Form {
+@Table(name = "leaveOfAb")
+public class LeaveOfAb{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +30,7 @@ public class Form {
 	private String lastName;
 
 	@Column(name = "studentEmail")
-    @Email(message = "*Please provide a valid Email")
+	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email address")
 	private String studentEmail;
 
@@ -126,15 +125,15 @@ public class Form {
 	}
 
 	public String getCurrentApprover() {
- 		String result = "";
+		String result = "";
 		switch(this.current) {
-	 		case 1:
-	 			result = this.approver1;
-	 			break;
-	 		case 2:
-	 			result = this.approver2;
-	 			break;
- 		}
+			case 1:
+				result = this.approver1;
+				break;
+			case 2:
+				result = this.approver2;
+				break;
+		}
 		return result;
 	}
 
@@ -142,12 +141,12 @@ public class Form {
 		int denyStep = this.current * -1;
 		String result = "";
 		switch(denyStep) {
-	 		case 1:
-	 			result = this.approver1;
-	 			break;
-	 		case 2:
-	 			result = this.approver2;
-	 			break;
+			case 1:
+				result = this.approver1;
+				break;
+			case 2:
+				result = this.approver2;
+				break;
 		}
 		return result;
 	}
@@ -187,3 +186,4 @@ public class Form {
 		this.phoneNumber = phoneNumber;
 	}
 }
+

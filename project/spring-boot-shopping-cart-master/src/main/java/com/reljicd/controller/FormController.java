@@ -1,9 +1,13 @@
 package com.reljicd.controller;
 
+import com.reljicd.model.ChangeTS;
 import com.reljicd.model.Form;
+import com.reljicd.model.LeaveOfAb;
 import com.reljicd.repository.UserRepository;
+import com.reljicd.service.ChangeTSService;
 import com.reljicd.service.EmailService;
 import com.reljicd.service.FormService;
+import com.reljicd.service.LeaveOfAbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,12 +27,16 @@ public class FormController {
 	private final FormService formService;
 	private final EmailService emailService;
 	private final UserRepository userRepository;
+	private final LeaveOfAbService leaveOfAbService;
+	private final ChangeTSService changeTSService;
 
 	@Autowired
-	public FormController(FormService formService, EmailService emailService, UserRepository userRepository) {
+	public FormController(FormService formService, EmailService emailService, UserRepository userRepository, LeaveOfAbService leaveOfAbService, ChangeTSService changeTSService) {
 		this.formService = formService;
 		this.emailService = emailService;
 		this.userRepository = userRepository;
+		this.leaveOfAbService = leaveOfAbService;
+		this.changeTSService = changeTSService;
 		populateMap();
 	}
 	private void populateMap(){
@@ -77,4 +85,78 @@ public class FormController {
 		return modelAndView;
 	}
 
+	//This is the code for changing the Torah Study Form
+	@RequestMapping(value = "/changeTS", method = RequestMethod.GET)
+	public ModelAndView changeTS() {
+		ModelAndView modelAndView = new ModelAndView();
+		ChangeTS changeTS = new ChangeTS();
+		modelAndView.addObject("changeTS", changeTS);
+		modelAndView.setViewName("/changeTS");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/changeTS", method = RequestMethod.POST)
+	public ModelAndView changeTS(@Valid ChangeTS changeTS, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("/changeTS");
+		} else {
+
+			String approver1 = majorToApproverMap.get((changeTS.getMajor()));
+			changeTS.setApprover1(majorToApproverMap.get((changeTS.getMajor())));
+			changeTS.setApprover2("approver2");
+			changeTSService.saveForm(changeTS);
+
+			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
+			try {
+				emailService.sendHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+changeTS.getId()) );
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			emailService.sendSimpleMessage(changeTS.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
+			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
+			modelAndView.addObject("changeTS", new ChangeTS());
+			modelAndView.setViewName("/changeTS");
+		}
+		return modelAndView;
+	}
+
+	//This is the controller for the leave of absence form
+
+	@RequestMapping(value = "/leaveOfAb", method = RequestMethod.GET)
+	public ModelAndView leaveOfAb() {
+		ModelAndView modelAndView = new ModelAndView();
+		LeaveOfAb leaveOfAb = new LeaveOfAb();
+		modelAndView.addObject("leaveOfAb", leaveOfAb);
+		modelAndView.setViewName("/leaveOfAb");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/leaveOfAb", method = RequestMethod.POST)
+	public ModelAndView leaveOfAb(@Valid LeaveOfAb leaveOfAb, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("/leaveOfAb");
+		} else {
+
+			String approver1 = majorToApproverMap.get((leaveOfAb.getMajor()));
+			leaveOfAb.setApprover1(majorToApproverMap.get((leaveOfAb.getMajor())));
+			leaveOfAb.setApprover2("approver2");
+			leaveOfAbService.saveForm(leaveOfAb);
+
+			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
+			try {
+				emailService.sendHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+leaveOfAb.getId()) );
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			emailService.sendSimpleMessage(leaveOfAb.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
+			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
+			modelAndView.addObject("leaveOfAb", new LeaveOfAb());
+			modelAndView.setViewName("/leaveOfAb");
+		}
+		return modelAndView;
+	}
 }

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+
+<!--Show this info message only if registered successfully-->
+<div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <form autocomplete="off" action="#" th:action="@{/changeTS}"
+              th:object="${changeTS}" method="post" role="form">
+
+            <div class="form-group">
+                First Name:
+                <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{name}" placeholder="First Name"
+                       class="form-control input-lg"/>
+            </div>
+
+            <div class="form-group">
+                Last Name:
+                <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{lastName}" placeholder="Last Name"
+                       class="form-control input-lg"/>
+            </div>
+
+            <div class="form-group">
+                Email:
+                <label th:if="${#fields.hasErrors('studentEmail')}" th:errors="*{studentEmail}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{studentEmail}" placeholder="Student Email"
+                       class="form-control input-lg"/>
+            </div>
+
+            <div class="form-group">
+                Major to Declare:
+                <label th:if="${#fields.hasErrors('major')}" th:errors="*{major}"
+                       class="alert alert-danger"></label>
+                <select name = "major" th:field="*{major}" placeholder="Major" >
+                    <option value="COM">Computer Science</option>
+                    <option value="ART">ART</option>
+                    <option value="JST">Jewish Theology</option>
+                    <option value="HIS">History</option>
+                    <option value="LAW">Law School</option>
+                    <option value="GEM">Gemara</option>
+                </select>
+            </div>
+            <div class="form-group">
+                YU ID:
+                <label th:if="${#fields.hasErrors('YUID')}" th:errors="*{YUID}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{YUID}" name="YUID" placeholder="YU ID" value="800-"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                Phone Number
+                <label th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{phoneNumber}" placeholder="Phone Number"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
