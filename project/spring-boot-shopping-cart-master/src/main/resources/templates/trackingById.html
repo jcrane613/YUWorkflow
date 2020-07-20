@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      >
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+    <h1 class="jumbotron" th:if="${form}">
+        Tracking Page For Form #
+    </h1>
+	
+	<h1 class="jumbotron" th:if="${form == null}">
+        No form found with this tracking number
+		<br></br>
+		<a th:href="@{'/tracking'}" class="col-md-6">Return to tracking page</a>
+    </h1>
+	<!--
+    <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
+	-->
+    <div class="panel-default well" th:if="${form}">
+        <div class="panel-heading">
+            <h1 th:inline="text"> Form Id: [[${form.id}]]</h1>
+            <h3 th:inline="text">Status: [[${form.status}]]</h3>
+        </div>
+        <div class="row panel-body">
+            <div th:inline="text" class="col-md-2">First Name: [[${form.name}]]</div>
+            <div th:inline="text" class="col-md-2">Last Name: [[${form.lastName}]]</div>           
+            <div th:inline="text" class="col-md-2">Major Declaration: [[${form.major}]]</div>    
+            <div th:inline="text" class="col-md-2">Current Step: [[${form.current}]]</div>           
+            <div th:inline="text" class="col-md-2">Current Approver: [[${currentApprover}]]</div>           	
+        </div>
+        <br></br>
+		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
+        </a>
+    </div>
+    <!--
+    <div class="row panel-body">
+        <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
+        <a th:href="@{'/shoppingCart/checkout'}" class="col-md-1">
+            <button type="button" class="btn btn-danger" th:text="Checkout">Checkout</button>
+        </a>
+    </div>
+    -->
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>

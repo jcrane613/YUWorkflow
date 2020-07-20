@@ -33,5 +33,11 @@ public class RemindersServiceImpl implements RemindersService {
 		if (allOpenForms.isEmpty()) System.out.println("no forms retrieved");
 		
 	}
+
+	@Override
+	public void sendReminder(String trackingId) throws MessagingException {
+		Form form = formRepository.findByTrackingId(trackingId).get(); 
+		emailService.sendNextMessage(form.getId());
+	}
 	
 }
