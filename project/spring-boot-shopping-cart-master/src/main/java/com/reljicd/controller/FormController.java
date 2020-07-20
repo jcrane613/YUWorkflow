@@ -1,11 +1,9 @@
 package com.reljicd.controller;
 
 import com.reljicd.model.Form;
-import com.reljicd.model.User;
 import com.reljicd.repository.UserRepository;
 import com.reljicd.service.EmailService;
 import com.reljicd.service.FormService;
-import com.reljicd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
