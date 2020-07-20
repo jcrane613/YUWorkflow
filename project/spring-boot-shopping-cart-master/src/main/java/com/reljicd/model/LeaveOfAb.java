@@ -65,16 +65,8 @@ public class LeaveOfAb{
 	@Column(name = "status")
 	private String status = "OPEN";
 
-	private UUID uuid;
-
-	private UUID getUuid()
-	{
-		return uuid;
-	}
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
+	@Column(name = "tracking_id")
+	private String trackingId = UUID.randomUUID().toString();
 
 	public Long getId() {
 		return id;
