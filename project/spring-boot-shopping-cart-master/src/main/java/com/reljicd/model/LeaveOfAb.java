@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.UUID;
 
 @Entity
 @Table(name = "leaveOfAb")
@@ -63,6 +64,17 @@ public class LeaveOfAb{
 
 	@Column(name = "status")
 	private String status = "OPEN";
+
+	private UUID uuid;
+
+	private UUID getUuid()
+	{
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
 
 	public Long getId() {
 		return id;
