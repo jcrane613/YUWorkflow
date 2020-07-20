@@ -73,11 +73,15 @@ public class FormController {
 			
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+form.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+form.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
-			emailService.sendSimpleMessage(form.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
+			try {
+				emailService.sendInitialStudentMessage(form);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("form", new Form());
 			modelAndView.setViewName("/form");
@@ -110,7 +114,7 @@ public class FormController {
 
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+changeTS.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+changeTS.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -148,7 +152,7 @@ public class FormController {
 
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+leaveOfAb.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+leaveOfAb.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}

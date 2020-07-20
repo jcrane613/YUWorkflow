@@ -68,7 +68,7 @@ public class EmailServiceImpl implements EmailService {
 		int totalSteps = form.getTotalSteps();
 		if (currentStep <= totalSteps) { // the workflow is still live
 			nextApproverEmail = userRepository.findByUsername(form.getCurrentApprover()).get().getEmail();
-			this.sendHtmlMessage(nextApproverEmail, "http://localhost:8070/shoppingCart/processForm/"+form.getId());
+			this.sendNewApprovalHtmlMessage(nextApproverEmail, "http://localhost:8070/shoppingCart/processForm/"+form.getId());
 		}
 		else {                          // the workflow has ended
 			nextApproverEmail = "yaircaplan@gmail.com";
@@ -79,7 +79,7 @@ public class EmailServiceImpl implements EmailService {
 	}
 	 
 	@Override
-	public void sendHtmlMessage(String to, String linkUrl) throws MessagingException {
+	public void sendNewApprovalHtmlMessage(String to, String linkUrl) throws MessagingException {
 		MimeMessage mimeMessage = emailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 		String htmlMsg = String.format(
@@ -95,7 +95,7 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendDenialMessage(Long formId) {
+	public void sendStudentDenialMessage(Long formId) {
 		Form form =  formRepository.findById(formId).get();
 		String studentEmail = form.getStudentEmail();
 		String text = String.format("Your registrar form #%d has been denied by %s.", form.getId(), form.getDenyer());
@@ -103,11 +103,29 @@ public class EmailServiceImpl implements EmailService {
 	}
 	
 	@Override
-	public void sendApprovalMessage(Long formId) {
+	public void sendStudentApprovalMessage(Long formId) {
 		Form form =  formRepository.findById(formId).get();
 		String studentEmail = form.getStudentEmail();
 		String text = String.format("Your registrar form #%d has been fully approved!", form.getId());
 		this.sendSimpleMessage(studentEmail, "Registrar Form Approved", text);
+	}
+
+	@Override
+	public void sendInitialStudentMessage(Form form) throws MessagingException {
+		MimeMessage mimeMessage = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+		String trackingUrl = "http://localhost:8070/tracking/" + form.getTrackingId();
+		String htmlMsg = String.format(
+				"<h3>Your form has been submitted!</h3>"
+				+ "<br></br>"
+				+ "<h4> Please click <a href=\"%s\">here</a> to track it,"
+				+ " or visit <a href=\"http://localhost:8070/tracking/\"> the tracking portal </a> and enter your tracking code: %s</h4>"	
+				, trackingUrl, form.getTrackingId());
+		helper.setText(htmlMsg, true);
+		helper.setTo(form.getStudentEmail());
+		helper.setSubject("Registrar Forms Update");
+		helper.setFrom("yuredteam@gmail.com");
+		emailSender.send(mimeMessage);
 	}
 	
 }

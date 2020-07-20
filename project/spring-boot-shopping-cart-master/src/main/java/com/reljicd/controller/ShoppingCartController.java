@@ -62,7 +62,7 @@ public class ShoppingCartController {
     @GetMapping("/shoppingCart/denyForm/{formId}")
     public String denyForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::denyForm);
-        emailService.sendDenialMessage(formId);
+        emailService.sendStudentDenialMessage(formId);
         return "redirect:/home";
     }
 

@@ -55,10 +55,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+    	// to disallow students sending reminders, remove /reminders/sendReminder/** from antmatchers
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/registration", "/form", "/allforms", "/tracking/**", "trackingById", "/error", "/changeTS", "/leaveOfAb", "/h2-console/**").permitAll()
+                .antMatchers( "/registration", "/form", "/allforms", "/tracking/**", "trackingById", "/reminders/sendReminder/**", "/error", "/changeTS", "/leaveOfAb", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
