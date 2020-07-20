@@ -11,6 +11,8 @@ import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
 import com.reljicd.util.CurrentState;
 
+import java.util.Set;
+
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 
@@ -45,7 +47,12 @@ public class ShoppingCartController {
         ModelAndView modelAndView = new ModelAndView("/shoppingCart");
         modelAndView.addObject("products", shoppingCartService.getProductsInCart());
         modelAndView.addObject("total", shoppingCartService.getTotal().toString());
-        modelAndView.addObject("forms", shoppingCartService.getFormsInCart());
+        Set<Form> forms = shoppingCartService.getFormsInCart();
+        modelAndView.addObject("forms", forms);
+        if (!forms.isEmpty()) {
+        	Form form = (Form) forms.toArray()[0];
+     		modelAndView.addObject("comments", form.getCommentsArray());
+        }
         CommentHolder commentHolder = new CommentHolder();
 		modelAndView.addObject("commentHolder", commentHolder);
         return modelAndView;
@@ -53,7 +60,6 @@ public class ShoppingCartController {
     
     @RequestMapping(value = "/shoppingCart", method = RequestMethod.POST)
 	public String formSubmit(@Valid CommentHolder commentHolder, BindingResult bindingResult) {
-		System.out.println("\n\n\n"+commentHolder.getComment()+"\n\n\n");
 		Form form = (Form) shoppingCartService.getFormsInCart().toArray()[0];
 		form.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
 		formService.saveForm(form);

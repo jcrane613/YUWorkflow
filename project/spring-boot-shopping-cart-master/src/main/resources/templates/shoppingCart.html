@@ -26,7 +26,10 @@
         <div class="row panel-body">
             <div th:inline="text" class="col-md-2">First Name: [[${form.name}]]</div>
             <div th:inline="text" class="col-md-2">Last Name: [[${form.lastName}]]</div>           
-            <div th:inline="text" class="col-md-2">Major Declaration: [[${form.major}]]</div>    
+            <div th:inline="text" class="col-md-2">Major Declaration: [[${form.major}]]</div>  
+			<div class="row panel-body" th:each="comment : ${comments}">
+				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+			</div>  
        		<a th:href="@{'/shoppingCart/approveForm/{id}' (id=${form.id})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
             </a>
