@@ -10,6 +10,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import com.reljicd.model.Form;
+import com.reljicd.service.FormService;
 import com.reljicd.service.impl.EmailServiceImpl;
 
 @SpringBootApplication
@@ -45,11 +47,13 @@ public class ShoppingCartApplication {
         return message;
     }
     
+    /*
     @Bean
-	CommandLineRunner runner(EmailServiceImpl emailServiceImpl) {
+	CommandLineRunner runner(FormService formService) {
 		return args -> {
-			//emailServiceImpl.sendHtmlMessage("yaircaplan@gmail.com", "Form Approval HTML", "Your Form was approved with HTML!", "https://www.espn.com/");
+			
 		};
 	}
+	*/
     
 }

@@ -36,6 +36,9 @@
             <div th:inline="text" class="col-md-2">Current Step: [[${form.current}]]</div>           
             <div th:inline="text" class="col-md-2">Current Approver: [[${currentApprover}]]</div>           	
         </div>
+		<div class="row panel-body" th:each="comment : ${comments}">
+			<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+		</div>
         <br></br>
 		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>

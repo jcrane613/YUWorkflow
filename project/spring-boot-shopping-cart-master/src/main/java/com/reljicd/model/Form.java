@@ -11,7 +11,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -37,7 +39,7 @@ public class Form {
 	private String studentEmail;
 
 	@Column(name = "major")
-	@NotEmpty(message = "*Please provide the major you would like to switch into")
+	@NotEmpty(message = "*Please provide the major you would like to declare")
 	private String major;
 
 	@Column (name = "YUID")
@@ -68,6 +70,9 @@ public class Form {
 
 	@Column(name = "tracking_id")
 	private String trackingId = UUID.randomUUID().toString();
+	
+	@Column(name = "comments") 
+	private String comments = "";	
 
 	public Long getId() {
 		return id;
@@ -197,4 +202,14 @@ public class Form {
 	public void setTrackingId(String trackingId) {
 		this.trackingId = trackingId;
 	}
+	
+	public void addComment(String commentor, String comment) {
+		this.comments += String.format("Comment from %s at %s -> %s###", commentor, (new Date()).toString(), comment);
+	}
+	
+	public String[] getCommentsArray() {
+		return this.comments.split("###");
+	}
+	
+	
 }

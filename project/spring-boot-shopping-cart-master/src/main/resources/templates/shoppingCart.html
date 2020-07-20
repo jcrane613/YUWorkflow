@@ -35,6 +35,22 @@
             </a>
         </div>
         <br></br>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/shoppingCart}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
+		</form>
+        </div>
     </div>
     <!--
     <div class="row panel-body">

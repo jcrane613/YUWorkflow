@@ -1,17 +1,26 @@
 package com.reljicd.controller;
 
 import com.reljicd.exception.NotEnoughProductsInStockException;
+import com.reljicd.model.CommentHolder;
+import com.reljicd.model.Form;
+import com.reljicd.model.TrackingIdHolder;
+import com.reljicd.repository.FormRepository;
 import com.reljicd.service.EmailService;
 import com.reljicd.service.FormService;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
+import com.reljicd.util.CurrentState;
 
 import javax.mail.MessagingException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -37,8 +46,20 @@ public class ShoppingCartController {
         modelAndView.addObject("products", shoppingCartService.getProductsInCart());
         modelAndView.addObject("total", shoppingCartService.getTotal().toString());
         modelAndView.addObject("forms", shoppingCartService.getFormsInCart());
+        CommentHolder commentHolder = new CommentHolder();
+		modelAndView.addObject("commentHolder", commentHolder);
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/shoppingCart", method = RequestMethod.POST)
+	public String formSubmit(@Valid CommentHolder commentHolder, BindingResult bindingResult) {
+		System.out.println("\n\n\n"+commentHolder.getComment()+"\n\n\n");
+		Form form = (Form) shoppingCartService.getFormsInCart().toArray()[0];
+		form.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
+		formService.saveForm(form);
+		return "redirect:/shoppingCart/";
+		
+	}
 
     @GetMapping("/shoppingCart/addProduct/{productId}")
     public ModelAndView addProductToCart(@PathVariable("productId") Long productId) {
