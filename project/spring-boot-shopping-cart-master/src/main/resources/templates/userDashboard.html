@@ -3,6 +3,9 @@
 
 <head>
     <div th:replace="/fragments/header :: header"/>
+    <style>
+        h6   {display: inline;}
+    </style>
 </head>
 
 <body>
@@ -12,14 +15,14 @@
 <div class="container">
     <div >
 
-        <a th:href="@{/home}">Major Declaration Forms <h6 th:text="${nMajorForms}"></h6></a>
+        <a th:href="@{/home}">Major Declaration Forms </a> (<h6 th:text="${nMajorForms}"></h6>)
 
     </div>
     <div>
-        <a th:href="@{/error}">Change Torah Studies</a>
+        <a th:href="@{/homeForTSForms}">Change Torah Studies</a> (<h6 th:text="${nChangeTSForms}"></h6>)
     </div>
     <div>
-        <a th:href="@{/error}">Leave of Absence</a>
+        <a th:href="@{/homeForLeaveOfAb}">Leave of Absence</a> (<h6 th:text="${nLeaveOfAbForms}"></h6>)
     </div>
 
 
