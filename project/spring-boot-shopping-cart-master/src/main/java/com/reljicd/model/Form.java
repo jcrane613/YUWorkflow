@@ -204,11 +204,11 @@ public class Form {
 	}
 	
 	public void addComment(String commentor, String comment) {
-		this.comments += String.format("Comment from %s at %s -> %s###", commentor, (new Date()).toString(), comment);
+		this.comments += String.format("Comment from %s at %s -> %s ### ", commentor, (new Date()).toString(), comment);
 	}
 	
 	public String[] getCommentsArray() {
-		return this.comments.split("###");
+		return this.comments.split(" ### ");
 	}
 	
 	
