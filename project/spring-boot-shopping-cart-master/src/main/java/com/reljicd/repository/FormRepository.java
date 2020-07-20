@@ -15,6 +15,8 @@ public interface FormRepository extends JpaRepository<Form , Long> {
 
     Page<Form> findAllByApprover1(Pageable pageable, String approver1);
     Page<Form> findAllByApprover2(Pageable pageable, String approver2);
+    List<Form> findAllByApprover1(String approver1);
+    List<Form> findAllByApprover2(String approver2);
 
 	List<Form> findAllByStatus(String status);
 	

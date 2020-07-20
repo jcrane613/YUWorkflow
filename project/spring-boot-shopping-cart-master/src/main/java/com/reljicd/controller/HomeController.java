@@ -1,10 +1,16 @@
 package com.reljicd.controller;
 
+import com.reljicd.model.ChangeTS;
 import com.reljicd.model.Form;
+import com.reljicd.model.LeaveOfAb;
 import com.reljicd.model.Product;
+import com.reljicd.service.ChangeTSService;
 import com.reljicd.service.FormService;
+import com.reljicd.service.LeaveOfAbService;
 import com.reljicd.service.ProductService;
+import com.reljicd.util.ChangeTSFormPager;
 import com.reljicd.util.CurrentState;
+import com.reljicd.util.LeaveOfAbPager;
 import com.reljicd.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,10 +35,15 @@ public class HomeController {
     private static final int INITIAL_PAGE = 0;
 
     private final FormService formService;
+    private final ChangeTSService changeTSService;
+    private final LeaveOfAbService leaveOfAbService;
+
 
     @Autowired
-    public HomeController(FormService formService) {
+    public HomeController(FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService) {
+        this.changeTSService = changeTSService;
         this.formService = formService;
+        this.leaveOfAbService = leaveOfAbService;
     }
 
     @GetMapping("/home")
@@ -71,6 +82,70 @@ public class HomeController {
         modelAndView.addObject("forms", allFormsPage);
         modelAndView.addObject("pager", pager);
         modelAndView.setViewName("/home");
+        return modelAndView;
+    }
+
+    @GetMapping("/homeForTSForms")
+    public ModelAndView homeForTSForms(@RequestParam("page") Optional<Integer> page) {
+
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        String username = CurrentState.getCurrentUsername();
+        Page<ChangeTS> TSformsByApprover1 = changeTSService.findAllFormsPageableByApprover1(new PageRequest(evalPage, 5) , username);
+        Page<ChangeTS> TSformsByApprover2 = changeTSService.findAllFormsPageableByApprover2(new PageRequest(evalPage, 5) , username);
+        List<ChangeTS> list = new ArrayList<>();
+        for(ChangeTS form : TSformsByApprover1){
+            if(form.getCurrent() == 1){
+                list.add(form);
+            }
+        }
+        for(ChangeTS form : TSformsByApprover2){
+            if(form.getCurrent() == 2){
+                list.add(form);
+            }
+        }
+        Page<ChangeTS> allFormsPage = new PageImpl<>(list);
+
+        ChangeTSFormPager pager = new ChangeTSFormPager(allFormsPage);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("forms", allFormsPage);
+        modelAndView.addObject("pager", pager);
+        modelAndView.setViewName("/homeForTSForms");
+        return modelAndView;
+    }
+
+    @GetMapping("/homeForLeaveOfAb")
+    public ModelAndView homeForLeaveOfAb(@RequestParam("page") Optional<Integer> page) {
+
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        String username = CurrentState.getCurrentUsername();
+        Page<LeaveOfAb> LOAformsByApprover1 = leaveOfAbService.findAllFormsPageableByApprover1(new PageRequest(evalPage, 5) , username);
+        Page<LeaveOfAb> LOAformsByApprover2 = leaveOfAbService.findAllFormsPageableByApprover2(new PageRequest(evalPage, 5) , username);
+        List<LeaveOfAb> list = new ArrayList<>();
+        for(LeaveOfAb form : LOAformsByApprover1){
+            if(form.getCurrent() == 1){
+                list.add(form);
+            }
+        }
+        for(LeaveOfAb form : LOAformsByApprover2){
+            if(form.getCurrent() == 2){
+                list.add(form);
+            }
+        }
+        Page<LeaveOfAb> allFormsPage = new PageImpl<>(list);
+
+        LeaveOfAbPager pager = new LeaveOfAbPager(allFormsPage);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("forms", allFormsPage);
+        modelAndView.addObject("pager", pager);
+        modelAndView.setViewName("/homeForLeaveOfAb");
         return modelAndView;
     }
 

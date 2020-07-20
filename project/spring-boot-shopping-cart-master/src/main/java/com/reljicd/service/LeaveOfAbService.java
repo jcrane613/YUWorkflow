@@ -5,6 +5,7 @@ import com.reljicd.model.Form;
 import com.reljicd.model.LeaveOfAb;
 import com.reljicd.model.Product;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -17,4 +18,7 @@ public interface LeaveOfAbService {
 	Page<LeaveOfAb> findAllFormsPageable(Pageable pageable);
 	Page<LeaveOfAb> findAllFormsPageableByApprover1(Pageable pageable , String approver1);
 	Page<LeaveOfAb> findAllFormsPageableByApprover2(Pageable pageable , String approver2);
+
+	List<LeaveOfAb> findAllFormsByApprover1(String approver1);
+	List<LeaveOfAb> findAllFormsByApprover2(String approver2);
 }
