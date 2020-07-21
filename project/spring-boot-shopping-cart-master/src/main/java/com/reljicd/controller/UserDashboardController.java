@@ -45,17 +45,9 @@ public class UserDashboardController {
 	}
 
 	private int getNMajorForms(){
-		String username = CurrentState.getCurrentUsername();
-		List<Form> formsByApprover1 = formService.findAllFormsByApprover1(username);
-		List<Form> formsByApprover2 = formService.findAllFormsByApprover2(username);
 		int nMajorForms = 0;
-		for(Form form : formsByApprover1){
-			if(form.getCurrent() == 1){
-				nMajorForms++;
-			}
-		}
-		for(Form form : formsByApprover2){
-			if(form.getCurrent() == 2){
+		for(Form form : formService.findAllForms()){
+			if(form.getCurrentApprover().equals(CurrentState.getCurrentUsername())){
 				nMajorForms++;
 			}
 		}

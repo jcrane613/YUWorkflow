@@ -57,4 +57,8 @@ public class FormServiceImpl implements FormService {
 	public Optional<Form> findById(Long id) {
 		return formRepository.findById(id);
 	}
+	@Override
+	public List<Form> findAllForms() {
+		return formRepository.findAll();
+	}
 }
