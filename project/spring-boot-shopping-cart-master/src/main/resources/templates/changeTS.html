@@ -49,7 +49,6 @@
                 <input type="text" th:field="*{studentEmail}" placeholder="Student Email"
                        class="form-control input-lg"/>
             </div>
-
             <div class="form-group">
                 Current Program:
                 <label th:if="${#fields.hasErrors('currentProgram')}" th:errors="*{currentProgram}"
@@ -62,18 +61,7 @@
                 </select>
             </div>
             <div class="form-group">
-                Current Program:
-                <label th:if="${#fields.hasErrors('currentProgram')}" th:errors="*{currentProgram}"
-                       class="alert alert-danger"></label>
-                <select name = "currentProgram" th:field="*{currentProgram}" placeholder="Current Program" >
-                    <option value="IBC">IBC</option>
-                    <option value="Mechinah/JSS">Mechinah/JSS</option>
-                    <option value="MYP">MYP</option>
-                    <option value="SBMP">SBMP</option>
-                </select>
-            </div>
-            <div class="form-group">
-                Switch into Program:
+                Program you would like to switch into:
                 <label th:if="${#fields.hasErrors('currentProgram')}" th:errors="*{switchIntoProgam}"
                        class="alert alert-danger"></label>
                 <select name = "switchIntoProgam" th:field="*{switchIntoProgam}" placeholder="Switch Into Progam" >
@@ -83,12 +71,11 @@
                     <option value="SBMP">SBMP</option>
                 </select>
             </div>
-
             <div class="form-group">
                 YU ID:
                 <label th:if="${#fields.hasErrors('YUID')}" th:errors="*{YUID}"
                        class="alert alert-danger"></label>
-                <input type="text" th:field="*{YUID}" name="YUID" placeholder="YU ID" value="800-"
+                <input type="text" th:field="*{YUID}" name="YUID" placeholder="YU ID"
                        class="form-control input-lg"/>
             </div>
             <div class="form-group">
@@ -96,6 +83,52 @@
                 <label th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
                        class="alert alert-danger"></label>
                 <input type="text" th:field="*{phoneNumber}" placeholder="Phone Number"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                Semester Term:
+                <label th:if="${#fields.hasErrors('currentClass')}" th:errors="*{currentClass}"
+                       class="alert alert-danger"></label>
+                <select name = "currentClass" th:field="*{currentClass}" placeholder="Semester Term" >
+                    <option value="Fall">Fall</option>
+                    <option value="Spring">Spring</option>
+                </select>
+            </div>
+            <div class="form-group">
+                 Semester Year:
+                <label th:if="${#fields.hasErrors('currentYear')}" th:errors="*{currentYear}"
+                       class="alert alert-danger"></label>
+                <select name="currentYear" th:field="*{currentYear}" placeholder="Current Academic Year">
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Mailing Address:
+                <label th:if="${#fields.hasErrors('mailAdress')}" th:errors="*{mailAdress}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{mailAdress}" placeholder="Mail Address"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                City:
+                <label th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{city}" placeholder="City"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                State:
+                <label th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{state}" placeholder="State"
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                Zip Code:
+                <label th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{zipCode}" placeholder="Zip Code"
                        class="form-control input-lg"/>
             </div>
             <div class="row">

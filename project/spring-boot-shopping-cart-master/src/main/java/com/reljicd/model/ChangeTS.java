@@ -74,8 +74,12 @@ public class ChangeTS {
 	private String school;
 
 	@Column(name = "currentClass")
-	@NotEmpty(message = "*Please provide the program you would like to switch into")
+	@NotEmpty(message = "*Please provide the current class you are in: (fall / spring)")
 	private String currentClass;
+
+	@Column(name = "currentYear")
+	@NotEmpty(message = "*Please provide the current academic year")
+	private String currentYear;
 
 	//need to enter in date of submission to each form
 
@@ -271,5 +275,29 @@ public class ChangeTS {
 
 	public void setCurrentProgram(String currentProgram) {
 		this.currentProgram = currentProgram;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public String getCurrentClass() {
+		return currentClass;
+	}
+
+	public void setCurrentClass(String currentClass) {
+		this.currentClass = currentClass;
+	}
+
+	public String getCurrentYear() {
+		return currentYear;
+	}
+
+	public void setCurrentYear(String currentYear) {
+		this.currentYear = currentYear;
 	}
 }

@@ -35,9 +35,22 @@ public class LeaveOfAb{
 	@NotEmpty(message = "*Please provide your email address")
 	private String studentEmail;
 
-	@Column(name = "major")
-	@NotEmpty(message = "*Please provide the major you would like to switch into")
-	private String major;
+
+	@Column(name = "mailAddress")
+	@NotEmpty(message = "*Please provide your mailing address")
+	private String mailAdress;
+
+	@Column(name = "city")
+	@NotEmpty(message = "*Please provide your city")
+	private String city;
+
+	@Column(name = "state")
+	@NotEmpty(message = "*Please provide your email address")
+	private String state;
+
+	@Column(name = "zipCode")
+	@NotEmpty(message = "*Please provide your zip code")
+	private String zipCode;
 
 	@Column (name = "YUID")
 	@NotEmpty(message = "*Please provide your YU ID")
@@ -49,6 +62,14 @@ public class LeaveOfAb{
 	@Length(min = 10, max = 10, message = "*Your Phone number must have exactly 10 numbers")
 	//@Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")
 	private String phoneNumber;
+
+	@Column(name = "currentClass")
+	@NotEmpty(message = "*Please provide the current class you are in: (fall / spring)")
+	private String currentClass;
+
+	@Column(name = "currentYear")
+	@NotEmpty(message = "*Please provide the current academic year")
+	private String currentYear;
 
 	@Column(name = "approver1")
 	private String approver1;
@@ -101,12 +122,6 @@ public class LeaveOfAb{
 		this.studentEmail = studentEmail;
 	}
 
-	public String getMajor() {
-		return major;
-	}
-	public void setMajor(String major) {
-		this.major = major;
-	}
 
 	public String getApprover1() {
 		return approver1;
@@ -188,6 +203,38 @@ public class LeaveOfAb{
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getMailAdress() {
+		return mailAdress;
+	}
+
+	public void setMailAdress(String mailAdress) {
+		this.mailAdress = mailAdress;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 }
 

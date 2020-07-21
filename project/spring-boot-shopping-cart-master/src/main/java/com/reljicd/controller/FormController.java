@@ -103,12 +103,14 @@ public class FormController {
 	public ModelAndView changeTS(@Valid ChangeTS changeTS, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors())
+		{
 			modelAndView.setViewName("/changeTS");
-		} else {
+		}
+		else {
 
-			String approver1 = majorToApproverMap.get((changeTS.getMajor()));
-			changeTS.setApprover1(majorToApproverMap.get((changeTS.getMajor())));
+			String approver1 = majorToApproverMap.get((changeTS.getCurrentClass()));
+			changeTS.setApprover1(majorToApproverMap.get((changeTS.getCurrentClass())));
 			changeTS.setApprover2("approver2");
 			changeTSService.saveForm(changeTS);
 
@@ -124,6 +126,7 @@ public class FormController {
 			modelAndView.setViewName("/changeTS");
 		}
 		return modelAndView;
+
 	}
 
 	//This is the controller for the leave of absence form
@@ -138,15 +141,18 @@ public class FormController {
 	}
 
 	@RequestMapping(value = "/leaveOfAb", method = RequestMethod.POST)
-	public ModelAndView leaveOfAb(@Valid LeaveOfAb leaveOfAb, BindingResult bindingResult) {
+	public ModelAndView leatveOfAb(@Valid LeaveOfAb leaveOfAb, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("/leaveOfAb");
-		} else {
 
-			String approver1 = majorToApproverMap.get((leaveOfAb.getMajor()));
-			leaveOfAb.setApprover1(majorToApproverMap.get((leaveOfAb.getMajor())));
+		}
+		else {
+
+
+			String approver1 = majorToApproverMap.get((leaveOfAb.getMailAdress()));
+			leaveOfAb.setApprover1(majorToApproverMap.get((leaveOfAb.getMailAdress())));
 			leaveOfAb.setApprover2("approver2");
 			leaveOfAbService.saveForm(leaveOfAb);
 
