@@ -61,4 +61,8 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 	public Optional<ChangeTS> findById(Long id) {
 		return changeTSFormRepository.findById(id);
 	}
+	@Override
+	public List<ChangeTS> findAllForms() {
+		return changeTSFormRepository.findAll();
+	}
 }

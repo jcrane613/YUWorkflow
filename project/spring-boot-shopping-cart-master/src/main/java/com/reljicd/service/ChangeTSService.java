@@ -20,6 +20,7 @@ public interface ChangeTSService {
 	Page<ChangeTS> findAllFormsPageableByApprover1(Pageable pageable , String approver1);
 	Page<ChangeTS> findAllFormsPageableByApprover2(Pageable pageable , String approver2);
 
+	List<ChangeTS> findAllForms();
 	List<ChangeTS> findAllFormsByApprover1(String approver1);
 	List<ChangeTS> findAllFormsByApprover2(String approver2);
 }

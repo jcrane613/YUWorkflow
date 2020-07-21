@@ -16,43 +16,47 @@ import java.util.Optional;
 @Service
 public class LeaveOfAbServiceImpl implements LeaveOfAbService {
 
-	LeaveOfAbRepository leaveOfAbsRepo;
+	LeaveOfAbRepository leaveOfAbRepository;
 	@Autowired
 	public LeaveOfAbServiceImpl(LeaveOfAbRepository leaveOfAbsRepo) {
-		this.leaveOfAbsRepo = leaveOfAbsRepo;
+		this.leaveOfAbRepository = leaveOfAbsRepo;
 
 	}
 	@Override
 	public LeaveOfAb saveForm(LeaveOfAb leaveOfAb) {
-		return leaveOfAbsRepo.saveAndFlush(leaveOfAb);
+		return leaveOfAbRepository.saveAndFlush(leaveOfAb);
 	}
 
 	@Override
 	public Page<LeaveOfAb> findAllFormsPageable(Pageable pageable) {
-		return leaveOfAbsRepo.findAll(pageable);
+		return leaveOfAbRepository.findAll(pageable);
 	}
 
 	@Override
 	public Page<LeaveOfAb> findAllFormsPageableByApprover1(Pageable pageable, String approver1) {
-		return leaveOfAbsRepo.findAllByApprover1(pageable,approver1);
+		return leaveOfAbRepository.findAllByApprover1(pageable,approver1);
 	}
 	@Override
 	public Page<LeaveOfAb> findAllFormsPageableByApprover2(Pageable pageable, String approver2) {
-		return leaveOfAbsRepo.findAllByApprover2(pageable,approver2);
+		return leaveOfAbRepository.findAllByApprover2(pageable,approver2);
 	}
 
 	@Override
 	public Optional<LeaveOfAb> findById(Long id) {
-		return leaveOfAbsRepo.findById(id);
+		return leaveOfAbRepository.findById(id);
 	}
 
 	@Override
 	public List<LeaveOfAb> findAllFormsByApprover1(String approver1) {
-		return leaveOfAbsRepo.findAllByApprover1(approver1);
+		return leaveOfAbRepository.findAllByApprover1(approver1);
 	}
 
 	@Override
 	public List<LeaveOfAb> findAllFormsByApprover2(String approver2) {
-		return leaveOfAbsRepo.findAllByApprover2(approver2);
+		return leaveOfAbRepository.findAllByApprover2(approver2);
+	}
+	@Override
+	public List<LeaveOfAb> findAllForms() {
+		return leaveOfAbRepository.findAll();
 	}
 }

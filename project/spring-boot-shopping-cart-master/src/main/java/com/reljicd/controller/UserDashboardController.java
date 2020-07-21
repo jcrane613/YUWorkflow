@@ -39,7 +39,7 @@ public class UserDashboardController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("nMajorForms", this.getNMajorForms());
 		modelAndView.addObject("nChangeTSForms", this.getNChangeTSForms());
-		modelAndView.addObject("nLeaveOfAbForms", this.getNLeaveOfAbsForms());
+		modelAndView.addObject("nLeaveOfAbForms", this.getNLeaveOfAbForms());
 		modelAndView.setViewName("/userDashboard");
 		return modelAndView;
 	}
@@ -55,38 +55,22 @@ public class UserDashboardController {
 	}
 
 	private int getNChangeTSForms(){
-		String username = CurrentState.getCurrentUsername();
-		List<ChangeTS> formsByApprover1 = changeTSService.findAllFormsByApprover1(username);
-		List<ChangeTS> formsByApprover2 = changeTSService.findAllFormsByApprover2(username);
-		int nMajorForms = 0;
-		for(ChangeTS form : formsByApprover1){
-			if(form.getCurrent() == 1){
-				nMajorForms++;
+		int nChangeTSForms = 0;
+		for(ChangeTS form : changeTSService.findAllForms()){
+			if(form.getCurrentApprover().equals(CurrentState.getCurrentUsername())){
+				nChangeTSForms++;
 			}
 		}
-		for(ChangeTS form : formsByApprover2){
-			if(form.getCurrent() == 2){
-				nMajorForms++;
-			}
-		}
-		return nMajorForms;
+		return nChangeTSForms;
 	}
 
-	private int getNLeaveOfAbsForms(){
-		String username = CurrentState.getCurrentUsername();
-		List<LeaveOfAb> LOAformsByApprover1 = leaveOfAbService.findAllFormsByApprover1(username);
-		List<LeaveOfAb> LOAformsByApprover2 = leaveOfAbService.findAllFormsByApprover2(username);
-		int nMajorForms = 0;
-		for(LeaveOfAb form : LOAformsByApprover1){
-			if(form.getCurrent() == 1){
-				nMajorForms++;
+	private int getNLeaveOfAbForms(){
+		int nLeaveOfAbForms = 0;
+		for(LeaveOfAb form : leaveOfAbService.findAllForms()){
+			if(form.getCurrentApprover().equals(CurrentState.getCurrentUsername())){
+				nLeaveOfAbForms++;
 			}
 		}
-		for(LeaveOfAb form : LOAformsByApprover2){
-			if(form.getCurrent() == 2){
-				nMajorForms++;
-			}
-		}
-		return nMajorForms;
+		return nLeaveOfAbForms;
 	}
 }
