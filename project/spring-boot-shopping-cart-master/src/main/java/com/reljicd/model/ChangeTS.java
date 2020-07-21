@@ -10,6 +10,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -26,23 +27,57 @@ public class ChangeTS {
 	@NotEmpty(message = "*Please provide your first name")
 	private String name;
 
+	@Column(name = "middleName")
+	@NotEmpty(message = "*Please provide your middle name")
+	private String middleName;
+
 	@Column(name = "last_name")
 	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
+
+	@Column(name = "mailAddress")
+	@NotEmpty(message = "*Please provide your mailing address")
+	private String mailAdress;
+
+	@Column(name = "city")
+	@NotEmpty(message = "*Please provide your city")
+	private String city;
+
+	@Column(name = "state")
+	@NotEmpty(message = "*Please provide your email address")
+	private String state;
+
+	@Column(name = "zipCode")
+	@NotEmpty(message = "*Please provide your zip code")
+	private String zipCode;
 
 	@Column(name = "studentEmail")
 	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email address")
 	private String studentEmail;
 
-	@Column(name = "major")
-	@NotEmpty(message = "*Please provide the major you would like to switch into")
-	private String major;
-
 	@Column (name = "YUID")
 	@NotEmpty(message = "*Please provide your YU ID")
 	@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
 	private String YUID;
+
+	@Column(name = "currentProgram")
+	@NotEmpty(message = "*Please provide your current jewish studies program")
+	private String currentProgram;
+
+	@Column(name = "switchIntoProgam")
+	@NotEmpty(message = "*Please provide the program you would like to switch into")
+	private String switchIntoProgam;
+
+	@Column(name = "school")
+	@NotEmpty(message = "*Please provide the school you are currently enrolled in")
+	private String school;
+
+	@Column(name = "currentClass")
+	@NotEmpty(message = "*Please provide the program you would like to switch into")
+	private String currentClass;
+
+	//need to enter in date of submission to each form
 
 	@Column (name = "phoneNumber")
 	@NotEmpty(message = "*Please provide your number")
@@ -98,13 +133,6 @@ public class ChangeTS {
 
 	public void setStudentEmail(String studentEmail) {
 		this.studentEmail = studentEmail;
-	}
-
-	public String getMajor() {
-		return major;
-	}
-	public void setMajor(String major) {
-		this.major = major;
 	}
 
 	public String getApprover1() {
@@ -187,5 +215,61 @@ public class ChangeTS {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getMailAdress() {
+		return mailAdress;
+	}
+
+	public void setMailAdress(String mailAdress) {
+		this.mailAdress = mailAdress;
+	}
+
+	public String getSwitchIntoProgam() {
+		return switchIntoProgam;
+	}
+
+	public void setSwitchIntoProgam(String switchIntoProgam) {
+		this.switchIntoProgam = switchIntoProgam;
+	}
+
+	public String getCurrentProgram() {
+		return currentProgram;
+	}
+
+	public void setCurrentProgram(String currentProgram) {
+		this.currentProgram = currentProgram;
 	}
 }
