@@ -71,7 +71,7 @@ public class Form {
 	@Column(name = "tracking_id")
 	private String trackingId = UUID.randomUUID().toString();
 	
-	@Column(name = "comments") 
+	@Column(name = "comments", length = 10000) 
 	private String comments = "";	
 
 	public Long getId() {

@@ -47,10 +47,9 @@ public class ShoppingCartController {
         ModelAndView modelAndView = new ModelAndView("/shoppingCart");
         modelAndView.addObject("products", shoppingCartService.getProductsInCart());
         modelAndView.addObject("total", shoppingCartService.getTotal().toString());
-        Set<Form> forms = shoppingCartService.getFormsInCart();
-        modelAndView.addObject("forms", forms);
-        if (!forms.isEmpty()) {
-        	Form form = (Form) forms.toArray()[0];
+        Form form = shoppingCartService.getForm();
+        modelAndView.addObject("form", form);
+        if (form != null) {
      		modelAndView.addObject("comments", form.getCommentsArray());
         }
         CommentHolder commentHolder = new CommentHolder();
@@ -60,11 +59,10 @@ public class ShoppingCartController {
     
     @RequestMapping(value = "/shoppingCart", method = RequestMethod.POST)
 	public String formSubmit(@Valid CommentHolder commentHolder, BindingResult bindingResult) {
-		Form form = (Form) shoppingCartService.getFormsInCart().toArray()[0];
+		Form form = shoppingCartService.getForm();
 		form.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
 		formService.saveForm(form);
 		return "redirect:/shoppingCart/";
-		
 	}
 
     @GetMapping("/shoppingCart/addProduct/{productId}")
