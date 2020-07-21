@@ -27,4 +27,6 @@ public interface ShoppingCartService {
     BigDecimal getTotal();
 
 	Set<Form> getFormsInCart();
+
+	Form getForm();
 }

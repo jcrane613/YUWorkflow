@@ -18,7 +18,7 @@
 
     <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
 
-    <div class="panel-default well" th:each="form : ${forms}">
+    <div class="panel-default well">
         <div class="panel-heading">
             <h1 th:inline="text"> Form Id: [[${form.id}]]</h1>
             <h3 th:inline="text">Status: [[${form.status}]]</h3>

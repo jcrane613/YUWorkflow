@@ -37,6 +37,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private Map<Product, Integer> products = new HashMap<>();
     private Set<Form> forms = new HashSet<>();
+    private Form form = null;
 
     @Autowired
     public ShoppingCartServiceImpl(ProductRepository productRepository) {
@@ -60,7 +61,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public void addForm(Form form) {
-    	if (forms.isEmpty()) forms.add(form);
+    	this.form = form;
     }
     
     @Override
@@ -70,7 +71,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     	if (form.getCurrent() > form.getTotalSteps()) {
         	form.setStatus("APPROVED");
 		}
-    	forms.clear();
+    	this.form = null;
     }
     
     @Override
@@ -79,7 +80,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     	form.setStatus("DENIED");
     	int denialStep = form.getCurrent();
     	form.setCurrent(new Integer(-1*denialStep));
-    	forms.clear();
+    	this.form = null;
     }
 
     /**
@@ -115,6 +116,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
     	return Collections.unmodifiableSet(result);
     }
+    
+    @Override
+	public Form getForm() {
+		if (this.form != null && this.form.getCurrentApprover().equals(CurrentState.getCurrentUsername())) {
+			return this.form;
+		}
+    	return null;
+	}
 
     /**
      * Checkout will rollback if there is not enough of some product in stock
@@ -143,4 +152,5 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
     }
+    
 }
