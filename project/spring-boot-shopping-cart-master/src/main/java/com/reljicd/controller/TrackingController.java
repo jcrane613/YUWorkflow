@@ -52,6 +52,7 @@ public class TrackingController {
 		modelAndView.addObject("form", form);
 		if (this.form != null) {
 			modelAndView.addObject("currentApprover", form.getCurrentApprover());
+			modelAndView.addObject("denyer", form.getDenyer());
 			modelAndView.addObject("comments", form.getCommentsArray());
 		}
 		return modelAndView;

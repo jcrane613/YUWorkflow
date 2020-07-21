@@ -12,9 +12,9 @@ public interface EmailService {
 
 	public void sendNewApprovalHtmlMessage(String to, String linkUrl) throws MessagingException;
 
-	public void sendStudentDenialMessage(Long formId);
+	public void sendStudentDenialMessage(Long formId) throws MessagingException;
 
-	public void sendStudentApprovalMessage(Long formId);
+	public void sendStudentApprovalMessage(Long formId) throws MessagingException;
 
 	public void sendInitialStudentMessage(Form form) throws MessagingException;
 

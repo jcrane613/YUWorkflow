@@ -12,8 +12,8 @@
 
 <div class="container">
 
-    <h1 class="jumbotron" th:if="${form}">
-        Tracking Page For Form #
+    <h1 class="jumbotron" th:if="${form}" th:inline="text">
+        Tracking Page For Form: [[${form.trackingId}]]
     </h1>
 	
 	<h1 class="jumbotron" th:if="${form == null}">
@@ -33,8 +33,9 @@
             <div th:inline="text" class="col-md-2">First Name: [[${form.name}]]</div>
             <div th:inline="text" class="col-md-2">Last Name: [[${form.lastName}]]</div>           
             <div th:inline="text" class="col-md-2">Major Declaration: [[${form.major}]]</div>    
-            <div th:inline="text" class="col-md-2">Current Step: [[${form.current}]]</div>           
-            <div th:inline="text" class="col-md-2">Current Approver: [[${currentApprover}]]</div>           	
+            <div th:if="${form.status == 'OPEN'}" th:inline="text" class="col-md-2">Current Step: [[${form.current}]]</div>           
+            <div th:if="${form.status == 'OPEN'}" th:inline="text" class="col-md-2">Current Approver: [[${currentApprover}]]</div>
+            <div th:if="${form.status == 'DENIED'}" th:inline="text" class="col-md-2">Denied By: [[${denyer}]]</div>           	           	
         </div>
 		<div class="row panel-body" th:each="comment : ${comments}">
 			<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>

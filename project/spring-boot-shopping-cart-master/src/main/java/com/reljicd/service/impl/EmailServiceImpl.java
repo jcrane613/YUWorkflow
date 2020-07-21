@@ -74,7 +74,8 @@ public class EmailServiceImpl implements EmailService {
 			nextApproverEmail = "yaircaplan@gmail.com";
 			String text = String.format("Form #%d has just been completely approved", form.getId());
 			this.sendSimpleMessage(nextApproverEmail, "Registrar Form Completion Notification", text);
-			this.sendSimpleMessage(form.getStudentEmail(), "Registrar Form Completed", text);
+			//this.sendSimpleMessage(form.getStudentEmail(), "Registrar Form Completed", text);
+			this.sendStudentApprovalMessage(formId);
 		} 		
 	}
 	 
@@ -95,19 +96,43 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendStudentDenialMessage(Long formId) {
+	public void sendStudentDenialMessage(Long formId) throws MessagingException {
 		Form form =  formRepository.findById(formId).get();
-		String studentEmail = form.getStudentEmail();
-		String text = String.format("Your registrar form #%d has been denied by %s.", form.getId(), form.getDenyer());
-		this.sendSimpleMessage(studentEmail, "Registrar Form Denied", text);
+		MimeMessage mimeMessage = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+		String trackingUrl = "http://localhost:8070/tracking/" + form.getTrackingId();
+		String htmlMsg = String.format(
+				"<h3>Your form has been denied by %s.</h3>"
+				+ "<br></br>"
+				+ "<h3>Reason for denial: </h3>"
+				+ "<br></br>"
+				+ "<h4> Please click <a href=\"%s\">here</a> to review it,"
+				+ " or visit <a href=\"http://localhost:8070/tracking/\"> the tracking portal </a> and enter your tracking code: %s</h4>"	
+				, form.getDenyer(), trackingUrl, form.getTrackingId());
+		helper.setText(htmlMsg, true);
+		helper.setTo(form.getStudentEmail());
+		helper.setSubject("Registrar Form Denied");
+		helper.setFrom("yuredteam@gmail.com");
+		emailSender.send(mimeMessage);
 	}
 	
 	@Override
-	public void sendStudentApprovalMessage(Long formId) {
+	public void sendStudentApprovalMessage(Long formId) throws MessagingException {
 		Form form =  formRepository.findById(formId).get();
-		String studentEmail = form.getStudentEmail();
-		String text = String.format("Your registrar form #%d has been fully approved!", form.getId());
-		this.sendSimpleMessage(studentEmail, "Registrar Form Approved", text);
+		MimeMessage mimeMessage = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+		String trackingUrl = "http://localhost:8070/tracking/" + form.getTrackingId();
+		String htmlMsg = String.format(
+				"<h3>Your form has completed the approval process!</h3>"
+				+ "<br></br>"
+				+ "<h4> Please click <a href=\"%s\">here</a> to review it,"
+				+ " or visit <a href=\"http://localhost:8070/tracking/\"> the tracking portal </a> and enter your tracking code: %s</h4>"	
+				, trackingUrl, form.getTrackingId());
+		helper.setText(htmlMsg, true);
+		helper.setTo(form.getStudentEmail());
+		helper.setSubject("Registrar Form Approved");
+		helper.setFrom("yuredteam@gmail.com");
+		emailSender.send(mimeMessage);
 	}
 
 	@Override
