@@ -11,19 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.reljicd.model.CommentHolder;
 import com.reljicd.model.Form;
 import com.reljicd.model.TrackingIdHolder;
+import com.reljicd.service.FormService;
 import com.reljicd.service.TrackingService;
 
 @Controller
 public class TrackingController {
 	
 	private final TrackingService trackingService;
+	private final FormService formService;
 	private Form form = null;
 
     @Autowired
-    public TrackingController(TrackingService trackingService) {
-        this.trackingService = trackingService;  
+    public TrackingController(TrackingService trackingService, FormService formService) {
+        this.trackingService = trackingService; 
+        this.formService = formService;
     }
     
     @RequestMapping(value = "/tracking", method = RequestMethod.GET)
@@ -50,12 +54,22 @@ public class TrackingController {
 		modelAndView.setViewName("/trackingById");
 		this.form = trackingService.getFormByTrackingId(trackingId);
 		modelAndView.addObject("form", form);
+		CommentHolder commentHolder = new CommentHolder();
+		modelAndView.addObject("commentHolder", commentHolder);
 		if (this.form != null) {
 			modelAndView.addObject("currentApprover", form.getCurrentApprover());
 			modelAndView.addObject("denyer", form.getDenyer());
 			modelAndView.addObject("comments", form.getCommentsArray());
 		}
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/tracking/{trackingId}", method = RequestMethod.POST)
+	public String addComment(@PathVariable("trackingId") String trackingId, @Valid CommentHolder commentHolder, BindingResult bindingResult) {
+		Form form = this.form;
+		form.addComment("student", commentHolder.getComment());
+		formService.saveForm(form);
+		return "redirect:/tracking/" + trackingId;
 	}
 		
 }

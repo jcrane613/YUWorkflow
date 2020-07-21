@@ -19,7 +19,7 @@
 	<h1 class="jumbotron" th:if="${form == null}">
         No form found with this tracking number
 		<br></br>
-		<a th:href="@{'/tracking'}" class="col-md-6">Return to tracking page</a>
+		<a th:href="@{'/tracking'}" class="col-md-6">Return to tracking portal</a>
     </h1>
 	<!--
     <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
@@ -37,9 +37,27 @@
             <div th:if="${form.status == 'OPEN'}" th:inline="text" class="col-md-2">Current Approver: [[${currentApprover}]]</div>
             <div th:if="${form.status == 'DENIED'}" th:inline="text" class="col-md-2">Denied By: [[${denyer}]]</div>           	           	
         </div>
+		<hr></hr>
 		<div class="row panel-body" th:each="comment : ${comments}">
 			<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
 		</div>
+		<hr></hr>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/tracking/{trackingId} (trackingId=${form.trackingId})}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
+		</form>
+        </div>
         <br></br>
 		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
