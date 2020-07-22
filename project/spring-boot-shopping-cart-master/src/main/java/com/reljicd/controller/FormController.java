@@ -70,7 +70,7 @@ public class FormController {
 		modelAndView.setViewName("/form");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public ModelAndView formSubmit(@Valid Form form, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -119,7 +119,10 @@ public class FormController {
 			modelAndView.setViewName("/changeTS");
 		}
 		else {
+			System.out.println("I have reached this poitn ");
 			String approver1 = torahStudiesToApproverMap.get((changeTS.getSwitchIntoProgam()));
+			System.out.println("I have reached this poitn as well ");
+
 			changeTS.setApprover1(approver1);
 			changeTS.setApprover2("approver2");
 			changeTS.setApprover3(torahStudiesToApproverMap.get((changeTS.getCurrentProgram())));
