@@ -11,8 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import com.reljicd.model.Settings;
-
 import javax.sql.DataSource;
 
 /**
@@ -26,7 +24,6 @@ import javax.sql.DataSource;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AccessDeniedHandler accessDeniedHandler;
-    private final Settings settings;
 
     final DataSource dataSource;
 
@@ -43,10 +40,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private String rolesQuery;
 
     @Autowired
-    public SpringSecurityConfig(AccessDeniedHandler accessDeniedHandler, DataSource dataSource, Settings settings) {
+    public SpringSecurityConfig(AccessDeniedHandler accessDeniedHandler, DataSource dataSource) {
         this.accessDeniedHandler = accessDeniedHandler;
         this.dataSource = dataSource;
-        this.settings = settings;
     }
 
     /**
@@ -60,10 +56,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	// to disallow students sending reminders, remove /reminders/sendReminder/** from antmatchers
-    	String studentReminders = settings.isAllowStudentReminders() ? "/reminders/sendReminder/**" : "/";
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/registration", "/form", "/allforms", "/tracking/**", studentReminders, "/error", "/changeTS", "/leaveOfAb", "/h2-console/**").permitAll()
+                .antMatchers( "/registration", "/form", "/allforms", "/tracking/**", "/reminders/sendReminder/**", "/error", "/changeTS", "/leaveOfAb", "/h2-console/**").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
