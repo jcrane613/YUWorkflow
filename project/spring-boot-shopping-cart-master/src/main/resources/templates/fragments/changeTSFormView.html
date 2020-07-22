@@ -13,7 +13,8 @@
         </div>
         Student Name:<h3 th:text="${form.name}" class="panel-body">StudentName</h3>
         <br></br>
-        Major Declaration:<h3 th:text="${form.switchIntoProgam}" class="panel-body">Major</h3>
+        Current Program:<h3 th:text="${form.currentProgram}" class="panel-body">current program</h3>
+        Request to switch into:<h3 th:text="${form.switchIntoProgam}" class="panel-body">program to switch into</h3>
         Step in Approval:<h3 th:text="${form.current}" class="panel-body">Major</h3>
         <a th:href="@{'/shoppingCart/processForm/{id}' (id=${form.id})}" class="col-md-1"
            sec:authorize="isAuthenticated()" >
