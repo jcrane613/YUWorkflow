@@ -52,10 +52,10 @@ public class FormController {
 		majorToApproverMap.put("GEM" , "approver7");
 
 		//This is the form table for the change of torah studies
-		majorToApproverMap.put("IBC" , "approver1");
-		majorToApproverMap.put("Mechinah/JSS" , "approver2");
-		majorToApproverMap.put("MYP" , "approver3");
-		majorToApproverMap.put("SBMP" , "approver4");
+		torahStudiesToApproverMap.put("IBC" , "approver1");
+		torahStudiesToApproverMap.put("Mechinah/JSS" , "approver2");
+		torahStudiesToApproverMap.put("MYP" , "approver3");
+		torahStudiesToApproverMap.put("SBMP" , "approver4");
 
 		//This is the form table for the leave of absence
 		schoolToDeanMap.put("KATZ", "approver1");
@@ -114,18 +114,12 @@ public class FormController {
 	@RequestMapping(value = "/changeTS", method = RequestMethod.POST)
 	public ModelAndView changeTS(@Valid ChangeTS changeTS, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("1 ");
-
 		if (bindingResult.hasErrors())
 		{
-			System.out.println("2");
 			modelAndView.setViewName("/changeTS");
 		}
 		else {
-			System.out.println("3");
 			String approver1 = torahStudiesToApproverMap.get((changeTS.getSwitchIntoProgam()));
-			System.out.println("I have reached this poitn as well ");
-
 			changeTS.setApprover1(approver1);
 			changeTS.setApprover2("approver2");
 			changeTS.setApprover3(torahStudiesToApproverMap.get((changeTS.getCurrentProgram())));
@@ -170,12 +164,15 @@ public class FormController {
 			leaveOfAb.setApprover2(approver2);
 			leaveOfAb.setApprover3("approver1");//this is for the registrar
 			leaveOfAbService.saveForm(leaveOfAb);
+			//This code with throw exception bc approver1 is null
+			/*
 			String approver1Email = userRepository.findByUsername(approver2).get().getEmail();
 			try {
 				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+leaveOfAb.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
+			*/
 			emailService.sendSimpleMessage(leaveOfAb.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("leaveOfAb", new LeaveOfAb());

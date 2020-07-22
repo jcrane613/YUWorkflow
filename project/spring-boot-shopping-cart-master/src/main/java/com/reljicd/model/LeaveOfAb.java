@@ -29,25 +29,9 @@ public class LeaveOfAb{
 	@NotEmpty(message = "*Please provide your email address")
 	private String studentEmail;
 
-	@Column(name = "mailAddress")
-	@NotEmpty(message = "*Please provide your mailing address")
-	private String mailAdress;
-
-	@Column(name = "city")
-	@NotEmpty(message = "*Please provide your city")
-	private String city;
-
-	@Column(name = "state")
-	@NotEmpty(message = "*Please provide your email address")
-	private String state;
-
-	@Column(name = "zipCode")
-	@NotEmpty(message = "*Please provide your zip code")
-	private String zipCode;
-
 	@Column (name = "YUID")
 	@NotEmpty(message = "*Please provide your YU ID")
-	@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
+	//@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
 	private String YUID;
 
 	@Column (name = "phoneNumber")
@@ -55,6 +39,22 @@ public class LeaveOfAb{
 	@Length(min = 10, max = 10, message = "*Your Phone number must have exactly 10 numbers")
 	//@Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")
 	private String phoneNumber;
+
+	@Column(name = "mailAddress")
+	@NotEmpty(message = "*Please provide your mailing address")
+	private String mailAddress;
+
+	@Column(name = "city")
+	@NotEmpty(message = "*Please provide your city")
+	private String city;
+
+	@Column(name = "state")
+	@NotEmpty(message = "*Please provide your state of residence")
+	private String state;
+
+	@Column(name = "zipCode")
+	@NotEmpty(message = "*Please provide your zip code")
+	private String zipCode;
 
 	@Column(name = "currentClass")
 	@NotEmpty(message = "*Please provide the current class you are in: (fall / spring)")
@@ -69,7 +69,7 @@ public class LeaveOfAb{
 	private String school;
 
 	@Column(name = "dateOfLastAttendance")
-	@NotEmpty(message = "*Please provide the date of your last attendace")
+	//@NotEmpty(message = "*Please provide the date of your last attendace")
 	private String dateOfLastAttendance;
 
 	@Column(name = "approver1")
@@ -209,14 +209,6 @@ public class LeaveOfAb{
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getMailAdress() {
-		return mailAdress;
-	}
-
-	public void setMailAdress(String mailAdress) {
-		this.mailAdress = mailAdress;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -280,5 +272,23 @@ public class LeaveOfAb{
 	public void setSchool(String school) {
 		this.school = school;
 	}
+
+	public String getMailAddress() {
+		return mailAddress;
+	}
+
+	public void setMailAddress(String mailAddress) {
+		this.mailAddress = mailAddress;
+	}
+
+
+	public String getTrackingId() {
+		return trackingId;
+	}
+
+	public void setTrackingId(String trackingId) {
+		this.trackingId = trackingId;
+	}
+
 }
 

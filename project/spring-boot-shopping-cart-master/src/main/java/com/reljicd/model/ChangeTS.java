@@ -58,7 +58,7 @@ public class ChangeTS {
 
 	@Column (name = "YUID")
 	@NotEmpty(message = "*Please provide your YU ID")
-	@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
+	//@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
 	private String YUID;
 
 	@Column(name = "currentProgram")
@@ -314,4 +314,14 @@ public class ChangeTS {
 	public void setCurrentYear(String currentYear) {
 		this.currentYear = currentYear;
 	}
+
+
+	public String getTrackingId() {
+		return trackingId;
+	}
+
+	public void setTrackingId(String trackingId) {
+		this.trackingId = trackingId;
+	}
+
 }

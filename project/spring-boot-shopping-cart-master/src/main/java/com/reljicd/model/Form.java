@@ -44,7 +44,7 @@ public class Form {
 
 	@Column (name = "YUID")
 	@NotEmpty(message = "*Please provide your YU ID")
-	@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
+	//@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
 	private String YUID;
 
 	@Column (name = "phoneNumber")
