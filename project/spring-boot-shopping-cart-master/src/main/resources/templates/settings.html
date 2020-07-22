@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+
+<div class="container">
+
+    <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+
+    <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form action="#" th:action="@{/admin/settings}"
+                  th:object="${settings}" method="post" role="form">
+
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('allowStudentReminders')}" th:errors="*{allowStudentReminders}"
+                           class="alert alert-danger"></label>
+                    <input type="checkbox" name="allowStudentReminders" value="allowStudentReminders" th:field="*{allowStudentReminders}"/>
+					<label for="allowStudentReminders">Allow Student Reminders</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                        <input type="submit" class="btn btn-primary btn-block" value="Save"/>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>

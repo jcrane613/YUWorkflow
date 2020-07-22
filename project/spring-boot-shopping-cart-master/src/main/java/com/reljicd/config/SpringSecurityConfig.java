@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+import com.reljicd.model.Settings;
+
 import javax.sql.DataSource;
 
 /**
@@ -24,6 +26,7 @@ import javax.sql.DataSource;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AccessDeniedHandler accessDeniedHandler;
+    private final Settings settings;
 
     final DataSource dataSource;
 
@@ -40,25 +43,28 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private String rolesQuery;
 
     @Autowired
-    public SpringSecurityConfig(AccessDeniedHandler accessDeniedHandler, DataSource dataSource) {
+    public SpringSecurityConfig(AccessDeniedHandler accessDeniedHandler, DataSource dataSource, Settings settings) {
         this.accessDeniedHandler = accessDeniedHandler;
         this.dataSource = dataSource;
+        this.settings = settings;
     }
 
     /**
      * HTTPSecurity configurer
      * - roles ADMIN allow to access /admin/**
-     * - roles USER allow to access /user/** and /newPost/**
-     * - anybody can visit /, /home, /about, /registration, /error, /blog/**, /post/**, /h2-console/**
+     * - roles USER allow to acces
+     * - anybody can visit /, /home, /registration, /error, /h2-console/**
      * - every other page needs authentication
      * - custom 403 access denied handler
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	// to disallow students sending reminders, remove /reminders/sendReminder/** from antmatchers
+    	String studentReminders = settings.isAllowStudentReminders() ? "/reminders/sendReminder/**" : "/";
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/registration", "/form", "/allforms", "/tracking/**", "trackingById", "/reminders/sendReminder/**", "/error", "/changeTS", "/leaveOfAb", "/h2-console/**").permitAll()
+                .antMatchers( "/registration", "/form", "/allforms", "/tracking/**", studentReminders, "/error", "/changeTS", "/leaveOfAb", "/h2-console/**").permitAll()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
