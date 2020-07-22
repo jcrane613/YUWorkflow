@@ -124,13 +124,13 @@ public class FormController {
 			changeTS.setApprover2("approver2");
 			changeTS.setApprover3(torahStudiesToApproverMap.get((changeTS.getCurrentProgram())));
 			changeTSService.saveForm(changeTS);
-			//This code with throw exception bc approver1 is null
-			/*String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
+
+			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
 				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+changeTS.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
-			}*/
+			}
 			emailService.sendSimpleMessage(changeTS.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("changeTS", new ChangeTS());
@@ -164,15 +164,14 @@ public class FormController {
 			leaveOfAb.setApprover2(approver2);
 			leaveOfAb.setApprover3("approver1");//this is for the registrar
 			leaveOfAbService.saveForm(leaveOfAb);
-			//This code with throw exception bc approver1 is null
-			/*
+
 			String approver1Email = userRepository.findByUsername(approver2).get().getEmail();
 			try {
 				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+leaveOfAb.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
-			*/
+
 			emailService.sendSimpleMessage(leaveOfAb.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("leaveOfAb", new LeaveOfAb());

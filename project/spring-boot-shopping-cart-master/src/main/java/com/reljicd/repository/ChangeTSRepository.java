@@ -15,8 +15,12 @@ public interface ChangeTSRepository extends JpaRepository<ChangeTS, Long> {
 	Optional<ChangeTS> findById(Long id);
 	Page<ChangeTS> findAllByApprover1(Pageable pageable, String approver1);
 	Page<ChangeTS> findAllByApprover2(Pageable pageable, String approver2);
+	Page<ChangeTS> findAllByApprover3(Pageable pageable, String approver3);
+
 	List<ChangeTS> findAllByStatus(String status);
 
 	List<ChangeTS> findAllByApprover1(String approver1);
 	List<ChangeTS> findAllByApprover2(String approver2);
+	List<ChangeTS> findAllByApprover3(String approver3);
+
 }

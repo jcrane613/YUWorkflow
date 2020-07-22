@@ -40,6 +40,10 @@ public class LeaveOfAbServiceImpl implements LeaveOfAbService {
 	public Page<LeaveOfAb> findAllFormsPageableByApprover2(Pageable pageable, String approver2) {
 		return leaveOfAbRepository.findAllByApprover2(pageable,approver2);
 	}
+	@Override
+	public Page<LeaveOfAb> findAllFormsPageableByApprover3(Pageable pageable, String approver3) {
+		return leaveOfAbRepository.findAllByApprover3(pageable,approver3);
+	}
 
 	@Override
 	public Optional<LeaveOfAb> findById(Long id) {

@@ -46,6 +46,10 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 	public Page<ChangeTS> findAllFormsPageableByApprover2(Pageable pageable, String approver2) {
 		return changeTSFormRepository.findAllByApprover2(pageable,approver2);
 	}
+	@Override
+	public Page<ChangeTS> findAllFormsPageableByApprover3(Pageable pageable, String approver3) {
+		return changeTSFormRepository.findAllByApprover3(pageable,approver3);
+	}
 
 	@Override
 	public List<ChangeTS> findAllFormsByApprover1(String approver1) {
@@ -55,6 +59,10 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 	@Override
 	public List<ChangeTS> findAllFormsByApprover2(String approver2) {
 		return changeTSFormRepository.findAllByApprover2(approver2);
+	}
+	@Override
+	public List<ChangeTS> findAllFormsByApprover3(String approver3) {
+		return changeTSFormRepository.findAllByApprover3(approver3);
 	}
 
 	@Override

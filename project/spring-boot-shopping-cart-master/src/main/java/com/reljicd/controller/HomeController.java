@@ -95,6 +95,8 @@ public class HomeController {
         String username = CurrentState.getCurrentUsername();
         Page<ChangeTS> TSformsByApprover1 = changeTSService.findAllFormsPageableByApprover1(new PageRequest(evalPage, 5) , username);
         Page<ChangeTS> TSformsByApprover2 = changeTSService.findAllFormsPageableByApprover2(new PageRequest(evalPage, 5) , username);
+        Page<ChangeTS> TSformsByApprover3 = changeTSService.findAllFormsPageableByApprover3(new PageRequest(evalPage, 5) , username);
+
         List<ChangeTS> list = new ArrayList<>();
         for(ChangeTS form : TSformsByApprover1){
             if(form.getCurrent() == 1){
@@ -103,6 +105,11 @@ public class HomeController {
         }
         for(ChangeTS form : TSformsByApprover2){
             if(form.getCurrent() == 2){
+                list.add(form);
+            }
+        }
+        for(ChangeTS form : TSformsByApprover3){
+            if(form.getCurrent() == 3){
                 list.add(form);
             }
         }
@@ -127,6 +134,8 @@ public class HomeController {
         String username = CurrentState.getCurrentUsername();
         Page<LeaveOfAb> LOAformsByApprover1 = leaveOfAbService.findAllFormsPageableByApprover1(new PageRequest(evalPage, 5) , username);
         Page<LeaveOfAb> LOAformsByApprover2 = leaveOfAbService.findAllFormsPageableByApprover2(new PageRequest(evalPage, 5) , username);
+        Page<LeaveOfAb> LOAformsByApprover3 = leaveOfAbService.findAllFormsPageableByApprover3(new PageRequest(evalPage, 5) , username);
+
         List<LeaveOfAb> list = new ArrayList<>();
         for(LeaveOfAb form : LOAformsByApprover1){
             if(form.getCurrent() == 1){
@@ -135,6 +144,11 @@ public class HomeController {
         }
         for(LeaveOfAb form : LOAformsByApprover2){
             if(form.getCurrent() == 2){
+                list.add(form);
+            }
+        }
+        for(LeaveOfAb form : LOAformsByApprover3){
+            if(form.getCurrent() == 3){
                 list.add(form);
             }
         }

@@ -18,6 +18,8 @@ public interface LeaveOfAbService {
 	Page<LeaveOfAb> findAllFormsPageable(Pageable pageable);
 	Page<LeaveOfAb> findAllFormsPageableByApprover1(Pageable pageable , String approver1);
 	Page<LeaveOfAb> findAllFormsPageableByApprover2(Pageable pageable , String approver2);
+	Page<LeaveOfAb> findAllFormsPageableByApprover3(Pageable pageable , String approver3);
+
 	List<LeaveOfAb> findAllForms();
 	List<LeaveOfAb> findAllFormsByApprover1(String approver1);
 	List<LeaveOfAb> findAllFormsByApprover2(String approver2);

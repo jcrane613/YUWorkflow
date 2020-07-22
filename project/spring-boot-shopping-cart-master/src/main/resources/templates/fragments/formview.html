@@ -9,7 +9,7 @@
 <div th:fragment="formview">
     <div class="panel-default well" th:each="form : ${forms}">
         <div class="panel-heading">
-            Form #<h1 th:text="${form.id}"></h1>
+            Major Declaration Form #<h1 th:text="${form.id}"></h1>
         </div>
         Student Name:<h3 th:text="${form.name}" class="panel-body">StudentName</h3>
         <br></br>
