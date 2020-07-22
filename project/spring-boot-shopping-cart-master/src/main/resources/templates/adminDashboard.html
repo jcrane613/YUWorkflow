@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+    <style>
+        h6   {display: inline;}
+    </style>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+    <div th:unless="${homeIsExpanded}">
+        <a th:href="@{/admin/dashboard/home}">Total Major Declaration Forms </a> (<h6 th:text="${totalMajorForms}"></h6>)
+    </div>
+	<div th:if="${homeIsExpanded}">
+		<a th:href="@{/admin/dashboard/}">Total Major Declaration Forms </a> (<h6 th:text="${totalMajorForms}"></h6>)
+	</div>
+	<div class="panel-default well" th:each="form : ${majorForms}">
+        <div class="panel-heading">
+            Major Declaration Form #<h1 th:text="${form.id}"></h1> | Status: <h2 th:text="${form.status}"></h2>
+        </div>
+        <br></br>
+        Step in Approval:<h3 th:text="${form.current}" class="panel-body">Major</h3>
+		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
+        </a>
+    </div>
+
+	<div th:unless="${changeTSIsExpanded}">
+        <a th:href="@{/admin/dashboard/changeTS}">Total Change Torah Studies Forms </a> (<h6 th:text="${totalChangeTSForms}"></h6>)
+    </div>
+	<div th:if="${changeTSIsExpanded}">
+		<a th:href="@{/admin/dashboard/}">Total Change Torah Studies Forms </a> (<h6 th:text="${totalChangeTSForms}"></h6>)
+	</div>
+	<div class="panel-default well" th:each="form : ${changeTSForms}">
+        <div class="panel-heading">
+            Change Torah Studies Form #<h1 th:text="${form.id}"></h1> | Status: <h2 th:text="${form.status}"></h2>
+        </div>
+        <br></br>
+        Step in Approval:<h3 th:text="${form.current}" class="panel-body">step</h3>
+		<!-- the following line is wrong, because no tracking id yet on changeTS form -->
+		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.id})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
+        </a>
+    </div>
+
+	<div th:unless="${leaveOfAbIsExpanded}">
+        <a th:href="@{/admin/dashboard/leaveOfAb}">Total Leave of Absence Forms </a> (<h6 th:text="${totalLeaveOfAbForms}"></h6>)
+    </div>
+	<div th:if="${leaveOfAbIsExpanded}">
+		<a th:href="@{/admin/dashboard/}">Total Leave of Absence Forms </a> (<h6 th:text="${totalLeaveOfAbForms}"></h6>)
+	</div>
+	<div class="panel-default well" th:each="form : ${leaveOfAbForms}">
+        <div class="panel-heading">
+            Leave Of Absence Form #<h1 th:text="${form.id}"></h1> Status: <h2 th:text="${form.status}"></h2>
+        </div>
+        <br></br>
+        Step in Approval:<h3 th:text="${form.current}" class="panel-body">step</h3>
+		<!-- the following line is wrong, because no tracking id yet on leaveOfAb form -->
+		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.id})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
+        </a>
+    </div>
+
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
