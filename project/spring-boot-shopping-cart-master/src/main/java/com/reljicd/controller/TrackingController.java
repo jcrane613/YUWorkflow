@@ -16,6 +16,7 @@ import com.reljicd.model.Form;
 import com.reljicd.model.TrackingIdHolder;
 import com.reljicd.service.FormService;
 import com.reljicd.service.TrackingService;
+import com.reljicd.util.CurrentState;
 
 @Controller
 public class TrackingController {
@@ -67,7 +68,9 @@ public class TrackingController {
 	@RequestMapping(value = "/tracking/{trackingId}", method = RequestMethod.POST)
 	public String addComment(@PathVariable("trackingId") String trackingId, @Valid CommentHolder commentHolder, BindingResult bindingResult) {
 		Form form = this.form;
-		form.addComment("student", commentHolder.getComment());
+		String commentor = CurrentState.getCurrentUsername();
+		if (commentor.equals("anonymousUser")) commentor = "student";
+		form.addComment(commentor, commentHolder.getComment());
 		formService.saveForm(form);
 		return "redirect:/tracking/" + trackingId;
 	}
