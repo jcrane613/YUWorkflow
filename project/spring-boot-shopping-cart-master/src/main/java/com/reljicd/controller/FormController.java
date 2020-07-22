@@ -114,12 +114,15 @@ public class FormController {
 	@RequestMapping(value = "/changeTS", method = RequestMethod.POST)
 	public ModelAndView changeTS(@Valid ChangeTS changeTS, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
+		System.out.println("1 ");
+
 		if (bindingResult.hasErrors())
 		{
+			System.out.println("2");
 			modelAndView.setViewName("/changeTS");
 		}
 		else {
-			System.out.println("I have reached this poitn ");
+			System.out.println("3");
 			String approver1 = torahStudiesToApproverMap.get((changeTS.getSwitchIntoProgam()));
 			System.out.println("I have reached this poitn as well ");
 
@@ -127,12 +130,13 @@ public class FormController {
 			changeTS.setApprover2("approver2");
 			changeTS.setApprover3(torahStudiesToApproverMap.get((changeTS.getCurrentProgram())));
 			changeTSService.saveForm(changeTS);
-			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
+			//This code with throw exception bc approver1 is null
+			/*String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
 				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+changeTS.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
-			}
+			}*/
 			emailService.sendSimpleMessage(changeTS.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("changeTS", new ChangeTS());
