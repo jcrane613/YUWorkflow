@@ -48,8 +48,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * HTTPSecurity configurer
      * - roles ADMIN allow to access /admin/**
-     * - roles USER allow to access /user/** and /newPost/**
-     * - anybody can visit /, /home, /about, /registration, /error, /blog/**, /post/**, /h2-console/**
+     * - roles USER allow to acces
+     * - anybody can visit /, /home, /registration, /error, /h2-console/**
      * - every other page needs authentication
      * - custom 403 access denied handler
      */
@@ -58,7 +58,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     	// to disallow students sending reminders, remove /reminders/sendReminder/** from antmatchers
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/registration", "/form", "/allforms", "/tracking/**", "trackingById", "/reminders/sendReminder/**", "/error", "/changeTS", "/leaveOfAb", "/h2-console/**").permitAll()
+                .antMatchers( "/registration", "/form", "/allforms", "/tracking/**", "/reminders/sendReminder/**", "/error", "/changeTS", "/leaveOfAb", "/h2-console/**").permitAll()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
