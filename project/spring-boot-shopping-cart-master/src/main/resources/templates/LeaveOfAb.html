@@ -78,13 +78,34 @@
                 Zip Code:
                 <label th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"
                        class="alert alert-danger"></label>
-                <input type="text" th:field="*{zipcode}" placeholder="Zip Code"
+                <input type="text" th:field="*{zipCode}" placeholder="Zip Code"
                        class="form-control input-lg"/>
             </div>
-            <div class="row">
-                <div class="col-sm-3" style="float: none; margin: 0 auto;">
-                    <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
-                </div>
+            <div class="form-group">
+                Semester Term:
+                <label th:if="${#fields.hasErrors('currentClass')}" th:errors="*{currentClass}"
+                       class="alert alert-danger"></label>
+                <select name = "currentClass" th:field="*{currentClass}" placeholder="Semester Term" >
+                    <option value="Fall">Fall</option>
+                    <option value="Spring">Spring</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Semester Year:
+                <label th:if="${#fields.hasErrors('currentYear')}" th:errors="*{currentYear}"
+                       class="alert alert-danger"></label>
+                <select name="currentYear" th:field="*{currentYear}" placeholder="Current Academic Year">
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Last date of attendance:
+                <label th:if="${#fields.hasErrors('dateOfLastAttendance')}" th:errors="*{dateOfLastAttendance}"
+                       class="alert alert-danger"></label>
+                <input type="date" th:field="*{dateOfLastAttendance}" name="dateOfLastAttendance"
+                       value="2018-07-22"
+                       min="2018-01-01" max="2022-12-31"></input>
             </div>
             <div class="row">
                 <div class="col-sm-3" style="float: none; margin: 0 auto;">
@@ -92,6 +113,47 @@
                 </div>
             </div>
 
+
+    <!--
+          <div class="form-group">
+                <input type="checkbox" name="active" />
+
+
+                <fieldset>
+            <legend>  School(s) from which leave is requested (check all that apply) Undergraduate: </legend>
+
+                <div> <input type="checkbox" id="Katz" name="Katz" value="Katz">
+                    <label for="Katz"> KATZ</label>
+                </div>
+                <div>  <input type="checkbox" id="SCW" name="SCW" value="SCW">
+                    <label for="SCW"> SCW</label>
+                </div>
+                <div>  <input type="checkbox" id="SSSB" name="SSSB" value="SSSB">
+                    <label for="SSSB"> SSSB</label>
+                </div>
+            </fieldset>
+                    <input type="checkbox" id="YC" name="YC" value="YC">
+                    <label for="YC"> YC</label><br>
+                    Graduate:
+                    <input type="checkbox" id="AGS" name="AGS" value="AGS">
+                    <label for="AGS"> AGS</label><br>
+                    <input type="checkbox" id="BRG" name="BRG" value="BRG">
+                    <label for="BRG"> BRG</label><br>
+                    <input type="checkbox" id="CSL" name="CSL" value="CSL">
+                    <label for="SSSB"> CSL</label><br>
+                    <input type="checkbox" id="FGS" name="FGS" value="FGS">
+                    <label for="FGS"> FGS</label><br>
+                    <input type="checkbox" id="KATZ" name="KATZ" value="KATZ">
+                    <label for="KATZ"> KATZ</label><br>
+                    <input type="checkbox" id="RIETS" name="RIETS" value="RIETS">
+                    <label for="RIETS"> RIETS</label><br>
+                    <input type="checkbox" id="SCW" name="SCW" value="SCW">
+                    <label for="SCW"> SCW</label><br>
+                    <input type="checkbox" id="SSSB" name="SSSB" value="SSSB">
+                    <label for="SSSB"> SSSB</label><br>
+                    <input type="checkbox" id="WSSW" name="WSSW" value="WSSW">
+                    <label for="WSSW"> WSSW</label><br><br>
+                    -->
         </form>
     </div>
 </div>

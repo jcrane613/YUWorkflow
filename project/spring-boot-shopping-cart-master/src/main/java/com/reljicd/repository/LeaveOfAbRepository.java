@@ -17,7 +17,6 @@ public interface LeaveOfAbRepository extends JpaRepository<LeaveOfAb, Long> {
 	Page<LeaveOfAb> findAllByApprover1(Pageable pageable, String approver1);
 	Page<LeaveOfAb> findAllByApprover2(Pageable pageable, String approver2);
 	List<LeaveOfAb> findAllByStatus(String status);
-
 	List<LeaveOfAb> findAllByApprover1(String approver1);
 	List<LeaveOfAb> findAllByApprover2(String approver2);
 }

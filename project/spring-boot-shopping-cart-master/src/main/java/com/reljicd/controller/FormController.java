@@ -24,6 +24,8 @@ import java.util.Map;
 public class FormController {
 
 	private Map<String , String> majorToApproverMap = new HashMap<>();
+	private Map<String , String> torahStudiesToApproverMap = new HashMap<>();
+	private Map<String , String> schoolToDeanMap = new HashMap<>();
 	private final FormService formService;
 	private final EmailService emailService;
 	private final UserRepository userRepository;
@@ -40,6 +42,7 @@ public class FormController {
 		populateMap();
 	}
 	private void populateMap(){
+		//This is the form table for the major decleartion form
 		majorToApproverMap.put("COM" , "approver1");
 		majorToApproverMap.put("ART" , "approver2");
 		majorToApproverMap.put("MAT" , "approver3");
@@ -47,6 +50,16 @@ public class FormController {
 		majorToApproverMap.put("HIS" , "approver5");
 		majorToApproverMap.put("LAW" , "approver6");
 		majorToApproverMap.put("GEM" , "approver7");
+
+		//This is the form table for the change of torah studies
+		majorToApproverMap.put("IBC" , "approver1");
+		majorToApproverMap.put("Mechinah/JSS" , "approver2");
+		majorToApproverMap.put("MYP" , "approver3");
+		majorToApproverMap.put("SBMP" , "approver4");
+
+		//This is the form table for the leave of absence
+		schoolToDeanMap.put("KATZ", "approver1");
+		schoolToDeanMap.put("RIETS", "approver2");
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
@@ -70,7 +83,6 @@ public class FormController {
 			form.setApprover1(majorToApproverMap.get((form.getMajor())));
 			form.setApprover2("approver2");
 			formService.saveForm(form);
-			
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
 				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+form.getId()) );
@@ -102,18 +114,16 @@ public class FormController {
 	@RequestMapping(value = "/changeTS", method = RequestMethod.POST)
 	public ModelAndView changeTS(@Valid ChangeTS changeTS, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
-
 		if (bindingResult.hasErrors())
 		{
 			modelAndView.setViewName("/changeTS");
 		}
 		else {
-
-			String approver1 = majorToApproverMap.get((changeTS.getCurrentClass()));
-			changeTS.setApprover1(majorToApproverMap.get((changeTS.getCurrentClass())));
+			String approver1 = torahStudiesToApproverMap.get((changeTS.getSwitchIntoProgam()));
+			changeTS.setApprover1(approver1);
 			changeTS.setApprover2("approver2");
+			changeTS.setApprover3(torahStudiesToApproverMap.get((changeTS.getCurrentProgram())));
 			changeTSService.saveForm(changeTS);
-
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
 				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+changeTS.getId()) );
@@ -146,17 +156,14 @@ public class FormController {
 
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("/leaveOfAb");
-
 		}
 		else {
-
-
-			String approver1 = majorToApproverMap.get((leaveOfAb.getMailAdress()));
-			leaveOfAb.setApprover1(majorToApproverMap.get((leaveOfAb.getMailAdress())));
-			leaveOfAb.setApprover2("approver2");
+			leaveOfAb.setApprover1("approver1");//This is the registrar
+			String approver2 = schoolToDeanMap.get((leaveOfAb.getSchool()));
+			leaveOfAb.setApprover2(approver2);
+			leaveOfAb.setApprover3("approver1");//this is for the registrar
 			leaveOfAbService.saveForm(leaveOfAb);
-
-			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
+			String approver1Email = userRepository.findByUsername(approver2).get().getEmail();
 			try {
 				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+leaveOfAb.getId()) );
 			} catch (MessagingException e) {

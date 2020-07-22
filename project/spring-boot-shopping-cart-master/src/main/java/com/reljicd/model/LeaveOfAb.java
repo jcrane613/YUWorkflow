@@ -1,16 +1,10 @@
 package com.reljicd.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.Collection;
 import java.util.UUID;
 
 @Entity
@@ -34,7 +28,6 @@ public class LeaveOfAb{
 	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email address")
 	private String studentEmail;
-
 
 	@Column(name = "mailAddress")
 	@NotEmpty(message = "*Please provide your mailing address")
@@ -71,17 +64,28 @@ public class LeaveOfAb{
 	@NotEmpty(message = "*Please provide the current academic year")
 	private String currentYear;
 
+	@Column(name = "school")
+	@NotEmpty(message = "*Please provide the current schools that are leaving from")
+	private String school;
+
+	@Column(name = "dateOfLastAttendance")
+	@NotEmpty(message = "*Please provide the date of your last attendace")
+	private String dateOfLastAttendance;
+
 	@Column(name = "approver1")
 	private String approver1;
 
 	@Column(name = "approver2")
 	private String approver2;
 
+	@Column(name = "approver3")
+	private String approver3;
+
 	@Column(name = "current")
 	private Integer current = 1;
 
 	@Column(name = "total_steps")
-	private Integer totalSteps = 2;
+	private Integer totalSteps = 3;
 
 	@Column(name = "status")
 	private String status = "OPEN";
@@ -235,6 +239,46 @@ public class LeaveOfAb{
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public String getCurrentClass() {
+		return currentClass;
+	}
+
+	public void setCurrentClass(String currentClass) {
+		this.currentClass = currentClass;
+	}
+
+	public String getCurrentYear() {
+		return currentYear;
+	}
+
+	public void setCurrentYear(String currentYear) {
+		this.currentYear = currentYear;
+	}
+
+	public String getDateOfLastAttendance() {
+		return dateOfLastAttendance;
+	}
+
+	public void setDateOfLastAttendance(String dateOfLastAttendance) {
+		this.dateOfLastAttendance = dateOfLastAttendance;
+	}
+
+	public String getApprover3() {
+		return approver3;
+	}
+
+	public void setApprover3(String approver3) {
+		this.approver3 = approver3;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
 	}
 }
 

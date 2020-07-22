@@ -95,6 +95,9 @@ public class ChangeTS {
 	@Column(name = "approver2")
 	private String approver2;
 
+	@Column(name = "approver3")
+	private String approver3;
+
 	@Column(name = "current")
 	private Integer current = 1;
 
@@ -154,6 +157,13 @@ public class ChangeTS {
 	public void setApprover2(String approver2) {
 		this.approver2 = approver2;
 	}
+	public String getApprover3() {
+		return approver3;
+	}
+
+	public void setApprover3(String approver3) {
+		this.approver3 = approver3;
+	}
 
 	public Integer getCurrent() {
 		return current;
@@ -167,6 +177,9 @@ public class ChangeTS {
 				break;
 			case 2:
 				result = this.approver2;
+				break;
+			case 3:
+				result = this.approver3;
 				break;
 		}
 		return result;
