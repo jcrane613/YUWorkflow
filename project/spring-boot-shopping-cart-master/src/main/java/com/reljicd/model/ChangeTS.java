@@ -109,6 +109,7 @@ public class ChangeTS {
 
 	@Column(name = "tracking_id")
 	private String trackingId = UUID.randomUUID().toString();
+
 	public Long getId() {
 		return id;
 	}
