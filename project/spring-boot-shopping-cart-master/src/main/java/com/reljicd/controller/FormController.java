@@ -90,7 +90,7 @@ public class FormController {
 				e.printStackTrace();
 			}
 			try {
-				emailService.sendInitialStudentMessage(form);
+				emailService.sendInitialStudentMessage(form.getStudentEmail(), form.getTrackingId());
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -127,11 +127,15 @@ public class FormController {
 
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+changeTS.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processChangeTSForm/"+changeTS.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
-			emailService.sendSimpleMessage(changeTS.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
+			try {
+				emailService.sendInitialStudentMessage(changeTS.getStudentEmail(), changeTS.getTrackingId());
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("changeTS", new ChangeTS());
 			modelAndView.setViewName("/changeTS");
@@ -167,12 +171,15 @@ public class FormController {
 
 			String approver1Email = userRepository.findByUsername(approver2).get().getEmail();
 			try {
-				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+leaveOfAb.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processLeaveOfAbForm/"+leaveOfAb.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
-
-			emailService.sendSimpleMessage(leaveOfAb.getStudentEmail(), "Registrar Form Submitted", "Your form has been submitted!");
+			try {
+				emailService.sendInitialStudentMessage(leaveOfAb.getStudentEmail(), leaveOfAb.getTrackingId());
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
 			modelAndView.addObject("successMessage", "Submitted successfully! You will receive an email confirmation shortly.");
 			modelAndView.addObject("leaveOfAb", new LeaveOfAb());
 			modelAndView.setViewName("/leaveOfAb");

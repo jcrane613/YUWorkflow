@@ -1,17 +1,16 @@
 package com.reljicd.controller;
 
-import com.reljicd.exception.NotEnoughProductsInStockException;
+import com.reljicd.model.ChangeTS;
 import com.reljicd.model.CommentHolder;
 import com.reljicd.model.Form;
-import com.reljicd.model.TrackingIdHolder;
-import com.reljicd.repository.FormRepository;
+import com.reljicd.model.LeaveOfAb;
+import com.reljicd.service.ChangeTSService;
 import com.reljicd.service.EmailService;
 import com.reljicd.service.FormService;
+import com.reljicd.service.LeaveOfAbService;
 import com.reljicd.service.ProductService;
 import com.reljicd.service.ShoppingCartService;
 import com.reljicd.util.CurrentState;
-
-import java.util.Set;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
@@ -29,51 +28,81 @@ import org.springframework.web.servlet.ModelAndView;
 public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;
-
-    private final ProductService productService;
     private final FormService formService;
+    private final ChangeTSService changeTSService;
+    private final LeaveOfAbService leaveOfAbService;
     private final EmailService emailService;
 
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService, FormService formService, EmailService emailService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService, 
+    		FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService, 
+    		EmailService emailService) {
         this.shoppingCartService = shoppingCartService;
-        this.productService = productService;
         this.formService = formService;
+        this.changeTSService = changeTSService;
+        this.leaveOfAbService = leaveOfAbService;
         this.emailService = emailService;
     }
 
     @GetMapping("/shoppingCart")
     public ModelAndView shoppingCart() {
-        ModelAndView modelAndView = new ModelAndView("/shoppingCart");
-        modelAndView.addObject("products", shoppingCartService.getProductsInCart());
-        modelAndView.addObject("total", shoppingCartService.getTotal().toString());
+        ModelAndView modelAndView = new ModelAndView();
         Form form = shoppingCartService.getForm();
-        modelAndView.addObject("form", form);
+        ChangeTS changeTS = shoppingCartService.getChangeTSForm();
+        LeaveOfAb leaveOfAb = shoppingCartService.getLeaveOfAbForm();
         if (form != null) {
-     		modelAndView.addObject("comments", form.getCommentsArray());
+            modelAndView.addObject("form", form);
+        	modelAndView.addObject("comments", form.getCommentsArray());
         }
+        if (changeTS != null) {
+            modelAndView.addObject("changeTS", changeTS);
+            modelAndView.addObject("comments", changeTS.getCommentsArray());
+        }
+        if (leaveOfAb != null) {
+            modelAndView.addObject("leaveOfAb", leaveOfAb);
+            modelAndView.addObject("comments", leaveOfAb.getCommentsArray());   
+        }     
         CommentHolder commentHolder = new CommentHolder();
 		modelAndView.addObject("commentHolder", commentHolder);
+		modelAndView.setViewName("/shoppingCart");
         return modelAndView;
     }
     
     @RequestMapping(value = "/shoppingCart", method = RequestMethod.POST)
 	public String formSubmit(@Valid CommentHolder commentHolder, BindingResult bindingResult) {
 		Form form = shoppingCartService.getForm();
-		form.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
-		formService.saveForm(form);
+        ChangeTS changeTS = shoppingCartService.getChangeTSForm();
+        LeaveOfAb leaveOfAb = shoppingCartService.getLeaveOfAbForm();
+		if (form != null) {
+			form.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
+			formService.saveForm(form);
+		}
+		if (changeTS != null) {
+			changeTS.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
+			changeTSService.saveForm(changeTS);
+		}
+		if (leaveOfAb != null) {
+			leaveOfAb.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
+			leaveOfAbService.saveForm(leaveOfAb);
+		}
 		return "redirect:/shoppingCart/";
 	}
-
-    @GetMapping("/shoppingCart/addProduct/{productId}")
-    public ModelAndView addProductToCart(@PathVariable("productId") Long productId) {
-        productService.findById(productId).ifPresent(shoppingCartService::addProduct);
-        return shoppingCart();
-    }
     
     @GetMapping("/shoppingCart/processForm/{formId}")
     public String addFormToCart(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::addForm);
+        return "redirect:/shoppingCart";
+    }
+    
+    @GetMapping("/shoppingCart/processChangeTSForm/{formId}")
+    public String addChangeTSFormToCart(@PathVariable("formId") Long formId) {
+        changeTSService.findById(formId).ifPresent(shoppingCartService::addChangeTSForm);
+        return "redirect:/shoppingCart";
+    }
+    
+    @GetMapping("/shoppingCart/processLeaveOfAbForm/{formId}")
+    public String addLeaveOfAbFormToCart(@PathVariable("formId") Long formId) {
+        leaveOfAbService.findById(formId).ifPresent(shoppingCartService::addLeaveOfAbForm);
         return "redirect:/shoppingCart";
     }
     
@@ -84,30 +113,54 @@ public class ShoppingCartController {
         return "redirect:/home";
     }
     
+    @GetMapping("/shoppingCart/approveChangeTSForm/{formId}")
+    public String approveChangeTSForm(@PathVariable("formId") Long formId) throws MessagingException {
+        changeTSService.findById(formId).ifPresent(shoppingCartService::approveChangeTSForm);
+        emailService.sendNextChangeTSMessage(formId);
+        return "redirect:/homeForTSForms";
+    }
+    
+    @GetMapping("/shoppingCart/approveLeaveOfAbForm/{formId}")
+    public String approveLeaveOfAbForm(@PathVariable("formId") Long formId) throws MessagingException {
+        leaveOfAbService.findById(formId).ifPresent(shoppingCartService::approveLeaveOfAbForm);
+        emailService.sendNextLeaveOfAbMessage(formId);
+        return "redirect:/homeForLeaveOfAb";
+    }
+    
     @GetMapping("/shoppingCart/denyForm/{formId}")
     public String denyForm(@PathVariable("formId") Long formId) {
-        formService.findById(formId).ifPresent(shoppingCartService::denyForm);
+        Form form = formService.findById(formId).orElse(null);
+    	if (form != null) shoppingCartService.denyForm(form);
         try {
-			emailService.sendStudentDenialMessage(formId);
+			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
         return "redirect:/home";
     }
-
-    @GetMapping("/shoppingCart/removeProduct/{productId}")
-    public ModelAndView removeProductFromCart(@PathVariable("productId") Long productId) {
-        productService.findById(productId).ifPresent(shoppingCartService::removeProduct);
-        return shoppingCart();
-    }
-
-    @GetMapping("/shoppingCart/checkout")
-    public ModelAndView checkout() {
+    
+    @GetMapping("/shoppingCart/denyChangeTSForm/{formId}")
+    public String denyChangeTSForm(@PathVariable("formId") Long formId) {
+    	ChangeTS form = changeTSService.findById(formId).orElse(null);
+    	if (form != null) shoppingCartService.denyChangeTSForm(form);
         try {
-            shoppingCartService.checkout();
-        } catch (NotEnoughProductsInStockException e) {
-            return shoppingCart().addObject("outOfStockMessage", e.getMessage());
-        }
-        return shoppingCart();
+			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}		
+        return "redirect:/homeForTSForms";
     }
+    
+    @GetMapping("/shoppingCart/denyLeaveOfAbForm/{formId}")
+    public String denyLeaveOfAbForm(@PathVariable("formId") Long formId) {
+    	LeaveOfAb form = leaveOfAbService.findById(formId).orElse(null);
+    	if (form != null) shoppingCartService.denyLeaveOfAbForm(form);
+        try {
+			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}		
+        return "redirect:/homeForLeaveOfAb";
+    }
+
 }

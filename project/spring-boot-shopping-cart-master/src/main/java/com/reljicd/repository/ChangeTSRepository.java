@@ -22,5 +22,6 @@ public interface ChangeTSRepository extends JpaRepository<ChangeTS, Long> {
 	List<ChangeTS> findAllByApprover1(String approver1);
 	List<ChangeTS> findAllByApprover2(String approver2);
 	List<ChangeTS> findAllByApprover3(String approver3);
+	Optional<ChangeTS> findByTrackingId(String trackingId);
 
 }

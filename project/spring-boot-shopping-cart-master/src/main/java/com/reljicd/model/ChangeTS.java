@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -20,7 +21,7 @@ public class ChangeTS {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "form")
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "name")
@@ -37,7 +38,7 @@ public class ChangeTS {
 
 	@Column(name = "mailAddress")
 	@NotEmpty(message = "*Please provide your mailing address")
-	private String mailAdress;
+	private String mailAddress;
 
 	@Column(name = "city")
 	@NotEmpty(message = "*Please provide your city")
@@ -102,10 +103,13 @@ public class ChangeTS {
 	private Integer current = 1;
 
 	@Column(name = "total_steps")
-	private Integer totalSteps = 2;
+	private Integer totalSteps = 3;
 
 	@Column(name = "status")
 	private String status = "OPEN";
+	
+	@Column(name = "comments", length = 10000) 
+	private String comments = "";	
 
 	@Column(name = "tracking_id")
 	private String trackingId = UUID.randomUUID().toString();
@@ -196,6 +200,9 @@ public class ChangeTS {
 			case 2:
 				result = this.approver2;
 				break;
+			case 3:
+				result = this.approver3;
+				break;
 		}
 		return result;
 	}
@@ -267,12 +274,12 @@ public class ChangeTS {
 		this.city = city;
 	}
 
-	public String getMailAdress() {
-		return mailAdress;
+	public String getMailAddress() {
+		return mailAddress;
 	}
 
-	public void setMailAdress(String mailAdress) {
-		this.mailAdress = mailAdress;
+	public void setMailAddress(String mailAddress) {
+		this.mailAddress = mailAddress;
 	}
 
 	public String getSwitchIntoProgam() {
@@ -322,6 +329,14 @@ public class ChangeTS {
 
 	public void setTrackingId(String trackingId) {
 		this.trackingId = trackingId;
+	}
+	
+	public void addComment(String commentor, String comment) {
+		this.comments += String.format("Comment from %s at %s -> %s ### ", commentor, (new Date()).toString(), comment);
+	}
+	
+	public String[] getCommentsArray() {
+		return this.comments.split(" ### ");
 	}
 
 }
