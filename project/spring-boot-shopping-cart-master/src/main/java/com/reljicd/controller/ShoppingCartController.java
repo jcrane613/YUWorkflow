@@ -116,8 +116,6 @@ public class ShoppingCartController {
         return "redirect:/homeForLeaveOfAb";
     }
     
-    
-    
     @GetMapping("/shoppingCart/denyForm/{formId}")
     public String denyForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::denyForm);
@@ -127,6 +125,32 @@ public class ShoppingCartController {
 			e.printStackTrace();
 		}
         return "redirect:/home";
+    }
+    
+    @GetMapping("/shoppingCart/denyChangeTSForm/{formId}")
+    public String denyChangeTSForm(@PathVariable("formId") Long formId) {
+        changeTSService.findById(formId).ifPresent(shoppingCartService::denyChangeTSForm);
+        /*
+        try {
+			emailService.sendStudentDenialMessage(formId);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		*/
+        return "redirect:/homeForTSForms";
+    }
+    
+    @GetMapping("/shoppingCart/denyLeaveOfAbForm/{formId}")
+    public String denyLeaveOfAbForm(@PathVariable("formId") Long formId) {
+        leaveOfAbService.findById(formId).ifPresent(shoppingCartService::denyLeaveOfAbForm);
+        /*
+        try {
+			emailService.sendStudentDenialMessage(formId);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		*/
+        return "redirect:/homeForLeaveOfAb";
     }
 
 }

@@ -20,9 +20,14 @@ public interface ShoppingCartService {
     
     void denyForm(Form form);
     
+	void denyChangeTSForm(ChangeTS form);
+    
+	void denyLeaveOfAbForm(LeaveOfAb form);
+    
 	Form getForm();
 
 	ChangeTS getChangeTSForm();
 
 	LeaveOfAb getLeaveOfAbForm();
+
 }

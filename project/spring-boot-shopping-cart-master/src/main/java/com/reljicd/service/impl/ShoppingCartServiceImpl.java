@@ -70,11 +70,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public void denyForm(Form form) {
-
     	form.setStatus("DENIED");
     	int denialStep = form.getCurrent();
     	form.setCurrent(new Integer(-1*denialStep));
     	this.form = null;
+    }
+    
+    @Override
+    public void denyChangeTSForm(ChangeTS form) {
+    	form.setStatus("DENIED");
+    	int denialStep = form.getCurrent();
+    	form.setCurrent(new Integer(-1*denialStep));
+    	this.changeTS = null;
+    }
+    
+    @Override
+    public void denyLeaveOfAbForm(LeaveOfAb form) {
+    	form.setStatus("DENIED");
+    	int denialStep = form.getCurrent();
+    	form.setCurrent(new Integer(-1*denialStep));
+    	this.leaveOfAb = null;
     }
         
     @Override
