@@ -116,22 +116,23 @@ public class ShoppingCartController {
     @GetMapping("/shoppingCart/approveChangeTSForm/{formId}")
     public String approveChangeTSForm(@PathVariable("formId") Long formId) throws MessagingException {
         changeTSService.findById(formId).ifPresent(shoppingCartService::approveChangeTSForm);
-        //emailService.sendNextMessage(formId);
+        emailService.sendNextChangeTSMessage(formId);
         return "redirect:/homeForTSForms";
     }
     
     @GetMapping("/shoppingCart/approveLeaveOfAbForm/{formId}")
     public String approveLeaveOfAbForm(@PathVariable("formId") Long formId) throws MessagingException {
         leaveOfAbService.findById(formId).ifPresent(shoppingCartService::approveLeaveOfAbForm);
-        //emailService.sendNextMessage(formId);
+        emailService.sendNextLeaveOfAbMessage(formId);
         return "redirect:/homeForLeaveOfAb";
     }
     
     @GetMapping("/shoppingCart/denyForm/{formId}")
     public String denyForm(@PathVariable("formId") Long formId) {
-        formService.findById(formId).ifPresent(shoppingCartService::denyForm);
+        Form form = formService.findById(formId).orElse(null);
+    	if (form != null) shoppingCartService.denyForm(form);
         try {
-			emailService.sendStudentDenialMessage(formId);
+			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
@@ -140,27 +141,25 @@ public class ShoppingCartController {
     
     @GetMapping("/shoppingCart/denyChangeTSForm/{formId}")
     public String denyChangeTSForm(@PathVariable("formId") Long formId) {
-        changeTSService.findById(formId).ifPresent(shoppingCartService::denyChangeTSForm);
-        /*
+    	ChangeTS form = changeTSService.findById(formId).orElse(null);
+    	if (form != null) shoppingCartService.denyChangeTSForm(form);
         try {
-			emailService.sendStudentDenialMessage(formId);
+			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
 			e.printStackTrace();
-		}
-		*/
+		}		
         return "redirect:/homeForTSForms";
     }
     
     @GetMapping("/shoppingCart/denyLeaveOfAbForm/{formId}")
     public String denyLeaveOfAbForm(@PathVariable("formId") Long formId) {
-        leaveOfAbService.findById(formId).ifPresent(shoppingCartService::denyLeaveOfAbForm);
-        /*
+    	LeaveOfAb form = leaveOfAbService.findById(formId).orElse(null);
+    	if (form != null) shoppingCartService.denyLeaveOfAbForm(form);
         try {
-			emailService.sendStudentDenialMessage(formId);
+			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
 			e.printStackTrace();
-		}
-		*/
+		}		
         return "redirect:/homeForLeaveOfAb";
     }
 
