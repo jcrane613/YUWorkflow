@@ -23,4 +23,5 @@ public interface LeaveOfAbService {
 	List<LeaveOfAb> findAllForms();
 	List<LeaveOfAb> findAllFormsByApprover1(String approver1);
 	List<LeaveOfAb> findAllFormsByApprover2(String approver2);
+	void withdrawForm(LeaveOfAb leaveOfAb);
 }

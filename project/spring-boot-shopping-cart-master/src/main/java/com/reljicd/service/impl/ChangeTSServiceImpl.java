@@ -65,4 +65,8 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 	public List<ChangeTS> findAllForms() {
 		return changeTSFormRepository.findAll();
 	}
+	@Override
+	public void withdrawForm(ChangeTS changeTS) {
+		changeTSFormRepository.delete(changeTS);
+	}
 }

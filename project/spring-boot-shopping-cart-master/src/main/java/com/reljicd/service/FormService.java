@@ -22,4 +22,6 @@ public interface FormService {
 	List<Form> findAllFormsByApprover1(String approver1);
 	List<Form> findAllFormsByApprover2(String approver2);
 
+	void withdrawForm(Form form);
+
 }
