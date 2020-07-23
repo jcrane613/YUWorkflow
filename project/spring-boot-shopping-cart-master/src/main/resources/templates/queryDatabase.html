@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+    <div>
+        <a th:href="@{'/reminders/sendAllReminders'}" class="col-md-3"
+           sec:authorize="hasRole('ROLE_ADMIN')" >
+            <button type="button" class="btn btn-primary" th:inline="text">Search</button>
+            <div th:if="${successMessage}" class="alert alert-info" th:utext="${successMessage}"></div>
+        </a>
+    </div>
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
