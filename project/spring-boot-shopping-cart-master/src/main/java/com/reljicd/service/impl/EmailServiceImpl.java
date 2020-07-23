@@ -29,9 +29,6 @@ public class EmailServiceImpl implements EmailService {
 	
     @Autowired
     private JavaMailSender emailSender;
-    
-    @Autowired
-    private SimpleMailMessage templateSimpleMessage;
  
     @Override
     public void sendSimpleMessage(String to, String subject, String text) {
@@ -43,16 +40,6 @@ public class EmailServiceImpl implements EmailService {
         emailSender.send(message); 
     }
     
-    public void sendSimpleTemplatedMessage(String to, String subject, String text) { 
-        SimpleMailMessage message = this.templateSimpleMessage; 
-        message.setFrom("noreply@yuredteam.com");
-        message.setTo(to); 
-        message.setSubject(subject); 
-        String formattedText = String.format(message.getText(), text);
-        message.setText(formattedText);
-        emailSender.send(message);
-    }
-
 	@Override
 	public void sendNextMessage(Long formId) throws MessagingException {
 		String nextApproverEmail = "";
@@ -67,7 +54,6 @@ public class EmailServiceImpl implements EmailService {
 			nextApproverEmail = "yaircaplan@gmail.com";
 			String text = String.format("Form #%d has just been completely approved", form.getId());
 			this.sendSimpleMessage(nextApproverEmail, "Registrar Form Completion Notification", text);
-			//this.sendSimpleMessage(form.getStudentEmail(), "Registrar Form Completed", text);
 			this.sendStudentApprovalMessage(formId);
 		} 		
 	}

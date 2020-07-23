@@ -56,13 +56,12 @@ public class ShoppingCartController {
         }
         if (changeTS != null) {
             modelAndView.addObject("changeTS", changeTS);
+            modelAndView.addObject("comments", changeTS.getCommentsArray());
         }
         if (leaveOfAb != null) {
             modelAndView.addObject("leaveOfAb", leaveOfAb);
-        }
-        // TODO for when the new forms have comments, add to if statements above
-        // if (changeTS != null) modelAndView.addObject("comments", changeTS.getCommentsArray());
-        // if (leaveOfAb != null) modelAndView.addObject("comments", leaveOfAb.getCommentsArray());        
+            modelAndView.addObject("comments", leaveOfAb.getCommentsArray());   
+        }     
         CommentHolder commentHolder = new CommentHolder();
 		modelAndView.addObject("commentHolder", commentHolder);
 		modelAndView.setViewName("/shoppingCart");
@@ -72,8 +71,20 @@ public class ShoppingCartController {
     @RequestMapping(value = "/shoppingCart", method = RequestMethod.POST)
 	public String formSubmit(@Valid CommentHolder commentHolder, BindingResult bindingResult) {
 		Form form = shoppingCartService.getForm();
-		form.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
-		formService.saveForm(form);
+        ChangeTS changeTS = shoppingCartService.getChangeTSForm();
+        LeaveOfAb leaveOfAb = shoppingCartService.getLeaveOfAbForm();
+		if (form != null) {
+			form.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
+			formService.saveForm(form);
+		}
+		if (changeTS != null) {
+			changeTS.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
+			changeTSService.saveForm(changeTS);
+		}
+		if (leaveOfAb != null) {
+			leaveOfAb.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
+			leaveOfAbService.saveForm(leaveOfAb);
+		}
 		return "redirect:/shoppingCart/";
 	}
     

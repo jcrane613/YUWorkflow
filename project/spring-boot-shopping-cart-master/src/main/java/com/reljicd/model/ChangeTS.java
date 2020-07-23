@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -106,6 +107,9 @@ public class ChangeTS {
 
 	@Column(name = "status")
 	private String status = "OPEN";
+	
+	@Column(name = "comments", length = 10000) 
+	private String comments = "";	
 
 	@Column(name = "tracking_id")
 	private String trackingId = UUID.randomUUID().toString();
@@ -322,6 +326,14 @@ public class ChangeTS {
 
 	public void setTrackingId(String trackingId) {
 		this.trackingId = trackingId;
+	}
+	
+	public void addComment(String commentor, String comment) {
+		this.comments += String.format("Comment from %s at %s -> %s ### ", commentor, (new Date()).toString(), comment);
+	}
+	
+	public String[] getCommentsArray() {
+		return this.comments.split(" ### ");
 	}
 
 }

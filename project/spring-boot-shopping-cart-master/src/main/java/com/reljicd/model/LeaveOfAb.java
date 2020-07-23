@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -89,6 +91,9 @@ public class LeaveOfAb{
 
 	@Column(name = "status")
 	private String status = "OPEN";
+	
+	@Column(name = "comments", length = 10000) 
+	private String comments = "";	
 
 	@Column(name = "tracking_id")
 	private String trackingId = UUID.randomUUID().toString();
@@ -291,6 +296,14 @@ public class LeaveOfAb{
 
 	public void setTrackingId(String trackingId) {
 		this.trackingId = trackingId;
+	}
+	
+	public void addComment(String commentor, String comment) {
+		this.comments += String.format("Comment from %s at %s -> %s ### ", commentor, (new Date()).toString(), comment);
+	}
+	
+	public String[] getCommentsArray() {
+		return this.comments.split(" ### ");
 	}
 
 }
