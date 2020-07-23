@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+    <div>
+        <a th:href="@{/admin/allSettings/changeApproversSettingsHome/changeMajorDeclarationApprovers}">Change Major Declaration Approvers</a>
+    </div>
+    <div>
+        <a th:href="@{/changeTS}">Change Torah Studies Approvers</a>
+    </div>
+    <div>
+        <a th:href="@{/leaveOfAb}">Change Leave of Absence Approvers</a>
+    </div>
+
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>

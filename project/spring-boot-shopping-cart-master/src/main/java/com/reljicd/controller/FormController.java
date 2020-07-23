@@ -62,6 +62,10 @@ public class FormController {
 		schoolToDeanMap.put("RIETS", "approver2");
 	}
 
+	public void setNewMajorFormApprover(String major , String newApprover){
+		majorToApproverMap.put(major , newApprover);
+	}
+
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
 	public ModelAndView form() {
 		ModelAndView modelAndView = new ModelAndView();

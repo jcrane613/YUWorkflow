@@ -41,7 +41,7 @@
                 </ul>
 				<!-- show reminders only if user is authenticated as an admin -->
 				<ul class="nav navbar-nav" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <li class="active"><a th:href="@{/admin/settings}">Settings</a></li>
+                    <li class="active"><a th:href="@{/admin/allSettings}">Settings</a></li>
                 </ul>
                 <!-- show registration only if user is not yet authenticated -->
                 <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">

@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+    <div>
+        <a th:href="@{/admin/settings}">Student Reminder Settings</a>
+    </div>
+    <div>
+        <a th:href="@{/admin/allSettings/changeApproversSettingsHome}">Change Approvers</a>
+    </div>
+
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
