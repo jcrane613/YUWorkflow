@@ -3,10 +3,8 @@
 
 <head>
 
-    <!-- this is header -->
     <div th:fragment="header">
-        <title  th:attr="data-custom=#{thymeleaf.app.title}">Shop</title>
-        <!--TODO proveriti jel moguce ubaciti ovu vrednost-->
+        <title  th:attr="data-custom=#{thymeleaf.app.title}">Registrar Forms Processing</title>
 
         <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
               th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
@@ -23,7 +21,6 @@
 
 <body>
 
-<!-- this is header -->
 <div th:fragment="navbar">
     <nav class="navbar navbar-inverse">
         <div class="container">
@@ -34,10 +31,6 @@
                 <a class="navbar-brand" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/dashboard}">Admin Dashboard</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse navbar-right">
-                <!-- show shoppingCart only if user is not yet authenticated -->
-               <!-- <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-                    <li class="active"><a th:href="@{/shoppingCart}">Shopping Cart</a></li>
-                </ul>-->
 				<!-- show tracking page always -->
                 <ul class="nav navbar-nav" sec:authorize="true">
                     <li class="active"><a th:href="@{/tracking}">Tracking</a></li>
