@@ -37,7 +37,7 @@ public class ChangeTS {
 
 	@Column(name = "mailAddress")
 	@NotEmpty(message = "*Please provide your mailing address")
-	private String mailAdress;
+	private String mailAddress;
 
 	@Column(name = "city")
 	@NotEmpty(message = "*Please provide your city")
@@ -267,12 +267,12 @@ public class ChangeTS {
 		this.city = city;
 	}
 
-	public String getMailAdress() {
-		return mailAdress;
+	public String getMailAddress() {
+		return mailAddress;
 	}
 
-	public void setMailAdress(String mailAdress) {
-		this.mailAdress = mailAdress;
+	public void setMailAddress(String mailAddress) {
+		this.mailAddress = mailAddress;
 	}
 
 	public String getSwitchIntoProgam() {
