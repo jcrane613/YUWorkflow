@@ -156,6 +156,9 @@ public class LeaveOfAb{
 			case 2:
 				result = this.approver2;
 				break;
+			case 3:
+				result = this.approver3;
+				break;
 		}
 		return result;
 	}

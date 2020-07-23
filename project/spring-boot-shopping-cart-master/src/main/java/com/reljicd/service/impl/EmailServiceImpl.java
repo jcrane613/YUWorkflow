@@ -1,20 +1,13 @@
 package com.reljicd.service.impl;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.reljicd.model.Form;
-import com.reljicd.model.Product;
 import com.reljicd.repository.FormRepository;
-import com.reljicd.repository.ProductRepository;
 import com.reljicd.repository.UserRepository;
 import com.reljicd.service.EmailService;
 

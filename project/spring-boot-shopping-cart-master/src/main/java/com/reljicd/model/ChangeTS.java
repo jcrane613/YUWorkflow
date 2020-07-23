@@ -102,7 +102,7 @@ public class ChangeTS {
 	private Integer current = 1;
 
 	@Column(name = "total_steps")
-	private Integer totalSteps = 2;
+	private Integer totalSteps = 3;
 
 	@Column(name = "status")
 	private String status = "OPEN";

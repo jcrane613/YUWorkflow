@@ -102,6 +102,22 @@ public class ShoppingCartController {
         return "redirect:/home";
     }
     
+    @GetMapping("/shoppingCart/approveChangeTSForm/{formId}")
+    public String approveChangeTSForm(@PathVariable("formId") Long formId) throws MessagingException {
+        changeTSService.findById(formId).ifPresent(shoppingCartService::approveChangeTSForm);
+        //emailService.sendNextMessage(formId);
+        return "redirect:/homeForTSForms";
+    }
+    
+    @GetMapping("/shoppingCart/approveLeaveOfAbForm/{formId}")
+    public String approveLeaveOfAbForm(@PathVariable("formId") Long formId) throws MessagingException {
+        leaveOfAbService.findById(formId).ifPresent(shoppingCartService::approveLeaveOfAbForm);
+        //emailService.sendNextMessage(formId);
+        return "redirect:/homeForLeaveOfAb";
+    }
+    
+    
+    
     @GetMapping("/shoppingCart/denyForm/{formId}")
     public String denyForm(@PathVariable("formId") Long formId) {
         formService.findById(formId).ifPresent(shoppingCartService::denyForm);

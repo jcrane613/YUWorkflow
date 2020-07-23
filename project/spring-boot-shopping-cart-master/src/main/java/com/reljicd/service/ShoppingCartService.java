@@ -14,6 +14,10 @@ public interface ShoppingCartService {
     
     void approveForm(Form form);
 
+    void approveChangeTSForm(ChangeTS form);
+
+    void approveLeaveOfAbForm(LeaveOfAb form);
+    
     void denyForm(Form form);
     
 	Form getForm();

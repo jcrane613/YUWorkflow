@@ -49,13 +49,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     
     @Override
     public void approveForm(Form form) {
-
     	form.setCurrent(form.getCurrent() + 1);
-    	if (form.getCurrent() > form.getTotalSteps()) {
-        	form.setStatus("APPROVED");
-		}
+    	if (form.getCurrent() > form.getTotalSteps()) form.setStatus("APPROVED");
     	this.form = null;
     }
+    
+    @Override
+	public void approveChangeTSForm(ChangeTS form) {
+    	form.setCurrent(form.getCurrent() + 1);
+    	if (form.getCurrent() > form.getTotalSteps()) form.setStatus("APPROVED");
+		this.changeTS = null;
+	}
+
+	@Override
+	public void approveLeaveOfAbForm(LeaveOfAb form) {
+		form.setCurrent(form.getCurrent() + 1);
+    	if (form.getCurrent() > form.getTotalSteps()) form.setStatus("APPROVED");
+		this.leaveOfAb = null;
+	}
     
     @Override
     public void denyForm(Form form) {
