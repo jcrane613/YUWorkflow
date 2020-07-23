@@ -122,7 +122,7 @@ public class TrackingController {
 		if (this.leaveOfAb != null && this.leaveOfAb.getTrackingId().equals(trackingId)) {
 			leaveOfAbService.withdrawForm(leaveOfAb);
 		}
-		return "redirect:/tracking/";
+		return "redirect:/tracking/"  + trackingId;
 	}
 		
 }
