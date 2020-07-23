@@ -20,7 +20,7 @@ public class ChangeTS {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "form")
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "name")

@@ -17,8 +17,8 @@
     </h1>
 
     <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
-
-    <div class="panel-default well">
+	
+    <div class="panel-default well" th:if="${form}">
         <div class="panel-heading">
             <h1 th:inline="text"> Form Id: [[${form.id}]]</h1>
             <h3 th:inline="text">Status: [[${form.status}]]</h3>
@@ -52,9 +52,80 @@
                 </div>
             </div>
 			
+			</form>
+        </div>
+    </div>
+	
+	<div class="panel-default well" th:if="${changeTS}">
+        <div class="panel-heading">
+            <h1 th:inline="text"> Form Id: [[${changeTS.id}]]</h1>
+            <h3 th:inline="text">Status: [[${changeTS.status}]]</h3>
+        </div>
+        <div class="row panel-body">
+			<div class="row panel-body" th:each="comment : ${comments}">
+				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+			</div>  
+       		<a th:href="@{'/shoppingCart/approveForm/{id}' (id=${changeTS.id})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
+            </a>
+			<a th:href="@{'/shoppingCart/denyForm/{id}' (id=${changeTS.id})}" class="col-md-1">
+            <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
+            </a>
+        </div>
+        <br></br>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/shoppingCart}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
 		</form>
         </div>
     </div>
+   
+	<div class="panel-default well" th:if="${leaveOfAb}">
+        <div class="panel-heading">
+            <h1 th:inline="text"> Form Id: [[${leaveOfAb.id}]]</h1>
+            <h3 th:inline="text">Status: [[${leaveOfAb.status}]]</h3>
+        </div>
+        <div class="row panel-body">
+            <div class="row panel-body" th:each="comment : ${comments}">
+				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+			</div>  
+       		<a th:href="@{'/shoppingCart/approveForm/{id}' (id=${leaveOfAb.id})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
+            </a>
+			<a th:href="@{'/shoppingCart/denyForm/{id}' (id=${leaveOfAb.id})}" class="col-md-1">
+            <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
+            </a>
+        </div>
+        <br></br>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/shoppingCart}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
+		</form>
+        </div>
+    </div>
+    
     <!--
     <div class="row panel-body">
         <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>

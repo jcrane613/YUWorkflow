@@ -1,30 +1,19 @@
 package com.reljicd.service.impl;
 
-import com.reljicd.exception.NotEnoughProductsInStockException;
+import com.reljicd.model.ChangeTS;
 import com.reljicd.model.Form;
-import com.reljicd.model.Product;
-import com.reljicd.repository.ProductRepository;
+import com.reljicd.model.LeaveOfAb;
 import com.reljicd.service.ShoppingCartService;
 import com.reljicd.util.CurrentState;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 /**
- * Shopping Cart is implemented with a Map, and as a session bean
+ * 
  *
  * @author Dusan
  */
@@ -33,36 +22,30 @@ import java.util.Set;
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
-    private final ProductRepository productRepository;
-
-    private Map<Product, Integer> products = new HashMap<>();
-    private Set<Form> forms = new HashSet<>();
     private Form form = null;
-
-    @Autowired
-    public ShoppingCartServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-    /**
-     * If product is in the map just increment quantity by 1.
-     * If product is not in the map with, add it with quantity 1
-     *
-     * @param product
-     */
-    @Override
-    public void addProduct(Product product) {
-        if (products.containsKey(product)) {
-            products.replace(product, products.get(product) + 1);
-        } else {
-            products.put(product, 1);
-        }
-    }
+    private LeaveOfAb leaveOfAb = null;
+    private ChangeTS changeTS = null;
     
     @Override
     public void addForm(Form form) {
     	this.form = form;
+    	this.changeTS = null;
+    	this.leaveOfAb = null;
     }
+    
+    @Override
+	public void addChangeTSForm(ChangeTS changeTS) {
+    	this.changeTS = changeTS; 
+    	this.form = null;
+    	this.leaveOfAb = null;
+	}
+
+	@Override
+	public void addLeaveOfAbForm(LeaveOfAb leaveOfAb) {
+		this.leaveOfAb = leaveOfAb;
+    	this.form = null;
+    	this.changeTS = null;
+	}
     
     @Override
     public void approveForm(Form form) {
@@ -82,41 +65,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     	form.setCurrent(new Integer(-1*denialStep));
     	this.form = null;
     }
-
-    /**
-     * If product is in the map with quantity > 1, just decrement quantity by 1.
-     * If product is in the map with quantity 1, remove it from map
-     *
-     * @param product
-     */
-    @Override
-    public void removeProduct(Product product) {
-        if (products.containsKey(product)) {
-            if (products.get(product) > 1)
-                products.replace(product, products.get(product) - 1);
-            else if (products.get(product) == 1) {
-                products.remove(product);
-            }
-        }
-    }
-
-    /**
-     * @return unmodifiable copy of the map
-     */
-    @Override
-    public Map<Product, Integer> getProductsInCart() {
-        return Collections.unmodifiableMap(products);
-    }
-    
-    @Override
-    public Set<Form> getFormsInCart() {
-    	Set<Form> result = new HashSet<>();
-    	for (Form form: this.forms) {
-        	if (form.getCurrentApprover().equals(CurrentState.getCurrentUsername())) result.add(form);
-        }
-    	return Collections.unmodifiableSet(result);
-    }
-    
+        
     @Override
 	public Form getForm() {
 		if (this.form != null && this.form.getCurrentApprover().equals(CurrentState.getCurrentUsername())) {
@@ -124,33 +73,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		}
     	return null;
 	}
-
-    /**
-     * Checkout will rollback if there is not enough of some product in stock
-     *
-     * @throws NotEnoughProductsInStockException
-     */
+    
     @Override
-    public void checkout() throws NotEnoughProductsInStockException {
-        Product product;
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            // Refresh quantity for every product before checking
-            product = productRepository.findOne(entry.getKey().getId());
-            if (product.getQuantity() < entry.getValue())
-                throw new NotEnoughProductsInStockException(product);
-            entry.getKey().setQuantity(product.getQuantity() - entry.getValue());
-        }
-        productRepository.save(products.keySet());
-        productRepository.flush();
-        products.clear();
-    }
-
+   	public ChangeTS getChangeTSForm() {
+   		if (this.changeTS != null && this.changeTS.getCurrentApprover().equals(CurrentState.getCurrentUsername())) {
+   			return this.changeTS;
+   		}
+       	return null;
+   	}
+    
     @Override
-    public BigDecimal getTotal() {
-        return products.entrySet().stream()
-                .map(entry -> entry.getKey().getPrice().multiply(BigDecimal.valueOf(entry.getValue())))
-                .reduce(BigDecimal::add)
-                .orElse(BigDecimal.ZERO);
-    }
+   	public LeaveOfAb getLeaveOfAbForm() {
+   		if (this.leaveOfAb != null && this.leaveOfAb.getCurrentApprover().equals(CurrentState.getCurrentUsername())) {
+   			return this.leaveOfAb;
+   		}
+       	return null;
+   	}
     
 }
