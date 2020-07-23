@@ -15,8 +15,14 @@
     <h1 class="jumbotron" th:if="${form}" th:inline="text">
         Tracking Page For Form: [[${form.trackingId}]]
     </h1>
+	<h1 class="jumbotron" th:if="${changeTS}" th:inline="text">
+        Tracking Page For Form: [[${changeTS.trackingId}]]
+    </h1>
+	<h1 class="jumbotron" th:if="${leaveOfAb}" th:inline="text">
+        Tracking Page For Form: [[${leaveOfAb.trackingId}]]
+    </h1>
 	
-	<h1 class="jumbotron" th:if="${form == null}">
+	<h1 class="jumbotron" th:if="${form == null AND changeTS == null AND leaveOfAb == null}">
         No form found with this tracking number
 		<br></br>
 		<a th:href="@{'/tracking'}" class="col-md-6">Return to tracking portal</a>
@@ -63,6 +69,84 @@
             <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
         </a>
     </div>
+
+
+	<div class="panel-default well" th:if="${changeTS}">
+        <div class="panel-heading">
+            <h1 th:inline="text"> Form Id: [[${changeTS.id}]]</h1>
+            <h3 th:inline="text">Status: [[${changeTS.status}]]</h3>
+        </div>
+        <div class="row panel-body">
+           
+            <div th:if="${changeTS.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Step: [[${changeTS.current}]]</div>           
+            <div th:if="${changeTS.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Approver: [[${currentApprover}]]</div>
+            <div th:if="${changeTS.status == 'DENIED'}" th:inline="text" class="col-md-5">Denied By: [[${denyer}]]</div>           	           	
+        </div>
+		<hr></hr>
+		<div class="row panel-body" th:each="comment : ${comments}">
+			<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+		</div>
+		<hr></hr>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/tracking/{trackingId} (trackingId=${changeTS.trackingId})}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
+		</form>
+        </div>
+        <br></br>
+		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
+        </a>
+    </div>
+    
+
+	<div class="panel-default well" th:if="${leaveOfAb}">
+        <div class="panel-heading">
+            <h1 th:inline="text"> Form Id: [[${leaveOfAb.id}]]</h1>
+            <h3 th:inline="text">Status: [[${leaveOfAb.status}]]</h3>
+        </div>
+        <div class="row panel-body">   
+            <div th:if="${leaveOfAb.status == 'OPEN'}" th:inline="text" class="col-md-2">Current Step: [[${leaveOfAb.current}]]</div>           
+            <div th:if="${leaveOfAb.status == 'OPEN'}" th:inline="text" class="col-md-2">Current Approver: [[${currentApprover}]]</div>
+            <div th:if="${leaveOfAb.status == 'DENIED'}" th:inline="text" class="col-md-2">Denied By: [[${denyer}]]</div>           	           	
+        </div>
+		<hr></hr>
+		<div class="row panel-body" th:each="comment : ${comments}">
+			<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+		</div>
+		<hr></hr>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/tracking/{trackingId} (trackingId=${leaveOfAb.trackingId})}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
+		</form>
+        </div>
+        <br></br>
+		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
+        </a>
+    </div>
+    
     <!--
     <div class="row panel-body">
         <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
