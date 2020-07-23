@@ -65,7 +65,7 @@
 		</form>
         </div>
         <br></br>
-		<a sec:authorize="!isAuthenticated()" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-2">
+		<a sec:authorize="!isAuthenticated()" th:if="${form.status == 'OPEN'}" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-2">
             <button type="button" class="btn btn-danger" th:inline="text">Withdraw Form</button>
         </a>
 		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
@@ -118,7 +118,7 @@
 		</form>
         </div>
         <br></br>
-		<a sec:authorize="!isAuthenticated()" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-2">
+		<a sec:authorize="!isAuthenticated()" th:if="${changeTS.status == 'OPEN'}" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-2">
             <button type="button" class="btn btn-danger" th:inline="text">Withdraw Form</button>
         </a>
 		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-1">
@@ -169,7 +169,7 @@
 		</form>
         </div>
         <br></br>
-		<a sec:authorize="!isAuthenticated()" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-2">
+		<a sec:authorize="!isAuthenticated()" th:if="${leaveOfAb.status == 'OPEN'}" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-2">
             <button type="button" class="btn btn-danger" th:inline="text">Withdraw Form</button>
         </a>
 		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-1">
