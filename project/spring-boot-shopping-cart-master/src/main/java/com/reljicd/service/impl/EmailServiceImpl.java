@@ -115,18 +115,18 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendInitialStudentMessage(Form form) throws MessagingException {
+	public void sendInitialStudentMessage(String studentEmail, String trackingId) throws MessagingException {
 		MimeMessage mimeMessage = emailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-		String trackingUrl = "http://localhost:8070/tracking/" + form.getTrackingId();
+		String trackingUrl = "http://localhost:8070/tracking/" + trackingId;
 		String htmlMsg = String.format(
 				"<h3>Your form has been submitted!</h3>"
 				+ "<br></br>"
 				+ "<h4> Please click <a href=\"%s\">here</a> to track it,"
 				+ " or visit <a href=\"http://localhost:8070/tracking/\"> the tracking portal </a> and enter your tracking code: %s</h4>"	
-				, trackingUrl, form.getTrackingId());
+				, trackingUrl, trackingId);
 		helper.setText(htmlMsg, true);
-		helper.setTo(form.getStudentEmail());
+		helper.setTo(studentEmail);
 		helper.setSubject("Registrar Forms Update");
 		helper.setFrom("yuredteam@gmail.com");
 		emailSender.send(mimeMessage);

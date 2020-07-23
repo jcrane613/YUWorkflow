@@ -2,7 +2,9 @@ package com.reljicd.service;
 
 import javax.mail.MessagingException;
 
+import com.reljicd.model.ChangeTS;
 import com.reljicd.model.Form;
+import com.reljicd.model.LeaveOfAb;
 
 public interface EmailService {
 
@@ -16,7 +18,6 @@ public interface EmailService {
 
 	public void sendStudentApprovalMessage(Long formId) throws MessagingException;
 
-	public void sendInitialStudentMessage(Form form) throws MessagingException;
-
+	public void sendInitialStudentMessage(String studentEmail, String trackingId) throws MessagingException;
 
 }
