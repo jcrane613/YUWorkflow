@@ -2,6 +2,7 @@ package com.reljicd.repository;
 
 import com.reljicd.model.ChangeTS;
 import com.reljicd.model.Form;
+import com.reljicd.model.LeaveOfAb;
 import com.reljicd.model.Product;
 
 import java.util.List;
@@ -23,5 +24,6 @@ public interface ChangeTSRepository extends JpaRepository<ChangeTS, Long> {
 	List<ChangeTS> findAllByApprover2(String approver2);
 	List<ChangeTS> findAllByApprover3(String approver3);
 	Optional<ChangeTS> findByTrackingId(String trackingId);
+	Optional<ChangeTS> findByName(String name);
 
 }

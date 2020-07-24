@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+>
 
 <head>
     <div th:replace="/fragments/header :: header"/>
@@ -10,14 +11,31 @@
 <div th:replace="/fragments/header :: navbar"/>
 
 <div class="container">
-    <div>
-        <a th:href="@{'/reminders/sendAllReminders'}" class="col-md-3"
-           sec:authorize="hasRole('ROLE_ADMIN')" >
-            <button type="button" class="btn btn-primary" th:inline="text">Search</button>
-            <div th:if="${successMessage}" class="alert alert-info" th:utext="${successMessage}"></div>
+    <h1>
+        Enter a students name to search across all forms:
+        <form action="#" th:action="@{/queryDatabase}"
+              th:object="${query}" method="post" role="form">
+            <div class="form-group">
+                <input type="text" th:field="*{studentName}" placeholder="Student Name "
+                       class="form-control input-lg"/>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Search"/>
+                </div>
+            </div>
+
+        </form>
+    </h1>
+
+    <!--
+    <div class="row panel-body">
+        <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
+        <a th:href="@{'/shoppingCart/checkout'}" class="col-md-1">
+            <button type="button" class="btn btn-danger" th:text="Checkout">Checkout</button>
         </a>
     </div>
-
+    -->
 </div>
 
 <div th:replace="/fragments/footer :: footer"/>

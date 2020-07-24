@@ -22,4 +22,6 @@ public interface LeaveOfAbRepository extends JpaRepository<LeaveOfAb, Long> {
 	List<LeaveOfAb> findAllByApprover1(String approver1);
 	List<LeaveOfAb> findAllByApprover2(String approver2);
 	Optional<LeaveOfAb> findByTrackingId(String trackingId);
+	Optional<LeaveOfAb> findByName(String name);
+
 }

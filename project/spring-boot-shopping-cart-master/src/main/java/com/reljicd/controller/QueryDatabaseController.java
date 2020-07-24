@@ -1,56 +1,82 @@
 package com.reljicd.controller;
+
 import javax.mail.MessagingException;
+import javax.validation.Valid;
+
+import com.reljicd.model.*;
+import com.reljicd.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.reljicd.service.RemindersService;
+
+import com.reljicd.util.CurrentState;
 
 @Controller
 public class QueryDatabaseController {
 
-	private final RemindersService remindersService;
+	private final QueryService queryService;
+	private Form form = null;
+	private ChangeTS changeTS = null;
+	private LeaveOfAb leaveOfAb = null;
 
 	@Autowired
-	public QueryDatabaseController(RemindersService remindersService) {
-		this.remindersService = remindersService;
+	public QueryDatabaseController(QueryService queryService) {
+		this.queryService = queryService;
 	}
 
-	private String successMessage = "";
-
-	@RequestMapping(value = "/reminders", method = RequestMethod.GET)
-	public ModelAndView reminders() {
+	@RequestMapping(value = "/queryDatabase", method = RequestMethod.GET)
+	public ModelAndView tracking() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/reminders");
-		modelAndView.addObject("successMessage", successMessage);
+		Query query = new Query();
+		modelAndView.addObject("query", query);
+		modelAndView.setViewName("/queryDatabase");
+		this.form = null;
+		this.changeTS = null;
+		this.leaveOfAb = null;
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/reminders/sendAllReminders", method = RequestMethod.GET)
-	public String sendAllReminders() {
-		try {
-			remindersService.sendAllReminders();
-			successMessage = "Reminders Sent Successfully!";
-		} catch (MessagingException e) {
-			e.printStackTrace();
-			successMessage = "There was an error sending the reminders: " + e.getLocalizedMessage();
+	@RequestMapping(value = "/queryDatabase", method = RequestMethod.POST)
+	public String formSubmit(@Valid Query query, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "redirect:/queryDatabase";
+		} else {
+			return "redirect:/queryDatabase/" + query.getStudentName();
 		}
-		return "redirect:/reminders";
 	}
 
-	@RequestMapping(value = "/reminders/sendReminder/{trackingId}", method = RequestMethod.GET)
-	public String sendReminder(@PathVariable("trackingId") String trackingId) {
-		try {
-			remindersService.sendReminder(trackingId);
-		} catch (MessagingException e) {
-			e.printStackTrace();
+	@RequestMapping(value = "/queryDatabase/{studentName}", method = RequestMethod.GET)
+	public ModelAndView trackById(@PathVariable("studentName") String studentName) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/queryDatabase");
+		CommentHolder commentHolder = new CommentHolder();
+		this.form = queryService.getFormsByName(studentName);
+		modelAndView.addObject("form", form);
+		this.changeTS = queryService.getChangeTSFormByName(studentName);
+		modelAndView.addObject("changeTS", changeTS);
+		this.leaveOfAb = queryService.getLeaveOfAbFormByName(studentName);
+		modelAndView.addObject("leaveOfAb", leaveOfAb);
+		modelAndView.addObject("commentHolder", commentHolder);
+		if (this.form != null) {
+			modelAndView.addObject("currentApprover", form.getCurrentApprover());
+			modelAndView.addObject("denyer", form.getDenyer());
+			modelAndView.addObject("comments", form.getCommentsArray());
 		}
-		return "redirect:/tracking/"+trackingId;
+		else if (this.changeTS != null) {
+			modelAndView.addObject("currentApprover", changeTS.getCurrentApprover());
+			modelAndView.addObject("denyer", changeTS.getDenyer());
+			modelAndView.addObject("comments", changeTS.getCommentsArray());
+		}
+		else if (this.leaveOfAb != null) {
+			modelAndView.addObject("currentApprover", leaveOfAb.getCurrentApprover());
+			modelAndView.addObject("denyer", leaveOfAb.getDenyer());
+			modelAndView.addObject("comments", leaveOfAb.getCommentsArray());
+		}
+		return modelAndView;
 	}
-
-
 }
-
 

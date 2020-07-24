@@ -39,6 +39,9 @@
                 <ul class="nav navbar-nav" sec:authorize="hasRole('ROLE_ADMIN')">
                     <li class="active"><a th:href="@{/reminders}">Reminders</a></li>
                 </ul>
+                <ul class="nav navbar-nav" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="active"><a th:href="@{/queryDatabase}">Search</a></li>
+                </ul>
 				<!-- show reminders only if user is authenticated as an admin -->
 				<ul class="nav navbar-nav" sec:authorize="hasRole('ROLE_ADMIN')">
                     <li class="active"><a th:href="@{/admin/settings}">Settings</a></li>
