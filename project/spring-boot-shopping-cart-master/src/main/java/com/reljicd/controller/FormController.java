@@ -1,5 +1,6 @@
 package com.reljicd.controller;
 
+import com.reljicd.config.GlobalSettings;
 import com.reljicd.model.ChangeTS;
 import com.reljicd.model.Form;
 import com.reljicd.model.LeaveOfAb;
@@ -23,45 +24,24 @@ import java.util.Map;
 @Controller
 public class FormController {
 
-	private Map<String , String> majorToApproverMap = new HashMap<>();
-	private Map<String , String> torahStudiesToApproverMap = new HashMap<>();
-	private Map<String , String> schoolToDeanMap = new HashMap<>();
 	private final FormService formService;
 	private final EmailService emailService;
 	private final UserRepository userRepository;
 	private final LeaveOfAbService leaveOfAbService;
 	private final ChangeTSService changeTSService;
+	private GlobalSettings globalSettings;
 
 	@Autowired
-	public FormController(FormService formService, EmailService emailService, UserRepository userRepository, LeaveOfAbService leaveOfAbService, ChangeTSService changeTSService) {
+	public FormController(FormService formService, EmailService emailService, UserRepository userRepository,
+			LeaveOfAbService leaveOfAbService, ChangeTSService changeTSService, GlobalSettings globalSettings) {
 		this.formService = formService;
 		this.emailService = emailService;
 		this.userRepository = userRepository;
 		this.leaveOfAbService = leaveOfAbService;
 		this.changeTSService = changeTSService;
-		populateMap();
+		this.globalSettings = globalSettings;
 	}
-	private void populateMap(){
-		//This is the form table for the major decleartion form
-		majorToApproverMap.put("COM" , "approver1");
-		majorToApproverMap.put("ART" , "approver2");
-		majorToApproverMap.put("MAT" , "approver3");
-		majorToApproverMap.put("JST" , "approver4");
-		majorToApproverMap.put("HIS" , "approver5");
-		majorToApproverMap.put("LAW" , "approver6");
-		majorToApproverMap.put("GEM" , "approver7");
-
-		//This is the form table for the change of torah studies
-		torahStudiesToApproverMap.put("IBC" , "approver1");
-		torahStudiesToApproverMap.put("Mechinah/JSS" , "approver2");
-		torahStudiesToApproverMap.put("MYP" , "approver3");
-		torahStudiesToApproverMap.put("SBMP" , "approver4");
-
-		//This is the form table for the leave of absence
-		schoolToDeanMap.put("KATZ", "approver1");
-		schoolToDeanMap.put("RIETS", "approver2");
-	}
-
+	
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
 	public ModelAndView form() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -79,13 +59,13 @@ public class FormController {
 			modelAndView.setViewName("/form");
 		} else {
 
-			String approver1 = majorToApproverMap.get((form.getMajor()));
-			form.setApprover1(majorToApproverMap.get((form.getMajor())));
+			String approver1 = globalSettings.majorToApproverMap.get((form.getMajor()));
+			form.setApprover1(globalSettings.majorToApproverMap.get((form.getMajor())));
 			form.setApprover2("approver2");
 			formService.saveForm(form);
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processForm/"+form.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "shoppingCart/processForm/"+form.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -119,15 +99,15 @@ public class FormController {
 			modelAndView.setViewName("/changeTS");
 		}
 		else {
-			String approver1 = torahStudiesToApproverMap.get((changeTS.getSwitchIntoProgam()));
+			String approver1 = globalSettings.torahStudiesToApproverMap.get((changeTS.getSwitchIntoProgam()));
 			changeTS.setApprover1(approver1);
 			changeTS.setApprover2("approver2");
-			changeTS.setApprover3(torahStudiesToApproverMap.get((changeTS.getCurrentProgram())));
+			changeTS.setApprover3(globalSettings.torahStudiesToApproverMap.get((changeTS.getCurrentProgram())));
 			changeTSService.saveForm(changeTS);
 
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processChangeTSForm/"+changeTS.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "shoppingCart/processChangeTSForm/"+changeTS.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -163,15 +143,15 @@ public class FormController {
 			modelAndView.setViewName("/leaveOfAb");
 		}
 		else {
-			leaveOfAb.setApprover1("approver1");//This is the registrar
-			String approver2 = schoolToDeanMap.get((leaveOfAb.getSchool()));
+			leaveOfAb.setApprover1(globalSettings.leaveOfAbApprover1);//This is the registrar
+			String approver2 = globalSettings.schoolToDeanMap.get((leaveOfAb.getSchool()));
 			leaveOfAb.setApprover2(approver2);
-			leaveOfAb.setApprover3("approver1");//this is for the registrar
+			leaveOfAb.setApprover3(globalSettings.leaveOfAbApprover3);//this is for the registrar
 			leaveOfAbService.saveForm(leaveOfAb);
 
 			String approver1Email = userRepository.findByUsername(approver2).get().getEmail();
 			try {
-				emailService.sendNewApprovalHtmlMessage(approver1Email, ("http://localhost:8070/shoppingCart/processLeaveOfAbForm/"+leaveOfAb.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "shoppingCart/processLeaveOfAbForm/"+leaveOfAb.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}

@@ -1,5 +1,6 @@
 package com.reljicd.controller;
 
+import com.reljicd.config.GlobalSettings;
 import com.reljicd.model.Settings;
 import com.reljicd.model.User;
 import com.reljicd.service.UserService;
@@ -15,11 +16,11 @@ import javax.validation.Valid;
 @Controller
 public class SettingsController {
 
-    private final Settings settings;
-
+	private GlobalSettings globalSettings;
+	
     @Autowired
-    public SettingsController(Settings settings) {
-        this.settings = settings;
+    public SettingsController(GlobalSettings globalSettings) {
+    	this.globalSettings = globalSettings;
     }
 
     @RequestMapping(value = "/admin/settings", method = RequestMethod.GET)
@@ -37,9 +38,13 @@ public class SettingsController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("/settings");
         } else {
-            this.settings.setAllowStudentReminders(settings.isAllowStudentReminders());
+            globalSettings.setAllowStudentReminders(settings.isAllowStudentReminders());
+            globalSettings.setDaysBeforeReminder(settings.getDaysBeforeReminder());
+            globalSettings.setRegistrarEmail(settings.getRegistrarEmail());
+            globalSettings.majorToApproverMap.put("COM", settings.getCOM_routing());
         	modelAndView.addObject("successMessage", "Settings saved successfully");
             modelAndView.addObject("settings", new Settings());
+            modelAndView.addObject("globalSettings", globalSettings);            
             modelAndView.setViewName("/settings");
         }
         return modelAndView;

@@ -25,6 +25,9 @@
     <nav class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
+                <img src="../../images/yuLogo.png" alt="YU Logo" width="60" height="50"/>
+            </div>
+			<div class="navbar-header">
                 <a class="navbar-brand" sec:authorize="hasRole('ROLE_USER')" th:href="@{/userDashboard}">My Dashboard</a>
             </div>
 			<div class="navbar-header">
