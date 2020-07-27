@@ -7,6 +7,7 @@ public class Settings {
 	private boolean allowStudentReminders;
 	private int daysBeforeReminder; 
 	private String registrarEmail;
+	private String accessibleWebsiteUrl;
 	
 	// Major Declaration Routing Table
 	private String COM_routing;
@@ -38,5 +39,11 @@ public class Settings {
 	}
 	public void setCOM_routing(String cOM_routing) {
 		COM_routing = cOM_routing;
+	}
+	public String getAccessibleWebsiteUrl() {
+		return accessibleWebsiteUrl;
+	}
+	public void setAccessibleWebsiteUrl(String accessibleWebsiteUrl) {
+		this.accessibleWebsiteUrl = accessibleWebsiteUrl;
 	}
 }

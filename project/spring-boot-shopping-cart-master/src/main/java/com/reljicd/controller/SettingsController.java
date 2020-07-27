@@ -41,6 +41,7 @@ public class SettingsController {
             globalSettings.setAllowStudentReminders(settings.isAllowStudentReminders());
             globalSettings.setDaysBeforeReminder(settings.getDaysBeforeReminder());
             globalSettings.setRegistrarEmail(settings.getRegistrarEmail());
+            globalSettings.setAccessibleWebsiteUrl(settings.getAccessibleWebsiteUrl());     
             globalSettings.majorToApproverMap.put("COM", settings.getCOM_routing());
         	modelAndView.addObject("successMessage", "Settings saved successfully");
             modelAndView.addObject("settings", new Settings());
