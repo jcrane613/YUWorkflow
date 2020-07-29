@@ -19,10 +19,11 @@ public class GlobalSettings {
 	public Map<String , String> torahStudiesToApproverMap = new HashMap<>();
 
 	// Leave Of Absence Settings
-	public String leaveOfAbApprover1 = "approver1";
+	//public String leaveOfAbApprover1 = "approver1";
 	public String leaveOfAbApprover2 = "approver2";
 	public String leaveOfAbApprover3 = "approver1";
 	public Map<String , String> schoolToDeanMap = new HashMap<>();
+	public String registrar = "approver1";
 
 
 	
@@ -65,8 +66,8 @@ public class GlobalSettings {
 	}
 	
 	// Leave Of Absence Setters
-	public void setLeaveOfAbApprover1(String leaveOfAbApprover1) {
-		this.leaveOfAbApprover1 = leaveOfAbApprover1;
+	public void setRegistrar(String registrar) {
+		this.registrar = registrar;
 	}
 	public void setLeaveOfAbApprover2(String leaveOfAbApprover2) {
 		this.leaveOfAbApprover2 = leaveOfAbApprover2;

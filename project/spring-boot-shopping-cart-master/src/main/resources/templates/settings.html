@@ -39,7 +39,7 @@
             	</div>
 
 				<div class="col-md-12">
-					<span class="col-md-4">
+					<span class="col-md-6">
 						<h3> MAJOR ROUTING </h3>	
 						<div class="form-group">
 		                COM: <input type="text" th:field="*{com_dean}" placeholder="COM Dean"
@@ -70,8 +70,18 @@
 		                       class="form-control input-lg"/>
 		            	</div>
 					</span>
-		
-					<span class="col-md-4">
+					
+					<span class="col-md-6">
+						<h3> SCHOOL ROUTING </h3>
+						<div class="form-group">
+		                KATZ: <input type="text" th:field="*{katz_dean}" placeholder="KATZ Dean"
+		                       class="form-control input-lg"/>
+		            	</div>
+						<div class="form-group">
+		                RIETS: <input type="text" th:field="*{riets_dean}" placeholder="RIETS Dean"
+		                       class="form-control input-lg"/>
+		            	</div>
+						<br/>
 						<h3> TORAH STUDIES ROUTING </h3>
 						<div class="form-group">
 		                IBC: <input type="text" th:field="*{ibc_dean}" placeholder="IBC Dean"
@@ -89,30 +99,17 @@
 		                SBMP: <input type="text" th:field="*{sbmp_dean}" placeholder="SBMP Dean"
 		                       class="form-control input-lg"/>
 		            	</div>
-					</span>
-					
-					<span class="col-md-4">
-						<h3> SCHOOL ROUTING </h3>
-						<div class="form-group">
-		                KATZ: <input type="text" th:field="*{katz_dean}" placeholder="KATZ Dean"
-		                       class="form-control input-lg"/>
-		            	</div>
-						<div class="form-group">
-		                RIETS: <input type="text" th:field="*{riets_dean}" placeholder="RIETS Dean"
-		                       class="form-control input-lg"/>
-		            	</div>
-					</span>
+					</span>	
 				</div>
-
                 <br> </br>
-                    <div class="col-sm-3" style="float: none; margin: 0 auto;">
+					<div class="col-sm-3" >
                         <input type="submit" class="btn btn-primary btn-block" value="Save"/>
                     </div>
 					<br></br>
-					<div class="col-sm-3" style="float: none; margin: 0 auto;">
+					<div class="col-sm-3" >
                         <input type="reset" class="btn btn-primary btn-block" value="Undo Changes"/>
                     </div>
-
+				
             </form>
         </div>
     </div>

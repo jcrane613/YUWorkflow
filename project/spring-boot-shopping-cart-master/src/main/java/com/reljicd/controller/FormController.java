@@ -143,13 +143,13 @@ public class FormController {
 			modelAndView.setViewName("/leaveOfAb");
 		}
 		else {
-			leaveOfAb.setApprover1(globalSettings.leaveOfAbApprover1);//This is the registrar
-			String approver2 = globalSettings.schoolToDeanMap.get((leaveOfAb.getSchool()));
-			leaveOfAb.setApprover2(approver2);
-			leaveOfAb.setApprover3(globalSettings.leaveOfAbApprover3);//this is for the registrar
+			leaveOfAb.setApprover1(globalSettings.registrar);//This is the registrar
+			String schoolDean = globalSettings.schoolToDeanMap.get((leaveOfAb.getSchool()));
+			leaveOfAb.setApprover2(schoolDean);
+			leaveOfAb.setApprover3(globalSettings.registrar);//this is for the registrar
 			leaveOfAbService.saveForm(leaveOfAb);
 
-			String approver1Email = userRepository.findByUsername(approver2).get().getEmail();
+			String approver1Email = userRepository.findByUsername(globalSettings.registrar).get().getEmail();
 			try {
 				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "shoppingCart/processLeaveOfAbForm/"+leaveOfAb.getId()) );
 			} catch (MessagingException e) {
