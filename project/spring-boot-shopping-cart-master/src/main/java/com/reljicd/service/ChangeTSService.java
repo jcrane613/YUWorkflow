@@ -25,5 +25,6 @@ public interface ChangeTSService {
 	List<ChangeTS> findAllFormsByApprover1(String approver1);
 	List<ChangeTS> findAllFormsByApprover2(String approver2);
 	List<ChangeTS> findAllFormsByApprover3(String approver3);
+	void withdrawForm(ChangeTS changeTS);
 
 }

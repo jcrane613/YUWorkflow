@@ -14,15 +14,32 @@
 
 <div class="container">
 
-    <div th:unless="${homeIsExpanded}">
-        <a th:href="@{/admin/dashboard/home}">Total Major Declaration Forms </a> (<h6 th:text="${totalMajorForms}"></h6>)
-    </div>
-	<div th:if="${homeIsExpanded}">
-		<a th:href="@{/admin/dashboard/}">Total Major Declaration Forms </a> (<h6 th:text="${totalMajorForms}"></h6>)
-	</div>
+    <span class="col-md-4" th:unless="${homeIsExpanded}">
+	    <a th:href="@{/admin/dashboard/home}" th:inline="text"> <h4>Total Major Declaration Forms: ([[${totalMajorForms}]])</h4> </a>     
+    </span>
+	<span class="col-md-4" th:if="${homeIsExpanded}">
+		<a th:href="@{/admin/dashboard/}" th:inline="text"> <h4><u><strong>Total Major Declaration Forms: ([[${totalMajorForms}]])</strong></u></h4> </a>
+	</span>
+	
+	<span class="col-md-4" th:unless="${changeTSIsExpanded}">
+	    <a th:href="@{/admin/dashboard/changeTS}" th:inline="text"> <h4>Total Change Torah Studies Forms: ([[${totalChangeTSForms}]])</h4> </a>     
+    </span>
+	<span class="col-md-4" th:if="${changeTSIsExpanded}">
+		<a th:href="@{/admin/dashboard/}" th:inline="text"> <h4><u><strong>Total Change Torah Studies Forms: ([[${totalChangeTSForms}]])</strong></u></h4> </a>
+	</span>
+	
+	<span class="col-md-4" th:unless="${leaveOfAbIsExpanded}">
+        <a th:href="@{/admin/dashboard/leaveOfAb}" th:inline="text"> <h4>Total Leave of Absence Forms: ([[${totalLeaveOfAbForms}]])</h4> </a> 
+    </span>
+	<span class="col-md-4" th:if="${leaveOfAbIsExpanded}">
+		<a th:href="@{/admin/dashboard/}" th:inline="text"> <h4><u><strong>Total Leave of Absence Forms: ([[${totalLeaveOfAbForms}]])</strong></u></h4> </a>
+	</span>
+	<br></br>
+	<hr/>
+	<br></br>
 	<div class="panel-default well" th:each="form : ${majorForms}">
         <div class="panel-heading">
-            Major Declaration Form #<h1 th:text="${form.id}"></h1> | Status: <h2 th:text="${form.status}"></h2>
+            Major Declaration Form #<h1 th:text="${form.id}"></h1>  Status: <h2 th:text="${form.status}"></h2>
         </div>
         <br></br>
         Step in Approval:<h3 th:text="${form.current}" class="panel-body">Major</h3>
@@ -30,31 +47,19 @@
             <button type="button" class="btn btn-primary" th:text="Track">Track</button>
         </a>
     </div>
-
-	<div th:unless="${changeTSIsExpanded}">
-        <a th:href="@{/admin/dashboard/changeTS}">Total Change Torah Studies Forms </a> (<h6 th:text="${totalChangeTSForms}"></h6>)
-    </div>
-	<div th:if="${changeTSIsExpanded}">
-		<a th:href="@{/admin/dashboard/}">Total Change Torah Studies Forms </a> (<h6 th:text="${totalChangeTSForms}"></h6>)
-	</div>
+	
 	<div class="panel-default well" th:each="form : ${changeTSForms}">
         <div class="panel-heading">
-            Change Torah Studies Form #<h1 th:text="${form.id}"></h1> | Status: <h2 th:text="${form.status}"></h2>
+            Change Torah Studies Form #<h1 th:text="${form.id}"></h1>  Status: <h2 th:text="${form.status}"></h2>
         </div>
         <br></br>
         Step in Approval:<h3 th:text="${form.current}" class="panel-body">step</h3>
 		<!-- the following line is wrong, because no tracking id yet on changeTS form -->
-		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.id})}" class="col-md-1">
+		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:text="Track">Track</button>
         </a>
     </div>
-
-	<div th:unless="${leaveOfAbIsExpanded}">
-        <a th:href="@{/admin/dashboard/leaveOfAb}">Total Leave of Absence Forms </a> (<h6 th:text="${totalLeaveOfAbForms}"></h6>)
-    </div>
-	<div th:if="${leaveOfAbIsExpanded}">
-		<a th:href="@{/admin/dashboard/}">Total Leave of Absence Forms </a> (<h6 th:text="${totalLeaveOfAbForms}"></h6>)
-	</div>
+	
 	<div class="panel-default well" th:each="form : ${leaveOfAbForms}">
         <div class="panel-heading">
             Leave Of Absence Form #<h1 th:text="${form.id}"></h1> Status: <h2 th:text="${form.status}"></h2>
@@ -62,7 +67,7 @@
         <br></br>
         Step in Approval:<h3 th:text="${form.current}" class="panel-body">step</h3>
 		<!-- the following line is wrong, because no tracking id yet on leaveOfAb form -->
-		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.id})}" class="col-md-1">
+		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:text="Track">Track</button>
         </a>
     </div>

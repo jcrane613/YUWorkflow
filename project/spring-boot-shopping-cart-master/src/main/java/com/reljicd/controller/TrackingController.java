@@ -110,4 +110,20 @@ public class TrackingController {
 		}
 		return "redirect:/tracking/" + trackingId;
 	}
+	@RequestMapping(value = "/tracking/withdraw/{trackingId}", method = RequestMethod.GET)
+	public String withdraw(@PathVariable("trackingId") String trackingId) {
+		if (this.form != null && this.form.getTrackingId().equals(trackingId)) {
+			formService.withdrawForm(form);
+		}
+		if (this.changeTS != null && this.changeTS.getTrackingId().equals(trackingId)) {
+			changeTSService.withdrawForm(changeTS);
+		}
+		if (this.leaveOfAb != null && this.leaveOfAb.getTrackingId().equals(trackingId)) {
+			leaveOfAbService.withdrawForm(leaveOfAb);
+		}
+		return "redirect:/tracking/"  + trackingId;
+	}
+		
 }
+
+

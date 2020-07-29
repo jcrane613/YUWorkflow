@@ -63,4 +63,8 @@ public class LeaveOfAbServiceImpl implements LeaveOfAbService {
 	public List<LeaveOfAb> findAllForms() {
 		return leaveOfAbRepository.findAll();
 	}
+	@Override
+	public void withdrawForm(LeaveOfAb leaveOfAb) {
+		leaveOfAbRepository.delete(leaveOfAb);
+	}
 }

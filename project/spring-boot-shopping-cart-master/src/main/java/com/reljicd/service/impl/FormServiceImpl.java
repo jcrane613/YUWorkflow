@@ -61,4 +61,8 @@ public class FormServiceImpl implements FormService {
 	public List<Form> findAllForms() {
 		return formRepository.findAll();
 	}
+	@Override
+	public void withdrawForm(Form form) {
+		formRepository.delete(form);		
+	}
 }
