@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.reljicd.config.GlobalSettings;
 import com.reljicd.model.ChangeTS;
 import com.reljicd.model.CommentHolder;
 import com.reljicd.model.Form;
@@ -29,13 +30,16 @@ public class TrackingController {
 	private final FormService formService;
 	private final ChangeTSService changeTSService;
 	private final LeaveOfAbService leaveOfAbService;
+	private GlobalSettings globalSettings;
 	private Form form = null;
 	private ChangeTS changeTS = null;
 	private LeaveOfAb leaveOfAb = null;
 
     @Autowired
-    public TrackingController(TrackingService trackingService, FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService) {
+    public TrackingController(TrackingService trackingService, GlobalSettings globalSettings, 
+    		FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService) {
         this.trackingService = trackingService; 
+        this.globalSettings = globalSettings;
         this.formService = formService;
         this.changeTSService = changeTSService;
         this.leaveOfAbService = leaveOfAbService;
@@ -89,6 +93,10 @@ public class TrackingController {
 			modelAndView.addObject("denyer", leaveOfAb.getDenyer());
 			modelAndView.addObject("comments", leaveOfAb.getCommentsArray());
 		}
+		// allow send reminder if student reminders are allowed by global settings, or if authenticated
+		boolean sendReminderAllowed = globalSettings.studentRemindersAllowed || 
+				        (!CurrentState.getCurrentUsername().equals("anonymousUser"));
+		modelAndView.addObject("sendReminderAllowed", sendReminderAllowed);
 		return modelAndView;
 	}
 	
