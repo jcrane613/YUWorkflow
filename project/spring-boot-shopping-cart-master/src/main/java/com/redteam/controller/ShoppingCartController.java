@@ -8,7 +8,6 @@ import com.redteam.service.ChangeTSService;
 import com.redteam.service.EmailService;
 import com.redteam.service.FormService;
 import com.redteam.service.LeaveOfAbService;
-import com.redteam.service.ProductService;
 import com.redteam.service.ShoppingCartService;
 import com.redteam.util.CurrentState;
 
@@ -34,7 +33,7 @@ public class ShoppingCartController {
     private final EmailService emailService;
 
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService, 
+    public ShoppingCartController(ShoppingCartService shoppingCartService,
     		FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService, 
     		EmailService emailService) {
         this.shoppingCartService = shoppingCartService;

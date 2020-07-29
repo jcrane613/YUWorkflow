@@ -4,9 +4,7 @@ package com.redteam.util;
 import com.redteam.model.ChangeTS;
 import org.springframework.data.domain.Page;
 
-/**
- * @author Dusan Raljic
- */
+
 public class ChangeTSFormPager {
 
 	private final Page<ChangeTS> forms;

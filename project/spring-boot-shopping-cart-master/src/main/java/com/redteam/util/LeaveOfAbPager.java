@@ -4,9 +4,7 @@ package com.redteam.util;
 import com.redteam.model.LeaveOfAb;
 import org.springframework.data.domain.Page;
 
-/**
- * @author Dusan Raljic
- */
+
 public class LeaveOfAbPager {
 
 	private final Page<LeaveOfAb> forms;
