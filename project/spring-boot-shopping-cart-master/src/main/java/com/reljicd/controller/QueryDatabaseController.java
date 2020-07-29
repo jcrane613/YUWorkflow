@@ -41,7 +41,7 @@ public class QueryDatabaseController {
 	}
 
 	@RequestMapping(value = "/queryDatabase", method = RequestMethod.POST)
-	public String formSubmit(@Valid Query query, BindingResult bindingResult) {
+	public String querySubmit(@Valid Query query, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "redirect:/queryDatabase";
 		} else {
@@ -50,9 +50,9 @@ public class QueryDatabaseController {
 	}
 
 	@RequestMapping(value = "/queryDatabase/{studentName}", method = RequestMethod.GET)
-	public ModelAndView trackById(@PathVariable("studentName") String studentName) {
+	public ModelAndView queryGlobal(@PathVariable("studentName") String studentName) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/queryDatabase");
+		modelAndView.setViewName("/queryReturn");
 		CommentHolder commentHolder = new CommentHolder();
 		this.form = queryService.getFormsByName(studentName);
 		modelAndView.addObject("form", form);

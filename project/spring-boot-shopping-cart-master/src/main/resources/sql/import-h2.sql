@@ -13,10 +13,10 @@ VALUES (3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'name
         'Surname', 1);
 INSERT INTO USER (user_id, password, email, username, name, last_name, active)
 VALUES
-  (4, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'yaircaplan@gmail.com', 'approver1', 'approver1', 'Doe', 1);
+  (4, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'yaircapan@gmail.com', 'approver1', 'approver1', 'Doe', 1);
 INSERT INTO USER (user_id, password, email, username, name, last_name, active)
 VALUES
-  (5, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'jmcaplan@mail.yu.edu', 'approver2', 'approver2', 'Doe', 1);
+  (5, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'jmcalan@mail.yu.edu', 'approver2', 'approver2', 'Doe', 1);
 
 INSERT INTO ROLE (role_id, role)
 VALUES (1, 'ROLE_ADMIN');
@@ -36,6 +36,7 @@ VALUES (4, 2);
 INSERT INTO USER_ROLE (user_id, role_id)
 VALUES (5, 2);
 
+/*
 INSERT INTO PRODUCT (name, description, quantity, price)
 VALUES ('Soap', 'Pears baby soap for Kids', 1, 35.75);
 INSERT INTO PRODUCT (name, description, quantity, price)
@@ -56,3 +57,5 @@ INSERT INTO PRODUCT (name, description, quantity, price)
 VALUES ('Leather Wallets', 'Imported Leather Wallets from AUS', 1000, 500.00);
 INSERT INTO PRODUCT (name, description, quantity, price)
 VALUES ('Camera', 'Imported Canon camera from USA', 10, 85000.00);
+
+ */
