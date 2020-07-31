@@ -2,7 +2,7 @@ package workflow.service.impl;
 
 import workflow.model.ChangeTS;
 import workflow.model.LeaveOfAb;
-import workflow.service.ShoppingCartService;
+import workflow.service.ProcessingPageService;
 import workflow.util.CurrentState;
 import workflow.model.Form;
 
@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 @Service
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Transactional
-public class ShoppingCartServiceImpl implements ShoppingCartService {
+public class ProcessingPageServiceImpl implements ProcessingPageService {
 
     private Form form = null;
     private LeaveOfAb leaveOfAb = null;

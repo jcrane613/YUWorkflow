@@ -30,16 +30,16 @@
 			<div class="row panel-body" th:each="comment : ${comments}">
 				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
 			</div>  
-       		<a th:href="@{'/shoppingCart/approveForm/{id}' (id=${form.id})}" class="col-md-1">
+       		<a th:href="@{'/processingPage/approveForm/{id}' (id=${form.id})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
             </a>
-			<a th:href="@{'/shoppingCart/denyForm/{id}' (id=${form.id})}" class="col-md-1">
+			<a th:href="@{'/processingPage/denyForm/{id}' (id=${form.id})}" class="col-md-1">
             <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
             </a>
         </div>
         <br></br>
 		<div class="row panel-body">
-			<form action="#" th:action="@{/shoppingCart}"
+			<form action="#" th:action="@{/processingPage}"
               th:object="${commentHolder}" method="post" role="form">
 			 <div class="form-group">
                 Comment:
@@ -78,17 +78,17 @@
 				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
 			</div>  
 			<div>
-	       		<a th:href="@{'/shoppingCart/approveChangeTSForm/{id}' (id=${changeTS.id})}" class="col-md-1">
+	       		<a th:href="@{'/processingPage/approveChangeTSForm/{id}' (id=${changeTS.id})}" class="col-md-1">
 	            <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
 	            </a>
-				<a th:href="@{'/shoppingCart/denyChangeTSForm/{id}' (id=${changeTS.id})}" class="col-md-1">
+				<a th:href="@{'/processingPage/denyChangeTSForm/{id}' (id=${changeTS.id})}" class="col-md-1">
 	            <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
 	            </a>
 			</div>
         </div>
         <br></br>
 		<div class="row panel-body">
-			<form action="#" th:action="@{/shoppingCart}"
+			<form action="#" th:action="@{/processingPage}"
               th:object="${commentHolder}" method="post" role="form">
 			 <div class="form-group">
                 Comment:
@@ -125,17 +125,17 @@
 				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
 			</div>  
 			<div>
-	       		<a th:href="@{'/shoppingCart/approveLeaveOfAbForm/{id}' (id=${leaveOfAb.id})}" class="col-md-1">
+	       		<a th:href="@{'/processingPage/approveLeaveOfAbForm/{id}' (id=${leaveOfAb.id})}" class="col-md-1">
 	            <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
 	            </a>
-				<a th:href="@{'/shoppingCart/denyLeaveOfAbForm/{id}' (id=${leaveOfAb.id})}" class="col-md-1">
+				<a th:href="@{'/processingPage/denyLeaveOfAbForm/{id}' (id=${leaveOfAb.id})}" class="col-md-1">
 	            <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
 	            </a>
 			</div>
         </div>
         <br></br>
 		<div class="row panel-body">
-			<form action="#" th:action="@{/shoppingCart}"
+			<form action="#" th:action="@{/processingPage}"
               th:object="${commentHolder}" method="post" role="form">
 			 <div class="form-group">
                 Comment:
@@ -151,15 +151,7 @@
 		</form>
         </div>
     </div>
-    
-    <!--
-    <div class="row panel-body">
-        <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
-        <a th:href="@{'/shoppingCart/checkout'}" class="col-md-1">
-            <button type="button" class="btn btn-danger" th:text="Checkout">Checkout</button>
-        </a>
-    </div>
-    -->
+   
 </div>
 
 <div th:replace="/fragments/footer :: footer"/>

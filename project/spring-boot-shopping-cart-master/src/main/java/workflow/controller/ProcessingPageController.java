@@ -9,7 +9,7 @@ import workflow.service.ChangeTSService;
 import workflow.service.EmailService;
 import workflow.service.FormService;
 import workflow.service.LeaveOfAbService;
-import workflow.service.ShoppingCartService;
+import workflow.service.ProcessingPageService;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
@@ -24,30 +24,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ShoppingCartController {
+public class ProcessingPageController {
 
-    private final ShoppingCartService shoppingCartService;
+    private final ProcessingPageService processingPageService;
     private final FormService formService;
     private final ChangeTSService changeTSService;
     private final LeaveOfAbService leaveOfAbService;
     private final EmailService emailService;
 
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartService, FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService,
+    public ProcessingPageController(ProcessingPageService processingPageService, FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService,
     		EmailService emailService) {
-        this.shoppingCartService = shoppingCartService;
+        this.processingPageService = processingPageService;
         this.formService = formService;
         this.changeTSService = changeTSService;
         this.leaveOfAbService = leaveOfAbService;
         this.emailService = emailService;
     }
 
-    @GetMapping("/shoppingCart")
-    public ModelAndView shoppingCart() {
+    @GetMapping("/processingPage")
+    public ModelAndView processingPage() {
         ModelAndView modelAndView = new ModelAndView();
-        Form form = shoppingCartService.getForm();
-        ChangeTS changeTS = shoppingCartService.getChangeTSForm();
-        LeaveOfAb leaveOfAb = shoppingCartService.getLeaveOfAbForm();
+        Form form = processingPageService.getForm();
+        ChangeTS changeTS = processingPageService.getChangeTSForm();
+        LeaveOfAb leaveOfAb = processingPageService.getLeaveOfAbForm();
         if (form != null) {
             modelAndView.addObject("form", form);
         	modelAndView.addObject("comments", form.getCommentsArray());
@@ -62,15 +62,15 @@ public class ShoppingCartController {
         }     
         CommentHolder commentHolder = new CommentHolder();
 		modelAndView.addObject("commentHolder", commentHolder);
-		modelAndView.setViewName("/shoppingCart");
+		modelAndView.setViewName("/processingPage");
         return modelAndView;
     }
     
-    @RequestMapping(value = "/shoppingCart", method = RequestMethod.POST)
+    @RequestMapping(value = "/processingPage", method = RequestMethod.POST)
 	public String formSubmit(@Valid CommentHolder commentHolder, BindingResult bindingResult) {
-		Form form = shoppingCartService.getForm();
-        ChangeTS changeTS = shoppingCartService.getChangeTSForm();
-        LeaveOfAb leaveOfAb = shoppingCartService.getLeaveOfAbForm();
+		Form form = processingPageService.getForm();
+        ChangeTS changeTS = processingPageService.getChangeTSForm();
+        LeaveOfAb leaveOfAb = processingPageService.getLeaveOfAbForm();
 		if (form != null) {
 			form.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
 			formService.saveForm(form);
@@ -83,52 +83,52 @@ public class ShoppingCartController {
 			leaveOfAb.addComment(CurrentState.getCurrentUsername(), commentHolder.getComment());
 			leaveOfAbService.saveForm(leaveOfAb);
 		}
-		return "redirect:/shoppingCart/";
+		return "redirect:/processingPage/";
 	}
     
-    @GetMapping("/shoppingCart/processForm/{formId}")
+    @GetMapping("/processingPage/processForm/{formId}")
     public String addFormToCart(@PathVariable("formId") Long formId) {
-        formService.findById(formId).ifPresent(shoppingCartService::addForm);
-        return "redirect:/shoppingCart";
+        formService.findById(formId).ifPresent(processingPageService::addForm);
+        return "redirect:/processingPage";
     }
     
-    @GetMapping("/shoppingCart/processChangeTSForm/{formId}")
+    @GetMapping("/processingPage/processChangeTSForm/{formId}")
     public String addChangeTSFormToCart(@PathVariable("formId") Long formId) {
-        changeTSService.findById(formId).ifPresent(shoppingCartService::addChangeTSForm);
-        return "redirect:/shoppingCart";
+        changeTSService.findById(formId).ifPresent(processingPageService::addChangeTSForm);
+        return "redirect:/processingPage";
     }
     
-    @GetMapping("/shoppingCart/processLeaveOfAbForm/{formId}")
+    @GetMapping("/processingPage/processLeaveOfAbForm/{formId}")
     public String addLeaveOfAbFormToCart(@PathVariable("formId") Long formId) {
-        leaveOfAbService.findById(formId).ifPresent(shoppingCartService::addLeaveOfAbForm);
-        return "redirect:/shoppingCart";
+        leaveOfAbService.findById(formId).ifPresent(processingPageService::addLeaveOfAbForm);
+        return "redirect:/processingPage";
     }
     
-    @GetMapping("/shoppingCart/approveForm/{formId}")
+    @GetMapping("/processingPage/approveForm/{formId}")
     public String approveForm(@PathVariable("formId") Long formId) throws MessagingException {
-        formService.findById(formId).ifPresent(shoppingCartService::approveForm);
+        formService.findById(formId).ifPresent(processingPageService::approveForm);
         emailService.sendNextMessage(formId);
         return "redirect:/home";
     }
     
-    @GetMapping("/shoppingCart/approveChangeTSForm/{formId}")
+    @GetMapping("/processingPage/approveChangeTSForm/{formId}")
     public String approveChangeTSForm(@PathVariable("formId") Long formId) throws MessagingException {
-        changeTSService.findById(formId).ifPresent(shoppingCartService::approveChangeTSForm);
+        changeTSService.findById(formId).ifPresent(processingPageService::approveChangeTSForm);
         emailService.sendNextChangeTSMessage(formId);
         return "redirect:/homeForTSForms";
     }
     
-    @GetMapping("/shoppingCart/approveLeaveOfAbForm/{formId}")
+    @GetMapping("/processingPage/approveLeaveOfAbForm/{formId}")
     public String approveLeaveOfAbForm(@PathVariable("formId") Long formId) throws MessagingException {
-        leaveOfAbService.findById(formId).ifPresent(shoppingCartService::approveLeaveOfAbForm);
+        leaveOfAbService.findById(formId).ifPresent(processingPageService::approveLeaveOfAbForm);
         emailService.sendNextLeaveOfAbMessage(formId);
         return "redirect:/homeForLeaveOfAb";
     }
     
-    @GetMapping("/shoppingCart/denyForm/{formId}")
+    @GetMapping("/processingPage/denyForm/{formId}")
     public String denyForm(@PathVariable("formId") Long formId) {
         Form form = formService.findById(formId).orElse(null);
-    	if (form != null) shoppingCartService.denyForm(form);
+    	if (form != null) processingPageService.denyForm(form);
         try {
 			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
@@ -137,10 +137,10 @@ public class ShoppingCartController {
         return "redirect:/home";
     }
     
-    @GetMapping("/shoppingCart/denyChangeTSForm/{formId}")
+    @GetMapping("/processingPage/denyChangeTSForm/{formId}")
     public String denyChangeTSForm(@PathVariable("formId") Long formId) {
     	ChangeTS form = changeTSService.findById(formId).orElse(null);
-    	if (form != null) shoppingCartService.denyChangeTSForm(form);
+    	if (form != null) processingPageService.denyChangeTSForm(form);
         try {
 			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
@@ -149,10 +149,10 @@ public class ShoppingCartController {
         return "redirect:/homeForTSForms";
     }
     
-    @GetMapping("/shoppingCart/denyLeaveOfAbForm/{formId}")
+    @GetMapping("/processingPage/denyLeaveOfAbForm/{formId}")
     public String denyLeaveOfAbForm(@PathVariable("formId") Long formId) {
     	LeaveOfAb form = leaveOfAbService.findById(formId).orElse(null);
-    	if (form != null) shoppingCartService.denyLeaveOfAbForm(form);
+    	if (form != null) processingPageService.denyLeaveOfAbForm(form);
         try {
 			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {

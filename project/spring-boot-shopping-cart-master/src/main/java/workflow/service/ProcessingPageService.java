@@ -4,7 +4,7 @@ import workflow.model.ChangeTS;
 import workflow.model.LeaveOfAb;
 import workflow.model.Form;
 
-public interface ShoppingCartService {
+public interface ProcessingPageService {
     
     void addForm(Form form);
     

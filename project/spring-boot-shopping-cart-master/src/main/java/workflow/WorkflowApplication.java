@@ -9,10 +9,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @SpringBootApplication
-public class ShoppingCartApplication {
+public class WorkflowApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShoppingCartApplication.class, args);
+        SpringApplication.run(WorkflowApplication.class, args);
     }
     
     @Bean
