@@ -4,9 +4,6 @@ package workflow.util;
 import workflow.model.LeaveOfAb;
 import org.springframework.data.domain.Page;
 
-/**
- * @author Dusan Raljic
- */
 public class LeaveOfAbPager {
 
 	private final Page<LeaveOfAb> forms;

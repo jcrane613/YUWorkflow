@@ -4,9 +4,7 @@ package workflow.util;
 import workflow.model.Form;
 import org.springframework.data.domain.Page;
 
-/**
- * @author Dusan Raljic
- */
+
 public class Pager {
 
     private final Page<Form> forms;

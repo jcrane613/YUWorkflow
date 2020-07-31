@@ -9,7 +9,6 @@ import workflow.service.ChangeTSService;
 import workflow.service.EmailService;
 import workflow.service.FormService;
 import workflow.service.LeaveOfAbService;
-import workflow.service.ProductService;
 import workflow.service.ShoppingCartService;
 
 import javax.mail.MessagingException;
@@ -34,8 +33,7 @@ public class ShoppingCartController {
     private final EmailService emailService;
 
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService,
-    		FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService, 
+    public ShoppingCartController(ShoppingCartService shoppingCartService, FormService formService, ChangeTSService changeTSService, LeaveOfAbService leaveOfAbService,
     		EmailService emailService) {
         this.shoppingCartService = shoppingCartService;
         this.formService = formService;
