@@ -68,7 +68,7 @@
 		<a sec:authorize="!isAuthenticated()" th:if="${form.status == 'OPEN'}" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-2">
             <button type="button" class="btn btn-danger" th:inline="text">Withdraw Form</button>
         </a>
-		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
+		<a th:if="${sendReminderAllowed}" th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
         </a>
     </div>
@@ -121,7 +121,7 @@
 		<a sec:authorize="!isAuthenticated()" th:if="${changeTS.status == 'OPEN'}" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-2">
             <button type="button" class="btn btn-danger" th:inline="text">Withdraw Form</button>
         </a>
-		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-1">
+		<a th:if="${sendReminderAllowed}" th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
         </a>
     </div>
@@ -172,7 +172,7 @@
 		<a sec:authorize="!isAuthenticated()" th:if="${leaveOfAb.status == 'OPEN'}" th:href="@{'/tracking/withdraw/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-2">
             <button type="button" class="btn btn-danger" th:inline="text">Withdraw Form</button>
         </a>
-		<a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-1">
+		<a th:if="${sendReminderAllowed}" th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-1">
             <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
         </a>
     </div>

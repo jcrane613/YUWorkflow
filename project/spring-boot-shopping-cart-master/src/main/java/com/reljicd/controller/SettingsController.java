@@ -1,5 +1,6 @@
 package com.reljicd.controller;
 
+import com.reljicd.config.GlobalSettings;
 import com.reljicd.model.Settings;
 import com.reljicd.model.User;
 import com.reljicd.service.UserService;
@@ -15,17 +16,17 @@ import javax.validation.Valid;
 @Controller
 public class SettingsController {
 
-    private final Settings settings;
-
+	private GlobalSettings globalSettings;
+	
     @Autowired
-    public SettingsController(Settings settings) {
-        this.settings = settings;
+    public SettingsController(GlobalSettings globalSettings) {
+    	this.globalSettings = globalSettings;
     }
 
     @RequestMapping(value = "/admin/settings", method = RequestMethod.GET)
     public ModelAndView settings() {
         ModelAndView modelAndView = new ModelAndView();
-        Settings settings = new Settings();
+        Settings settings = new Settings(globalSettings);
         modelAndView.addObject("settings", settings);
         modelAndView.setViewName("/settings");
         return modelAndView;
@@ -37,11 +38,36 @@ public class SettingsController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("/settings");
         } else {
-            this.settings.setAllowStudentReminders(settings.isAllowStudentReminders());
+            updateSettings(settings);
         	modelAndView.addObject("successMessage", "Settings saved successfully");
-            modelAndView.addObject("settings", new Settings());
+            modelAndView.addObject("settings", new Settings(globalSettings));
+            modelAndView.addObject("globalSettings", globalSettings);            
             modelAndView.setViewName("/settings");
         }
         return modelAndView;
+    }
+    
+    private void updateSettings(Settings settings) {
+    	globalSettings.setAllowStudentReminders(settings.isAllowStudentReminders());
+        globalSettings.setDaysBeforeReminder(settings.getDaysBeforeReminder());
+        globalSettings.setRegistrarEmail(settings.getRegistrarEmail());
+        globalSettings.setAccessibleWebsiteUrl(settings.getAccessibleWebsiteUrl());     
+        
+        globalSettings.majorToApproverMap.put("COM", settings.getCom_dean());
+        globalSettings.majorToApproverMap.put("ART", settings.getArt_dean());
+        globalSettings.majorToApproverMap.put("MAT", settings.getMat_dean());
+        globalSettings.majorToApproverMap.put("JST", settings.getJst_dean());
+        globalSettings.majorToApproverMap.put("HIS", settings.getHis_dean());
+        globalSettings.majorToApproverMap.put("LAW", settings.getLaw_dean());
+        globalSettings.majorToApproverMap.put("GEM", settings.getGem_dean());
+        
+        globalSettings.torahStudiesToApproverMap.put("IBC", settings.getIbc_dean());
+        globalSettings.torahStudiesToApproverMap.put("Mechinah/JSS", settings.getJss_dean());
+        globalSettings.torahStudiesToApproverMap.put("MYP", settings.getMyp_dean());
+        globalSettings.torahStudiesToApproverMap.put("SBMP", settings.getSbmp_dean());
+
+        globalSettings.schoolToDeanMap.put("KATZ", settings.getKatz_dean());
+        globalSettings.schoolToDeanMap.put("RIETS", settings.getRiets_dean());
+
     }
 }
