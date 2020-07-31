@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.reljicd</groupId>
-    <artifactId>shopping-cart</artifactId>
+    <groupId>workflow</groupId>
+    <artifactId>registrar-workflow</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>shopping-cart</name>
-    <description>Demo project for Spring Boot Shopping Cart</description>
+    <name>registrar-workflow</name>
+    <description>Demo project for Spring Boot Registrar Workflow</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
