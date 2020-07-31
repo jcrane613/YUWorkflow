@@ -23,9 +23,9 @@
     </h1>
 
     <h1 class="jumbotron" th:if="${form == null AND changeTS == null AND leaveOfAb == null}">
-        No form found with the inputted fields
+        No form found with the inputted field
         <br></br>
-        <a th:href="@{'/queryDatabase'}" class="col-md-6">Return to tracking portal</a>
+        <a th:href="@{'/queryDatabase'}" class="col-md-6">Return to search all the other documents with  portal</a>
     </h1>
     <!--
     <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>

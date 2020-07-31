@@ -16,7 +16,11 @@
         <form action="#" th:action="@{/queryDatabase}"
               th:object="${query}" method="post" role="form">
             <div class="form-group">
-                <input type="text" th:field="*{studentName}" placeholder="Student Name "
+                <input type="text" th:field="*{studentName}" placeholder="Student's First Name "
+                       class="form-control input-lg"/>
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{lastName}" placeholder="Student's Last Name "
                        class="form-control input-lg"/>
             </div>
             <div class="row">
