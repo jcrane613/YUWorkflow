@@ -9,10 +9,18 @@ This java-based web app was built for Yeshiva University's registrar office to a
 ## Functionality
 
 ### Core Functionality
-Students have the ability to fill out and submit a form. On submission, the student receives an email confirmation that their form has been received.
-![19889_en_1](https://user-images.githubusercontent.com/54420584/89215698-1ce88580-d597-11ea-8572-91723f36f509.jpg)
+Students have the ability to fill out and submit a form. 
 
-The user (dean/administrator/office) who is first in the submitted form's unique workflow will receive an email notifying them that they have a for to approve. The user can login and view their personal dashboard which lists all forms that require their approval and choose to approve, deny, and/or comment on each form.
+On submission, the student receives an email confirmation that their form has been received.
+
+The user (dean/administrator/office) who is first in the submitted form's 
+unique workflow will receive an email notifying them that they have a for 
+to approve. The user can login and view their personal dashboard which lists 
+all forms that require their approval and choose to approve, deny, and/or comment 
+on each form.
+
+![image](https://user-images.githubusercontent.com/54420584/89216235-0abb1700-d598-11ea-9574-279660421877.png)
+
 
 Once approved, the form will either be sent to the next approver or, if the workflow has been completed, the student will receive an email notifying them whether their form has been approved or denied.
 
