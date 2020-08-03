@@ -14,8 +14,6 @@ deans and administrators.
 Students have the ability to fill out and submit a form. On submission, the student receives 
 an email confirmation that their form has been received.
 
-![alt text](https://gyazo.com/e00241fa0607ffde29b26053985f51ff)
-
 The user (dean/administrator/office) who is first in the submitted form's 
 unique workflow will receive an email notifying them that they have a form 
 to approve. The user can login and view their personal dashboard which lists 
