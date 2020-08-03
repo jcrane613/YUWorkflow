@@ -3,7 +3,9 @@
 
 
 ## About
-This java-based web app was built for Yeshiva University's registrar office to allow for form submission and tracking for students as well as multilevel, dynamic approval workflows for deans and administrators. 
+This java-based web app was built for Yeshiva University's registrar office to allow for form 
+submission and tracking for students as well as multilevel, dynamic approval workflows for 
+deans and administrators. 
 
 
 ## Functionality
@@ -14,7 +16,7 @@ Students have the ability to fill out and submit a form.
 On submission, the student receives an email confirmation that their form has been received.
 
 The user (dean/administrator/office) who is first in the submitted form's 
-unique workflow will receive an email notifying them that they have a for 
+unique workflow will receive an email notifying them that they have a form 
 to approve. The user can login and view their personal dashboard which lists 
 all forms that require their approval and choose to approve, deny, and/or comment 
 on each form.
@@ -23,7 +25,7 @@ Once approved, the form will either be sent to the next approver or, if the work
 
 ### Additional Features 
 1. **Form Tracking Page** 
-In their submission confirmation email, student receive a tracking number for their form which they can use to track the status of their form in the workflow and comment on it.
+- In their submission confirmation email, student receive a tracking number for their form which they can use to track the status of their form in the workflow and comment on it.
 2. **Admin Settings Page**
 3. **Query Page**
 
@@ -34,7 +36,7 @@ In their submission confirmation email, student receive a tracking number for th
 - **Thymeleaf** for dynamic front-end
 - **JavaMailSender** for confirmation and reminder emails
 - **Spring Data JPA**
-- Database is in-memory **H2**
+- **H2** in-memory database
 
 ## How to run
 
