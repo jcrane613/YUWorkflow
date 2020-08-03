@@ -30,7 +30,7 @@ In their submission confirmation email, student receive a tracking number for th
 - **Spring Data JPA**
 - Database is in-memory **H2**
 
-
+## How to run
 
 ## Helper Tools
 
