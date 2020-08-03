@@ -22,6 +22,8 @@ to approve. The user can login and view their personal dashboard which lists
 all forms that require their approval and choose to approve, deny, and/or comment 
 on each form.
 
+![Form Approval](media/approval.gif)
+
 Once approved, the form will either be sent to the next approver or, if the workflow has been completed, the student will receive an email notifying them whether their form has been approved or denied.
 
 ### Additional Features 
