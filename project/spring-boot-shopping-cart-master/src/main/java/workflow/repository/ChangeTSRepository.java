@@ -23,5 +23,4 @@ public interface ChangeTSRepository extends JpaRepository<ChangeTS, Long> {
 	Optional<ChangeTS> findByTrackingId(String trackingId);
 	Optional<ChangeTS> findByName(String name);
 	Optional<ChangeTS> findByLastName(String lastName);
-
 }
