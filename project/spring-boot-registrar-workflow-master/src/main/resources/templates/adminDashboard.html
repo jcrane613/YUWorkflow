@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+    <style>
+        h6   {display: inline;}
+    </style>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+	<div>
+	 <form autocomplete="off" action="#" th:action="@{/admin/dashboard}"
+              th:object="${filterBy}" method="post" role="form">
+		<div class="form-group">
+                Status:
+                <label th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
+                       class="alert alert-danger"></label>
+                <select name = "status" th:field="*{status}" placeholder="All" >
+                    <option value="ALL">All</option>
+					<option value="OPEN">Open</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="DENIED">Denied</option>
+                </select>
+			<span>
+			<input type="submit" class="btn btn-primary btn-block" value="Filter (will show all forms)"/>
+			</span>
+        </div>
+	 </form>
+	</div>
+
+    <span class="col-md-4" th:unless="${homeIsExpanded}">
+	    <a th:href="@{/admin/dashboard/home}" th:inline="text"> <h4>Total Major Declaration Forms: ([[${totalMajorForms}]])</h4> </a>     
+    </span>
+	<span class="col-md-4" th:if="${homeIsExpanded}">
+		<a th:href="@{/admin/dashboard/}" th:inline="text"> <h4><u><strong>Total Major Declaration Forms: ([[${totalMajorForms}]])</strong></u></h4> </a>
+	</span>
+	
+	<span class="col-md-4" th:unless="${changeTSIsExpanded}">
+	    <a th:href="@{/admin/dashboard/changeTS}" th:inline="text"> <h4>Total Change Torah Studies Forms: ([[${totalChangeTSForms}]])</h4> </a>     
+    </span>
+	<span class="col-md-4" th:if="${changeTSIsExpanded}">
+		<a th:href="@{/admin/dashboard/}" th:inline="text"> <h4><u><strong>Total Change Torah Studies Forms: ([[${totalChangeTSForms}]])</strong></u></h4> </a>
+	</span>
+	
+	<span class="col-md-4" th:unless="${leaveOfAbIsExpanded}">
+        <a th:href="@{/admin/dashboard/leaveOfAb}" th:inline="text"> <h4>Total Leave of Absence Forms: ([[${totalLeaveOfAbForms}]])</h4> </a> 
+    </span>
+	<span class="col-md-4" th:if="${leaveOfAbIsExpanded}">
+		<a th:href="@{/admin/dashboard/}" th:inline="text"> <h4><u><strong>Total Leave of Absence Forms: ([[${totalLeaveOfAbForms}]])</strong></u></h4> </a>
+	</span>
+	<br></br>
+	<hr/>
+	<br></br>
+	<div class="panel-default well col-md-6" th:each="form : ${majorForms}" th:if="${filterBy.status == 'ALL' OR filterBy.status == form.status}">
+        <div class="panel-heading">
+            Major Declaration Form #<h1 th:text="${form.id}"></h1>  Status: <h2 th:text="${form.status}"></h2>
+        </div>
+        <br></br>
+		<label th:if="${form.status == 'OPEN'}" for="progressBar1">Workflow progress:</label>
+		<progress th:if="${form.status == 'OPEN'}" id="progressBar1" th:max="${form.totalSteps}" th:value="${form.current - 1}"> unavailable </progress>
+		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-3">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
+        </a>
+    </div>
+	
+	<div class="panel-default well col-md-6" th:each="form : ${changeTSForms}" th:if="${filterBy.status == 'ALL' OR filterBy.status == form.status}">
+        <div class="panel-heading">
+            Change Torah Studies Form #<h1 th:text="${form.id}"></h1>  Status: <h2 th:text="${form.status}"></h2>
+        </div>
+        <br></br>
+		<label th:if="${form.status == 'OPEN'}" for="progressBar2">Workflow progress:</label>
+		<progress th:if="${form.status == 'OPEN'}" id="progressBar2" th:max="${form.totalSteps}" th:value="${form.current - 1}"> unavailable </progress>
+		<!-- the following line is wrong, because no tracking id yet on changeTS form -->
+		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-3">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
+        </a>
+    </div>
+	
+	<div class="panel-default well col-md-6" th:each="form : ${leaveOfAbForms}" th:if="${filterBy.status == 'ALL' OR filterBy.status == form.status}">
+        <div class="panel-heading">
+            Leave Of Absence Form #<h1 th:text="${form.id}"></h1> Status: <h2 th:text="${form.status}"></h2>
+        </div>
+        <br></br>
+		<label th:if="${form.status == 'OPEN'}" for="progressBar3">Workflow progress:</label>
+		<progress th:if="${form.status == 'OPEN'}" id="progressBar3" th:max="${form.totalSteps}" th:value="${form.current - 1}"> unavailable </progress>		<!-- the following line is wrong, because no tracking id yet on leaveOfAb form -->
+		<a th:href="@{'/tracking/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-3">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
+        </a>
+    </div>
+
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>

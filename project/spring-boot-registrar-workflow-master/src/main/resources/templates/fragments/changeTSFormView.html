@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+</head>
+
+<body>
+
+<div th:fragment="changeTSFormView">
+    <div class="panel-default well" th:each="form : ${forms}">
+        <div class="panel-heading">
+            Change Torah Studies Form #<h1 th:text="${form.id}"></h1>
+        </div>
+        Student Name:<h3 th:text="${form.name}" class="panel-body">StudentName</h3>
+        <br></br>
+        Current Program:<h3 th:text="${form.currentProgram}" class="panel-body">current program</h3>
+        Request to switch into:<h3 th:text="${form.switchIntoProgam}" class="panel-body">program to switch into</h3>
+        Step in Approval:<h3 th:text="${form.current}" class="panel-body">Major</h3>
+        <a th:href="@{'/processingPage/processChangeTSForm/{id}' (id=${form.id})}" class="col-md-1"
+           sec:authorize="isAuthenticated()" >
+            <button type="button" class="btn btn-primary" th:text="Process">Process</button>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+    <h1 class="jumbotron">
+        <span sec:authentication="name"></span>'s Processing Page
+    </h1>
+
+    <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
+	
+    <div class="panel-default well" th:if="${form}">
+        <div class="panel-heading">
+            <h1 th:inline="text"> Major Declaration Form Id: [[${form.id}]]</h1>
+            <h3 th:inline="text">Status: [[${form.status}]]</h3>
+        </div>
+        <div class="row panel-body">
+            <div th:inline="text" class="col-md-2">First Name: [[${form.name}]]</div>
+            <div th:inline="text" class="col-md-2">Last Name: [[${form.lastName}]]</div>           
+            <div th:inline="text" class="col-md-2">Major Declaration: [[${form.major}]]</div>  
+			<div class="row panel-body" th:each="comment : ${comments}">
+				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+			</div>  
+       		<a th:href="@{'/processingPage/approveForm/{id}' (id=${form.id})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
+            </a>
+			<a th:href="@{'/processingPage/denyForm/{id}' (id=${form.id})}" class="col-md-1">
+            <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
+            </a>
+        </div>
+        <br></br>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/processingPage}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
+			</form>
+        </div>
+    </div>
+	
+	<div class="panel-default well" th:if="${changeTS}">
+        <div class="panel-heading">
+            <h1 th:inline="text"> Change of Torah Studies Program Form Id: [[${changeTS.id}]]</h1>
+            <h3 th:inline="text">Status: [[${changeTS.status}]]</h3>
+        </div>
+        <div class="row panel-body">
+			<div th:inline="text" class="col-md-5">First Name: [[${changeTS.name}]]</div>
+			<div th:inline="text" class="col-md-5">Middle Name: [[${changeTS.middleName}]]</div>
+			<div th:inline="text" class="col-md-5">Last Name: [[${changeTS.lastName}]]</div>
+			<div th:inline="text" class="col-md-5">Mailing Address: [[${changeTS.mailAddress}]] [[${changeTS.city}]], [[${changeTS.state}]] [[${changeTS.zipCode}]]</div>
+			<div th:inline="text" class="col-md-5">Student Email': [[${changeTS.studentEmail}]]</div>
+			<div th:inline="text" class="col-md-5">Student YUID: [[${changeTS.YUID}]]</div>
+			<div th:inline="text" class="col-md-5">Current UTS Program': [[${changeTS.currentProgram}]]</div>
+			<div th:inline="text" class="col-md-5">Program to Switch Into: [[${changeTS.switchIntoProgam}]]</div>
+			<div th:inline="text" class="col-md-5">School currently attending: [[${changeTS.school}]]</div>
+			<div th:inline="text" class="col-md-5">Current Class: [[${changeTS.currentClass}]]</div>
+			<div th:inline="text" class="col-md-5">Current Academic Year: [[${changeTS.currentYear}]]</div>
+			<div th:inline="text" class="col-md-5">Student Phone Number: [[${changeTS.phoneNumber}]]</div>
+			<div class="row panel-body" th:each="comment : ${comments}">
+				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+			</div>  
+			<div>
+	       		<a th:href="@{'/processingPage/approveChangeTSForm/{id}' (id=${changeTS.id})}" class="col-md-1">
+	            <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
+	            </a>
+				<a th:href="@{'/processingPage/denyChangeTSForm/{id}' (id=${changeTS.id})}" class="col-md-1">
+	            <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
+	            </a>
+			</div>
+        </div>
+        <br></br>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/processingPage}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
+		</form>
+        </div>
+    </div>
+   
+	<div class="panel-default well" th:if="${leaveOfAb}">
+        <div class="panel-heading">
+            <h1 th:inline="text"> Leave Of Absence Form Id: [[${leaveOfAb.id}]]</h1>
+            <h3 th:inline="text">Status: [[${leaveOfAb.status}]]</h3>
+        </div>
+        <div class="row panel-body">
+			<div th:inline="text" class="col-md-5">First Name: [[${leaveOfAb.name}]]</div>
+			<div th:inline="text" class="col-md-5">Last Name: [[${leaveOfAb.lastName}]]</div>
+			<div th:inline="text" class="col-md-5">Mailing Address: [[${leaveOfAb.mailAddress}]] [[${leaveOfAb.city}]], [[${leaveOfAb.state}]] [[${leaveOfAb.zipCode}]]</div>
+			<div th:inline="text" class="col-md-5">Student Email': [[${leaveOfAb.studentEmail}]]</div>
+			<div th:inline="text" class="col-md-5">Student YUID: [[${leaveOfAb.YUID}]]</div>
+			<div th:inline="text" class="col-md-5">School currently attending: [[${leaveOfAb.school}]]</div>
+			<div th:inline="text" class="col-md-5">Current Class: [[${leaveOfAb.currentClass}]]</div>
+			<div th:inline="text" class="col-md-5">Current Academic Year: [[${leaveOfAb.currentYear}]]</div>
+			<div th:inline="text" class="col-md-5">Student Phone Number: [[${leaveOfAb.phoneNumber}]]</div>
+			<div th:inline="text" class="col-md-5">Date of Last Attendance: [[${leaveOfAb.dateOfLastAttendance}]]</div>
+			<div class="row panel-body" th:each="comment : ${comments}">
+				<h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
+			</div>  
+			<div>
+	       		<a th:href="@{'/processingPage/approveLeaveOfAbForm/{id}' (id=${leaveOfAb.id})}" class="col-md-1">
+	            <button type="button" class="btn btn-primary" th:text="Approve">Approve</button>
+	            </a>
+				<a th:href="@{'/processingPage/denyLeaveOfAbForm/{id}' (id=${leaveOfAb.id})}" class="col-md-1">
+	            <button type="button" class="btn btn-danger" th:text="Deny">Deny</button>
+	            </a>
+			</div>
+        </div>
+        <br></br>
+		<div class="row panel-body">
+			<form action="#" th:action="@{/processingPage}"
+              th:object="${commentHolder}" method="post" role="form">
+			 <div class="form-group">
+                Comment:
+                <input type="text" th:field="*{comment}" placeholder="Comment here"
+                       class="form-control input-lg"/>
+            </div>
+			<div class="row">
+                <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                    <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
+                </div>
+            </div>
+			
+		</form>
+        </div>
+    </div>
+   
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>

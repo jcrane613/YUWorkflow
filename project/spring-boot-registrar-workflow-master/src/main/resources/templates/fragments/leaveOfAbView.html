@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+</head>
+
+<body>
+
+<div th:fragment="leaveOfAbView">
+    <div class="panel-default well" th:each="form : ${forms}">
+        <div class="panel-heading">
+            Leave of Absence Form #<h1 th:text="${form.id}"></h1>
+        </div>
+        Student Name:<h3 th:text="${form.name}" class="panel-body">StudentName</h3>
+        <br></br>
+        School to Leave :<h3 th:text="${form.school}" class="panel-body">Major</h3>
+        Step in Approval:<h3 th:text="${form.current}" class="panel-body">Major</h3>
+        <a th:href="@{'/processingPage/processLeaveOfAbForm/{id}' (id=${form.id})}" class="col-md-1"
+           sec:authorize="isAuthenticated()" >
+            <button type="button" class="btn btn-primary" th:text="Process">Process</button>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
