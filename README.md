@@ -74,7 +74,7 @@ $ mvn clean package
 To run that application, use the java -jar command, as follows:
 
 ```bash
-$ java -jar target/shopping-cart-0.0.1-SNAPSHOT.jar
+$ java -jar target/registrar-workflow-0.0.1-SNAPSHOT.jar
 ```
 
 To exit the application, press **ctrl-c**.
