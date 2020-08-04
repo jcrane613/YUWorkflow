@@ -63,6 +63,36 @@ If the workflow has been completed, the student will receive an email notifying 
 
 ## How to run
 
+#### Using Executable Jar
+
+To create an executable jar run:
+
+```bash
+$ mvn clean package
+``` 
+
+To run that application, use the java -jar command, as follows:
+
+```bash
+$ java -jar target/shopping-cart-0.0.1-SNAPSHOT.jar
+```
+
+To exit the application, press **ctrl-c**.
+
+Once the app starts, go to the web browser and visit `http://localhost:8070/home`
+
+Admin username: **admin**
+
+Admin password: **admin**
+
+User username: **approver1**
+
+User password: **password**
+
+You can view the rest of the pre-populated usernames in the H2 Console
+
+You can also register new users in the **Registration** tab
+
 ## Helper Tools
 
 ### HAL REST Browser
