@@ -33,15 +33,21 @@
     <div class="panel-default well" th:if="${form}">
         <div class="panel-heading">
             <h1 th:inline="text"> Major Declaration Form Id: [[${form.id}]]</h1>
-            <h3 th:inline="text">Status: [[${form.status}]]</h3>
+            <h3 th:inline="text">Status: [[${form.status}]]  |  
+				<span  th:if="${form.status == 'OPEN'}">
+				<label for="progressBar1">Workflow progress:</label>
+				<progress id="progressBar1" th:max="${form.totalSteps}" th:value="${form.current - 1}"> unavailable </progress>            
+	        	</span>
+			</h3>
+			
+			<br/>
         </div>
         <div class="row panel-body">
             <div th:inline="text" class="col-md-5">First Name: [[${form.name}]]</div>
             <div th:inline="text" class="col-md-5">Last Name: [[${form.lastName}]]</div>           
-            <div th:inline="text" class="col-md-5">Major Declaration: [[${form.major}]]</div>    
-            <div th:if="${form.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Step: [[${form.current}]]</div>           
-            <div th:if="${form.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Approver: [[${currentApprover}]]</div>
-            <div th:if="${form.status == 'DENIED'}" th:inline="text" class="col-md-5">Denied By: [[${denyer}]]</div>           	           	
+            <div th:inline="text" class="col-md-5">Major Declaration: [[${form.major}]]</div>  
+			<div th:if="${form.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Approver: [[${currentApprover}]]</div>  
+		<div th:if="${form.status == 'DENIED'}" th:inline="text" class="col-md-5">Denied By: [[${denyer}]]</div>           	           	
         </div>
 		<hr></hr>
 		<div class="row panel-body" th:each="comment : ${comments}">
@@ -77,14 +83,19 @@
 	<div class="panel-default well" th:if="${changeTS}">
         <div class="panel-heading">
             <h1 th:inline="text"> Change of Torah Studies Form Id: [[${changeTS.id}]]</h1>
-            <h3 th:inline="text">Status: [[${changeTS.status}]]</h3>
+            <h3 th:inline="text">Status: [[${changeTS.status}]]  |  
+				<span  th:if="${changeTS.status == 'OPEN'}">
+				<label for="progressBar2">Workflow progress:</label>
+				<progress id="progressBar2" th:max="${changeTS.totalSteps}" th:value="${changeTS.current - 1}"> unavailable </progress>            
+	        	</span>
+			</h3>
         </div>
         <div class="row panel-body">
             <div th:inline="text" class="col-md-5">First Name: [[${changeTS.name}]]</div>
 			<div th:inline="text" class="col-md-5">Middle Name: [[${changeTS.middleName}]]</div>
 			<div th:inline="text" class="col-md-5">Last Name: [[${changeTS.lastName}]]</div>
 			<div th:inline="text" class="col-md-5">Mailing Address: [[${changeTS.mailAddress}]] [[${changeTS.city}]], [[${changeTS.state}]] [[${changeTS.zipCode}]]</div>
-			<div th:inline="text" class="col-md-5">Student Email': [[${changeTS.studentEmail}]]</div>
+			<div th:inline="text" class="col-md-5">Student Email: [[${changeTS.studentEmail}]]</div>
 			<div th:inline="text" class="col-md-5">Student YUID: [[${changeTS.YUID}]]</div>
 			<div th:inline="text" class="col-md-5">Current UTS Program': [[${changeTS.currentProgram}]]</div>
 			<div th:inline="text" class="col-md-5">Program to Switch Into: [[${changeTS.switchIntoProgam}]]</div>
@@ -130,13 +141,18 @@
 	<div class="panel-default well" th:if="${leaveOfAb}">
         <div class="panel-heading">
             <h1 th:inline="text"> Leave Of Absence Form Id: [[${leaveOfAb.id}]]</h1>
-            <h3 th:inline="text">Status: [[${leaveOfAb.status}]]</h3>
+            <h3 th:inline="text">Status: [[${leaveOfAb.status}]]  |  
+				<span  th:if="${leaveOfAb.status == 'OPEN'}">
+				<label for="progressBar3">Workflow progress:</label>
+				<progress id="progressBar3" th:max="${leaveOfAb.totalSteps}" th:value="${leaveOfAb.current - 1}"> unavailable </progress>            
+	        	</span>
+			</h3>
         </div>
         <div class="row panel-body">  
 			<div th:inline="text" class="col-md-5">First Name: [[${leaveOfAb.name}]]</div>
 			<div th:inline="text" class="col-md-5">Last Name: [[${leaveOfAb.lastName}]]</div>
 			<div th:inline="text" class="col-md-5">Mailing Address: [[${leaveOfAb.mailAddress}]] [[${leaveOfAb.city}]], [[${leaveOfAb.state}]] [[${leaveOfAb.zipCode}]]</div>
-			<div th:inline="text" class="col-md-5">Student Email': [[${leaveOfAb.studentEmail}]]</div>
+			<div th:inline="text" class="col-md-5">Student Email: [[${leaveOfAb.studentEmail}]]</div>
 			<div th:inline="text" class="col-md-5">Student YUID: [[${leaveOfAb.YUID}]]</div>
 			<div th:inline="text" class="col-md-5">School currently attending: [[${leaveOfAb.school}]]</div>
 			<div th:inline="text" class="col-md-5">Current Class: [[${leaveOfAb.currentClass}]]</div>
