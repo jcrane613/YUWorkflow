@@ -1,21 +1,22 @@
 package workflow.model;
 
 public class Query {
-	private String studentName;
-	private String lastName;
+	private String input;
+	private String type;
 
-	public String getStudentName() {
-		return studentName;
-	}
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
+	public String getInput() {
+		return input;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public void setInput(String input) {
+		this.input = input;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

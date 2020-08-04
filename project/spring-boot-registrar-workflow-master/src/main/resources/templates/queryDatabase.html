@@ -10,17 +10,26 @@
 
 <div th:replace="/fragments/header :: navbar"/>
 
-<div class="container">
-    <h1>
         Enter a students name to search across all forms:
         <form action="#" th:action="@{/queryDatabase}"
               th:object="${query}" method="post" role="form">
+
+            Status:
+            <label th:if="${#fields.hasErrors('type')}" th:errors="*{type}"
+                   class="alert alert-danger"></label>
+            <select name = "status" th:field="*{type}" placeholder="All" >
+                <option value="firstName">First Name</option>
+                <option value="lastName">Last Name</option>
+                <option value="YUID">YU ID Number</option>
+                <option value="studentEmail">Email</option>
+                <option value="Major">Major</option>
+            </select>
+
+            Search
             <div class="form-group">
-                <input type="text" th:field="*{studentName}" placeholder="Student's First Name "
-                       class="form-control input-lg"/>
-            </div>
-            <div class="form-group">
-                <input type="text" th:field="*{lastName}" placeholder="Student's Last Name "
+                <label th:if="${#fields.hasErrors('input')}" th:errors="*{input}"
+                       class="alert alert-danger"></label>
+                <input type="text" th:field="*{input}" placeholder="place your search here"
                        class="form-control input-lg"/>
             </div>
             <div class="row">
@@ -30,7 +39,6 @@
             </div>
 
         </form>
-    </h1>
 
     <!--
     <div class="row panel-body">
@@ -40,7 +48,6 @@
         </a>
     </div>
     -->
-</div>
 
 <div th:replace="/fragments/footer :: footer"/>
 

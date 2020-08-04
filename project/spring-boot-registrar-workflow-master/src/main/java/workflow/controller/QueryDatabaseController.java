@@ -42,11 +42,11 @@ public class QueryDatabaseController {
 		if (bindingResult.hasErrors()) {
 			return "redirect:/queryDatabase";
 		} else {
-			return "redirect:/queryDatabase/" + query.getStudentName();
+			return "redirect:/queryDatabase/" +query.getType() + query.getInput();
 		}
 	}
 
-	@RequestMapping(value = "/queryDatabase/{studentName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/queryDatabase/{type}/{input}", method = RequestMethod.GET)
 	public ModelAndView queryGlobalFirstName(@PathVariable("studentName") String studentName) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/queryReturn");
