@@ -63,7 +63,7 @@ public class FormController {
 			formService.saveForm(form);
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "shoppingCart/processForm/"+form.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "processingPage/processForm/"+form.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -105,7 +105,7 @@ public class FormController {
 
 			String approver1Email = userRepository.findByUsername(approver1).get().getEmail();
 			try {
-				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "shoppingCart/processChangeTSForm/"+changeTS.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "processingPage/processChangeTSForm/"+changeTS.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -149,7 +149,7 @@ public class FormController {
 
 			String approver1Email = userRepository.findByUsername(globalSettings.registrar).get().getEmail();
 			try {
-				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "shoppingCart/processLeaveOfAbForm/"+leaveOfAb.getId()) );
+				emailService.sendNewApprovalHtmlMessage(approver1Email, (globalSettings.accessibleWebsiteUrl + "processingPage/processLeaveOfAbForm/"+leaveOfAb.getId()) );
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}

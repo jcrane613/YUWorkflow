@@ -11,10 +11,12 @@ deans and administrators.
 ## Functionality
 
 ### Core Functionality
-Students have the ability to fill out and submit a form. On submission, the student receives 
-an email confirmation that their form has been received.
+Students have the ability to fill out and submit a form. 
 
 ![Form Submission](media/formSubmission.gif)
+
+On submission, the student receives 
+an email confirmation that their form has been received.
 
 The user (dean/administrator/office) who is first in the submitted form's 
 unique workflow will receive an email notifying them that they have a form 
@@ -24,12 +26,22 @@ on each form.
 
 ![Form Approval](media/approval.gif)
 
-Once approved, the form will either be sent to the next approver or, if the workflow has been completed, the student will receive an email notifying them whether their form has been approved or denied.
+Each approval triggers the next step in the workflow, sending an email to the subsequent approver.
+
+If the workflow has been completed, the student will receive an email notifying them whether their form has been approved or denied.
 
 ### Additional Features 
 1. **Form Tracking Page** 
 - In their submission confirmation email, student receive a tracking number for their form which they can use to track the status of their form in the workflow and comment on it.
-2. **Admin Settings Page**
+2. **Admin Interface**
+- If a user is signed in with an account that has an admin role, they will be able to configure some global settings, like routing tables and student permissions.
+
+![Admin Settings](media/admin_settings.gif)
+
+- They will also be able to see all forms in the system, sorted by type, filtered by status.
+
+![Admin Dashboard](media/admin_dashboard.gif)
+
 3. **Query Page**
 
 
