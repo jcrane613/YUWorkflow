@@ -63,6 +63,22 @@ If the workflow has been completed, the student will receive an email notifying 
 
 ## How to run
 
+#### Using Executable Jar
+
+To create an executable jar run:
+
+```bash
+$ mvn clean package
+``` 
+
+To run that application, use the java -jar command, as follows:
+
+```bash
+$ java -jar target/shopping-cart-0.0.1-SNAPSHOT.jar
+```
+
+To exit the application, press **ctrl-c**.
+
 ## Helper Tools
 
 ### HAL REST Browser
