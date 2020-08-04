@@ -107,4 +107,4 @@ Go to the web browser and visit `http://localhost:8070/h2-console`
 
 In field **JDBC URL** put 
 ```
-jdbc:h2:mem:shopping_cart_db
+jdbc:h2:mem:form_db
