@@ -45,15 +45,15 @@ public class ChangeTS {
 	@NotEmpty(message = "*Please provide your zip code")
 	private String zipCode;
 
-	@Column(name = "studentEmail")
+	@Column(name = "email")
 	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email address")
-	private String studentEmail;
+	private String email;
 
-	@Column (name = "YUID")
+	@Column (name = "yuid")
 	@NotEmpty(message = "*Please provide your YU ID")
-	//@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
-	private String YUID;
+	@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
+	private String yuid;
 
 	@Column(name = "currentProgram")
 	@NotEmpty(message = "*Please provide your current jewish studies program")
@@ -77,11 +77,11 @@ public class ChangeTS {
 
 	//need to enter in date of submission to each form
 
-	@Column (name = "phoneNumber")
-	@NotEmpty(message = "*Please provide your number")
+	@Column (name = "phone")
+	@NotEmpty(message = "*Please provide your phone number")
 	@Length(min = 10, max = 10, message = "*Your Phone number must have exactly 10 numbers")
 	//@Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")
-	private String phoneNumber;
+	private String phone;
 
 	@Column(name = "approver1")
 	private String approver1;
@@ -133,11 +133,11 @@ public class ChangeTS {
 	}
 
 	public String getStudentEmail() {
-		return studentEmail;
+		return email;
 	}
 
 	public void setStudentEmail(String studentEmail) {
-		this.studentEmail = studentEmail;
+		this.email = studentEmail;
 	}
 
 	public String getApprover1() {
@@ -219,20 +219,20 @@ public class ChangeTS {
 	}
 
 
-	public String  getYUID() {
-		return YUID;
+	public String getYuid() {
+		return yuid;
 	}
 
-	public void setYUID(String YUID) {
-		this.YUID = YUID;
+	public void setYuid(String yuid) {
+		this.yuid = yuid;
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return phone;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		this.phone = phoneNumber;
 	}
 
 	public String getMiddleName() {

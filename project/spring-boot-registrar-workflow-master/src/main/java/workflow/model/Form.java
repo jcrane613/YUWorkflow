@@ -26,25 +26,25 @@ public class Form {
 	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
 
-	@Column(name = "studentEmail")
+	@Column(name = "email")
     @Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email address")
-	private String studentEmail;
+	private String email;
 
 	@Column(name = "major")
 	@NotEmpty(message = "*Please provide the major you would like to declare")
 	private String major;
 
-	@Column (name = "YUID")
+	@Column (name = "yuid")
 	@NotEmpty(message = "*Please provide your YU ID")
-	//@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
-	private String YUID;
+	@Length(min = 9, max = 9, message = "*Your YUID must have exactly 9 characters")
+	private String yuid;
 
-	@Column (name = "phoneNumber")
-	@NotEmpty(message = "*Please provide your number")
+	@Column (name = "phone")
+	@NotEmpty(message = "*Please provide your phone number")
 	@Length(min = 10, max = 10, message = "*Your Phone number must have exactly 10 numbers")
 	//@Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")
-	private String phoneNumber;
+	private String phone;
 
 	@Column(name = "approver1")
 	private String approver1;
@@ -92,11 +92,11 @@ public class Form {
 	}
 
 	public String getStudentEmail() {
-		return studentEmail;
+		return email;
 	}
 
 	public void setStudentEmail(String studentEmail) {
-		this.studentEmail = studentEmail;
+		this.email = studentEmail;
 	}
 
 	public String getMajor() {
@@ -172,20 +172,18 @@ public class Form {
 	}
 
 
-	public String  getYUID() {
-		return YUID;
-	}
+	public String getYuid() { return yuid;}
 
-	public void setYUID(String YUID) {
-		this.YUID = YUID;
+	public void setYuid(String Yuid) {
+		this.yuid = yuid;
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return phone;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		this.phone = phoneNumber;
 	}
 	
 	public String getTrackingId() {

@@ -23,4 +23,12 @@ public interface FormService {
 
 	void withdrawForm(Form form);
 
+	//Query Searches
+	List<Form> findByName(String name);
+	List<Form> findByLastName(String lastName);
+	List<Form> findByYuid(String yuid);
+	List<Form> findByStudentEmail(String studentEmail);
+	List<Form> findByPhoneNumber(String phoneNumber);
+	List<Form> findByLastNameAndName(String lastName, String name);
+
 }

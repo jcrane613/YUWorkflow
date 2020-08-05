@@ -64,4 +64,31 @@ public class LeaveOfAbServiceImpl implements LeaveOfAbService {
 	public void withdrawForm(LeaveOfAb leaveOfAb) {
 		leaveOfAbRepository.delete(leaveOfAb);
 	}
+
+	@Override
+	public List<LeaveOfAb> findByName(String name) {
+		return leaveOfAbRepository.findByName(name);
+	}
+
+	@Override
+	public List<LeaveOfAb> findByLastName(String lastName) {
+		return leaveOfAbRepository.findByLastName(lastName);
+	}
+	@Override
+	public List<LeaveOfAb> findByYuid(String yuid) {return leaveOfAbRepository.findByYuid(yuid);}
+
+	@Override
+	public List<LeaveOfAb> findByStudentEmail(String studentEmail) {
+		return leaveOfAbRepository.findByEmail(studentEmail);
+	}
+
+	@Override
+	public List<LeaveOfAb> findByPhoneNumber(String phoneNumber) {
+		return leaveOfAbRepository.findByPhone(phoneNumber);
+	}
+
+	@Override
+	public List<LeaveOfAb> findByLastNameAndName(String lastName, String name) {
+		return leaveOfAbRepository.findByLastNameAndName(lastName, name);
+	}
 }

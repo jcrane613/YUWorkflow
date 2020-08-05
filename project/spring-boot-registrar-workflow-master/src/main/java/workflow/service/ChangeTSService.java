@@ -25,4 +25,13 @@ public interface ChangeTSService {
 	List<ChangeTS> findAllFormsByApprover3(String approver3);
 	void withdrawForm(ChangeTS changeTS);
 
+	//Query Searches
+	List<ChangeTS> findByName(String name);
+	List<ChangeTS> findByLastName(String lastName);
+	List<ChangeTS> findByYuid(String yuid);
+	List<ChangeTS> findByStudentEmail(String studentEmail);
+	List<ChangeTS> findByPhoneNumber(String phoneNumber);
+	List<ChangeTS> findByLastNameAndName(String lastName, String name);
+
+
 }

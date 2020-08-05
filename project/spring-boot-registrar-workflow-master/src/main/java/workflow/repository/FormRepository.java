@@ -1,5 +1,6 @@
 package workflow.repository;
 
+import workflow.model.ChangeTS;
 import workflow.model.Form;
 
 import java.util.List;
@@ -17,9 +18,12 @@ public interface FormRepository extends JpaRepository<Form , Long> {
     List<Form> findAllByApprover2(String approver2);
 	List<Form> findAllByStatus(String status);
     Optional<Form> findByTrackingId(String trackingId);
-    Optional<Form> findByName(String name);
-    Optional<Form> findByLastName(String lastName);
 
-
-
+    //Query Searches
+    List<Form> findByName(String name);
+    List<Form> findByLastName(String lastName);
+    List<Form> findByEmail(String email);
+    List<Form> findByPhone(String phone);
+    List<Form> findByLastNameAndName(String lastName, String name);
+    List<Form> findByYuid(String yuid);
 }

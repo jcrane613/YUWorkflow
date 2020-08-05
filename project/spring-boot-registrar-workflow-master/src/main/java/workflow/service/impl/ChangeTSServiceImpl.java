@@ -69,4 +69,32 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 	public void withdrawForm(ChangeTS changeTS) {
 		changeTSFormRepository.delete(changeTS);
 	}
+
+	@Override
+	public List<ChangeTS> findByName(String name) {
+		return changeTSFormRepository.findByName(name);
+	}
+
+	@Override
+	public List<ChangeTS> findByLastName(String lastName) {
+		return changeTSFormRepository.findByLastName(lastName);
+	}
+
+	@Override
+	public List<ChangeTS> findByYuid(String yuid) {return changeTSFormRepository.findByYuid(yuid);}
+
+	@Override
+	public List<ChangeTS> findByStudentEmail(String studentEmail) {
+		return changeTSFormRepository.findByEmail(studentEmail);
+	}
+
+	@Override
+	public List<ChangeTS> findByPhoneNumber(String phoneNumber) {
+		return changeTSFormRepository.findByPhone(phoneNumber);
+	}
+
+	@Override
+	public List<ChangeTS> findByLastNameAndName(String lastName, String name) {
+		return changeTSFormRepository.findByLastNameAndName(lastName, name);
+	}
 }

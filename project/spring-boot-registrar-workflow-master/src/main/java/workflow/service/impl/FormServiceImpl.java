@@ -59,4 +59,32 @@ public class FormServiceImpl implements FormService {
 	public void withdrawForm(Form form) {
 		formRepository.delete(form);		
 	}
+
+	@Override
+	public List<Form> findByName(String name) {
+		return formRepository.findByName(name);
+	}
+
+	@Override
+	public List<Form> findByLastName(String lastName) {
+		return formRepository.findByLastName(lastName);
+	}
+
+
+	@Override
+	public List<Form> findByYuid(String yuid) {return formRepository.findByYuid(yuid);}
+	@Override
+	public List<Form> findByStudentEmail(String studentEmail) {
+		return formRepository.findByEmail(studentEmail);
+	}
+
+	@Override
+	public List<Form> findByPhoneNumber(String phoneNumber) {
+		return formRepository.findByPhone(phoneNumber);
+	}
+
+	@Override
+	public List<Form> findByLastNameAndName(String lastName, String name) {
+		return formRepository.findByLastNameAndName(lastName, name);
+	}
 }

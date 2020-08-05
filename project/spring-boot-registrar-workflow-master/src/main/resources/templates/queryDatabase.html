@@ -10,22 +10,29 @@
 
 <div th:replace="/fragments/header :: navbar"/>
 
-        Enter a students name to search across all forms:
-        <form action="#" th:action="@{/queryDatabase}"
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <form autocomplete="off" action="#" th:action="@{/queryDatabase}"
               th:object="${query}" method="post" role="form">
 
-            Status:
-            <label th:if="${#fields.hasErrors('type')}" th:errors="*{type}"
-                   class="alert alert-danger"></label>
-            <select name = "status" th:field="*{type}" placeholder="All" >
-                <option value="firstName">First Name</option>
-                <option value="lastName">Last Name</option>
-                <option value="YUID">YU ID Number</option>
-                <option value="studentEmail">Email</option>
-                <option value="Major">Major</option>
-            </select>
+            Enter a students name to search across all forms:
 
-            Search
+            <div class="form-group">
+
+                Search Field:
+                <label th:if="${#fields.hasErrors('type')}" th:errors="*{type}"
+                       class="alert alert-danger"></label>
+                <select name = "status" th:field="*{type}" placeholder="All" >
+                    <option value="firstName">First Name</option>
+                    <option value="lastName">Last Name</option>
+                    <option value="studentEmail">Email</option>
+                    <option value="phoneNumber">Phone Number</option>
+                    <option value="YUID">YU ID #</option>
+                    <option value="bothNames">First and Last Name</option>
+                </select>
+            </div>
+
+            Search Input
             <div class="form-group">
                 <label th:if="${#fields.hasErrors('input')}" th:errors="*{input}"
                        class="alert alert-danger"></label>
@@ -39,15 +46,8 @@
             </div>
 
         </form>
-
-    <!--
-    <div class="row panel-body">
-        <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
-        <a th:href="@{'/shoppingCart/checkout'}" class="col-md-1">
-            <button type="button" class="btn btn-danger" th:text="Checkout">Checkout</button>
-        </a>
     </div>
-    -->
+</div>
 
 <div th:replace="/fragments/footer :: footer"/>
 

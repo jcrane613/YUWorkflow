@@ -21,4 +21,12 @@ public interface LeaveOfAbService {
 	List<LeaveOfAb> findAllFormsByApprover1(String approver1);
 	List<LeaveOfAb> findAllFormsByApprover2(String approver2);
 	void withdrawForm(LeaveOfAb leaveOfAb);
+
+	//Query Searches
+	List<LeaveOfAb> findByName(String name);
+	List<LeaveOfAb> findByLastName(String lastName);
+	List<LeaveOfAb> findByYuid(String yuid);
+	List<LeaveOfAb> findByStudentEmail(String studentEmail);
+	List<LeaveOfAb> findByPhoneNumber(String phoneNumber);
+	List<LeaveOfAb> findByLastNameAndName(String lastName, String name);
 }

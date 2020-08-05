@@ -12,172 +12,45 @@
 
 <div class="container">
 
-    <h1 class="jumbotron" th:if="${form}" th:inline="text">
-        Tracking Page For Form: [[${form.name}]]
-    </h1>
-    <h1 class="jumbotron" th:if="${changeTS}" th:inline="text">
-        Tracking Page For Form: [[${changeTS.name}]]
-    </h1>
-    <h1 class="jumbotron" th:if="${leaveOfAb}" th:inline="text">
-        Tracking Page For Form: [[${leaveOfAb.name}]]
-    </h1>
-
     <h1 class="jumbotron" th:if="${form == null AND changeTS == null AND leaveOfAb == null}">
-        No form found with the inputted field
+        No form found with this search query
         <br></br>
-        <a th:href="@{'/queryDatabase'}" class="col-md-6">Return to search all the other documents with  portal</a>
+        <a th:href="@{'/queryDatabase'}" class="col-md-6">Return to the search bar</a>
     </h1>
-    <!--
-    <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
-    -->
-    <div class="panel-default well" th:if="${form}">
+    <div class="panel-default well col-md-6" th:each="form : ${AllForms}">
         <div class="panel-heading">
-            <h1 th:inline="text"> Major Declaration Form Id: [[${form.id}]]</h1>
-            <h3 th:inline="text">Status: [[${form.status}]]</h3>
-        </div>
-        <div class="row panel-body">
-            <div th:inline="text" class="col-md-5">First Name: [[${form.name}]]</div>
-            <div th:inline="text" class="col-md-5">Last Name: [[${form.lastName}]]</div>
-            <div th:inline="text" class="col-md-5">Major Declaration: [[${form.major}]]</div>
-            <div th:if="${form.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Step: [[${form.current}]]</div>
-            <div th:if="${form.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Approver: [[${currentApprover}]]</div>
-            <div th:if="${form.status == 'DENIED'}" th:inline="text" class="col-md-5">Denied By: [[${denyer}]]</div>
-        </div>
-        <hr></hr>
-        <div class="row panel-body" th:each="comment : ${comments}">
-            <h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
-        </div>
-        <hr></hr>
-        <div class="row panel-body">
-            <form action="#" th:action="@{/tracking/{trackingId} (trackingId=${form.trackingId})}"
-                  th:object="${commentHolder}" method="post" role="form">
-                <div class="form-group">
-                    Comment:
-                    <input type="text" th:field="*{comment}" placeholder="Comment here"
-                           class="form-control input-lg"/>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3" style="float: none; margin: 0 auto;">
-                        <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
-                    </div>
-                </div>
-
-            </form>
+            Major Declaration Form #<h1 th:text="${form.id}"></h1>  Status: <h2 th:text="${form.status}"></h2>
         </div>
         <br></br>
-        <a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-1">
-            <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
+        <label th:if="${form.status == 'OPEN'}" for="progressBar1">Workflow progress:</label>
+        <progress th:if="${form.status == 'OPEN'}" id="progressBar1" th:max="${form.totalSteps}" th:value="${form.current - 1}"> unavailable </progress>
+        <a th:href="@{'/tracking/{trackingId}' (trackingId=${form.trackingId})}" class="col-md-3">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
         </a>
     </div>
-
-
-    <div class="panel-default well" th:if="${changeTS}">
+    <div class="panel-default well col-md-6" th:each="changeTS : ${AllChangeTS}">
         <div class="panel-heading">
-            <h1 th:inline="text"> Change of Torah Studies Form Id: [[${changeTS.id}]]</h1>
-            <h3 th:inline="text">Status: [[${changeTS.status}]]</h3>
-        </div>
-        <div class="row panel-body">
-            <div th:inline="text" class="col-md-5">First Name: [[${changeTS.name}]]</div>
-            <div th:inline="text" class="col-md-5">Middle Name: [[${changeTS.middleName}]]</div>
-            <div th:inline="text" class="col-md-5">Last Name: [[${changeTS.lastName}]]</div>
-            <div th:inline="text" class="col-md-5">Mailing Address: [[${changeTS.mailAddress}]] [[${changeTS.city}]], [[${changeTS.state}]] [[${changeTS.zipCode}]]</div>
-            <div th:inline="text" class="col-md-5">Student Email': [[${changeTS.studentEmail}]]</div>
-            <div th:inline="text" class="col-md-5">Student YUID: [[${changeTS.YUID}]]</div>
-            <div th:inline="text" class="col-md-5">Current UTS Program': [[${changeTS.currentProgram}]]</div>
-            <div th:inline="text" class="col-md-5">Program to Switch Into: [[${changeTS.switchIntoProgam}]]</div>
-            <div th:inline="text" class="col-md-5">School currently attending: [[${changeTS.school}]]</div>
-            <div th:inline="text" class="col-md-5">Current Class: [[${changeTS.currentClass}]]</div>
-            <div th:inline="text" class="col-md-5">Current Academic Year: [[${changeTS.currentYear}]]</div>
-            <div th:inline="text" class="col-md-5">Student Phone Number: [[${changeTS.phoneNumber}]]</div>
-            <div th:if="${changeTS.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Step: [[${changeTS.current}]]</div>
-            <div th:if="${changeTS.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Approver: [[${currentApprover}]]</div>
-            <div th:if="${changeTS.status == 'DENIED'}" th:inline="text" class="col-md-5">Denied By: [[${denyer}]]</div>
-        </div>
-        <hr></hr>
-        <div class="row panel-body" th:each="comment : ${comments}">
-            <h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
-        </div>
-        <hr></hr>
-        <div class="row panel-body">
-            <form action="#" th:action="@{/tracking/{trackingId} (trackingId=${changeTS.trackingId})}"
-                  th:object="${commentHolder}" method="post" role="form">
-                <div class="form-group">
-                    Comment:
-                    <input type="text" th:field="*{comment}" placeholder="Comment here"
-                           class="form-control input-lg"/>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3" style="float: none; margin: 0 auto;">
-                        <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
-                    </div>
-                </div>
-
-            </form>
+            Change of Torah Studies Form #<h1 th:text="${changeTS.id}"></h1>  Status: <h2 th:text="${changeTS.status}"></h2>
         </div>
         <br></br>
-        <a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-1">
-            <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
+        <label th:if="${changeTS.status == 'OPEN'}" for="progressBar1">Workflow progress:</label>
+        <progress th:if="${changeTS.status == 'OPEN'}" id="progressBar1" th:max="${changeTS.totalSteps}" th:value="${changeTS.current - 1}"> unavailable </progress>
+        <a th:href="@{'/tracking/{trackingId}' (trackingId=${changeTS.trackingId})}" class="col-md-3">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
         </a>
     </div>
-
-
-    <div class="panel-default well" th:if="${leaveOfAb}">
+    <div class="panel-default well col-md-6" th:each="leaveOfAb : ${AllLeaveOfAb}">
         <div class="panel-heading">
-            <h1 th:inline="text"> Leave Of Absence Form Id: [[${leaveOfAb.id}]]</h1>
-            <h3 th:inline="text">Status: [[${leaveOfAb.status}]]</h3>
-        </div>
-        <div class="row panel-body">
-            <div th:inline="text" class="col-md-5">First Name: [[${leaveOfAb.name}]]</div>
-            <div th:inline="text" class="col-md-5">Last Name: [[${leaveOfAb.lastName}]]</div>
-            <div th:inline="text" class="col-md-5">Mailing Address: [[${leaveOfAb.mailAddress}]] [[${leaveOfAb.city}]], [[${leaveOfAb.state}]] [[${leaveOfAb.zipCode}]]</div>
-            <div th:inline="text" class="col-md-5">Student Email': [[${leaveOfAb.studentEmail}]]</div>
-            <div th:inline="text" class="col-md-5">Student YUID: [[${leaveOfAb.YUID}]]</div>
-            <div th:inline="text" class="col-md-5">School currently attending: [[${leaveOfAb.school}]]</div>
-            <div th:inline="text" class="col-md-5">Current Class: [[${leaveOfAb.currentClass}]]</div>
-            <div th:inline="text" class="col-md-5">Current Academic Year: [[${leaveOfAb.currentYear}]]</div>
-            <div th:inline="text" class="col-md-5">Student Phone Number: [[${leaveOfAb.phoneNumber}]]</div>
-            <div th:inline="text" class="col-md-5">Date of Last Attendance: [[${leaveOfAb.dateOfLastAttendance}]]</div>
-            <div th:if="${leaveOfAb.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Step: [[${leaveOfAb.current}]]</div>
-            <div th:if="${leaveOfAb.status == 'OPEN'}" th:inline="text" class="col-md-5">Current Approver: [[${currentApprover}]]</div>
-            <div th:if="${leaveOfAb.status == 'DENIED'}" th:inline="text" class="col-md-5">Denied By: [[${denyer}]]</div>
-        </div>
-        <hr></hr>
-        <div class="row panel-body" th:each="comment : ${comments}">
-            <h3 th:inline="text" class="col-md-8"> [[${comment}]]</h3>
-        </div>
-        <hr></hr>
-        <div class="row panel-body">
-            <form action="#" th:action="@{/tracking/{trackingId} (trackingId=${leaveOfAb.trackingId})}"
-                  th:object="${commentHolder}" method="post" role="form">
-                <div class="form-group">
-                    Comment:
-                    <input type="text" th:field="*{comment}" placeholder="Comment here"
-                           class="form-control input-lg"/>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3" style="float: none; margin: 0 auto;">
-                        <input type="submit" class="btn btn-primary btn-block" value="Enter"/>
-                    </div>
-                </div>
-
-            </form>
+            Leave of Absence #<h1 th:text="${leaveOfAb.id}"></h1>  Status: <h2 th:text="${leaveOfAb.status}"></h2>
         </div>
         <br></br>
-        <a th:href="@{'/reminders/sendReminder/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-1">
-            <button type="button" class="btn btn-primary" th:inline="text">Send Reminder</button>
+        <label th:if="${leaveOfAb.status == 'OPEN'}" for="progressBar1">Workflow progress:</label>
+        <progress th:if="${leaveOfAb.status == 'OPEN'}" id="progressBar1" th:max="${leaveOfAb.totalSteps}" th:value="${leaveOfAb.current - 1}"> unavailable </progress>
+        <a th:href="@{'/tracking/{trackingId}' (trackingId=${leaveOfAb.trackingId})}" class="col-md-3">
+            <button type="button" class="btn btn-primary" th:text="Track">Track</button>
         </a>
     </div>
-
-    <!--
-    <div class="row panel-body">
-        <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>
-        <a th:href="@{'/shoppingCart/checkout'}" class="col-md-1">
-            <button type="button" class="btn btn-danger" th:text="Checkout">Checkout</button>
-        </a>
-    </div>
-    -->
 </div>
-
 <div th:replace="/fragments/footer :: footer"/>
 
 </body>

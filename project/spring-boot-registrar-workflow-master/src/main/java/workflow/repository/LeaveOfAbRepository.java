@@ -1,5 +1,7 @@
 package workflow.repository;
 
+import workflow.model.ChangeTS;
+import workflow.model.Form;
 import workflow.model.LeaveOfAb;
 
 import java.util.List;
@@ -19,8 +21,12 @@ public interface LeaveOfAbRepository extends JpaRepository<LeaveOfAb, Long> {
 	List<LeaveOfAb> findAllByApprover1(String approver1);
 	List<LeaveOfAb> findAllByApprover2(String approver2);
 	Optional<LeaveOfAb> findByTrackingId(String trackingId);
-	Optional<LeaveOfAb> findByName(String name);
-	Optional<LeaveOfAb> findByLastName(String lastName);
 
-
+	//Query Searches
+	List<LeaveOfAb> findByName(String name);
+	List<LeaveOfAb> findByLastName(String lastName);
+	List<LeaveOfAb> findByEmail(String email);
+	List<LeaveOfAb> findByPhone(String phone);
+	List<LeaveOfAb> findByLastNameAndName(String lastName, String name);
+	List<LeaveOfAb> findByYuid(String yuid);
 }

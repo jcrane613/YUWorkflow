@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+    <div class="starter-template">
+        <h1>Error: You need to input both the first name and last name if you would like to search based off this criteria. </h1>
+        <a th:href="@{'/queryDatabase'}" class="col-md-6">Click here to return to the search bar to do a new search</a>
+    </div>
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
