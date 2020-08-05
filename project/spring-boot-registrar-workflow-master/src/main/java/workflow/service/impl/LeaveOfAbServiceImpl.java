@@ -83,8 +83,8 @@ public class LeaveOfAbServiceImpl implements LeaveOfAbService {
 	}
 
 	@Override
-	public List<LeaveOfAb> findByPhoneNumber(String phoneNumber) {
-		return leaveOfAbRepository.findByPhone(phoneNumber);
+	public List<LeaveOfAb> findByPhone(String phone) {
+		return leaveOfAbRepository.findByPhone(phone);
 	}
 
 	@Override

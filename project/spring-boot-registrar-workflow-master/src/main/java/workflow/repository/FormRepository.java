@@ -23,7 +23,7 @@ public interface FormRepository extends JpaRepository<Form , Long> {
     List<Form> findByName(String name);
     List<Form> findByLastName(String lastName);
     List<Form> findByEmailContaining(String email);
-    List<Form> findByPhoneContaining(String phone);
+    List<Form> findByPhone(String phone);
     List<Form> findByLastNameAndName(String lastName, String name);
     List<Form> findByYuid(String yuid);
 }

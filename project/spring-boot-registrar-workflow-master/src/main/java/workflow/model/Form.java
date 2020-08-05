@@ -63,9 +63,9 @@ public class Form {
 
 	@Column(name = "tracking_id")
 	private String trackingId = UUID.randomUUID().toString();
-	
-	@Column(name = "comments", length = 10000) 
-	private String comments = "";	
+
+	@Column(name = "comments", length = 10000)
+	private String comments = "";
 
 	public Long getId() {
 		return id;
@@ -74,7 +74,7 @@ public class Form {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -178,14 +178,14 @@ public class Form {
 		this.yuid = yuid;
 	}
 
-	public String getPhoneNumber() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phone = phoneNumber;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	
+
 	public String getTrackingId() {
 		return trackingId;
 	}
@@ -193,14 +193,14 @@ public class Form {
 	public void setTrackingId(String trackingId) {
 		this.trackingId = trackingId;
 	}
-	
+
 	public void addComment(String commentor, String comment) {
 		this.comments += String.format("Comment from %s at %s -> %s ### ", commentor, (new Date()).toString(), comment);
 	}
-	
+
 	public String[] getCommentsArray() {
 		return this.comments.split(" ### ");
 	}
-	
+
 	
 }

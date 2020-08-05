@@ -89,8 +89,8 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 	}
 
 	@Override
-	public List<ChangeTS> findByPhoneNumber(String phoneNumber) {
-		return changeTSFormRepository.findByPhone(phoneNumber);
+	public List<ChangeTS> findByPhone(String phone) {
+		return changeTSFormRepository.findByPhone(phone);
 	}
 
 	@Override

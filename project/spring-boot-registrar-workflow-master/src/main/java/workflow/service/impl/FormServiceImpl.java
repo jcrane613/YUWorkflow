@@ -79,8 +79,8 @@ public class FormServiceImpl implements FormService {
 	}
 
 	@Override
-	public List<Form> findByPhoneNumber(String phoneNumber) {
-		return formRepository.findByPhoneContaining(phoneNumber);
+	public List<Form> findByPhone(String phone) {
+		return formRepository.findByPhone(phone);
 	}
 
 	@Override

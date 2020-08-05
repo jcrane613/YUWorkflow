@@ -212,12 +212,12 @@ public class LeaveOfAb{
 		this.yuid = yuid;
 	}
 
-	public String getPhoneNumber() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phone = phoneNumber;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getCity() {

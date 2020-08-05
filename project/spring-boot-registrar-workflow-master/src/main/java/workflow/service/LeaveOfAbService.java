@@ -27,6 +27,6 @@ public interface LeaveOfAbService {
 	List<LeaveOfAb> findByLastName(String lastName);
 	List<LeaveOfAb> findByYuid(String yuid);
 	List<LeaveOfAb> findByEmail(String email);
-	List<LeaveOfAb> findByPhoneNumber(String phoneNumber);
+	List<LeaveOfAb> findByPhone(String phone);
 	List<LeaveOfAb> findByLastNameAndName(String lastName, String name);
 }

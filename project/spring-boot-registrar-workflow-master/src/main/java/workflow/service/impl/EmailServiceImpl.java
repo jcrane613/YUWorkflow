@@ -178,7 +178,4 @@ public class EmailServiceImpl implements EmailService {
 	   helper.setFrom("yuredteam@gmail.com");
 	   emailSender.send(mimeMessage);
    }
-
-
-
 }
