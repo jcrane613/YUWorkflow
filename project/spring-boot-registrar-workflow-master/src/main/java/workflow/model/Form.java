@@ -174,7 +174,7 @@ public class Form {
 
 	public String getYuid() { return yuid;}
 
-	public void setYuid(String Yuid) {
+	public void setYuid(String yuid) {
 		this.yuid = yuid;
 	}
 
