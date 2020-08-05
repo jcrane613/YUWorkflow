@@ -109,7 +109,7 @@ public class QueryDatabaseController {
 				String lastName = currencies[1];
 				modelAndView.addObject("AllForms", formService.findByLastNameAndName(lastName, firstName));
 				modelAndView.addObject("AllChangeTS", changeTSService.findByLastNameAndName(lastName, firstName));
-				modelAndView.addObject("AllLeaveOfAbFirstName", leaveOfAbService.findByLastNameAndName(lastName, firstName));
+				modelAndView.addObject("AllLeaveOfAb", leaveOfAbService.findByLastNameAndName(lastName, firstName));
 				break;
 			}
 		}
