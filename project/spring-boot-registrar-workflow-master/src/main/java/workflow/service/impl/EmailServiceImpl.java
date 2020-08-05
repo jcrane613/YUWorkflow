@@ -60,7 +60,7 @@ public class EmailServiceImpl implements EmailService {
 		int totalSteps = form.getTotalSteps();
 		if (currentStep <= totalSteps) { // the workflow is still live
 			nextApproverEmail = userRepository.findByUsername(form.getCurrentApprover()).get().getEmail();
-			this.sendNewApprovalHtmlMessage(nextApproverEmail, globalSettings.accessibleWebsiteUrl + "shoppingCart/processForm/"+form.getId());
+			this.sendNewApprovalHtmlMessage(nextApproverEmail, globalSettings.accessibleWebsiteUrl + "processingPage/processForm/"+form.getId());
 		}
 		else {                          // the workflow has ended
 			String text = String.format("Form #%d has just been completely approved", form.getId());
@@ -77,7 +77,7 @@ public class EmailServiceImpl implements EmailService {
 		int totalSteps = form.getTotalSteps();
 		if (currentStep <= totalSteps) { // the workflow is still live
 			nextApproverEmail = userRepository.findByUsername(form.getCurrentApprover()).get().getEmail();
-			this.sendNewApprovalHtmlMessage(nextApproverEmail, globalSettings.accessibleWebsiteUrl + "shoppingCart/processChangeTSForm/"+form.getId());
+			this.sendNewApprovalHtmlMessage(nextApproverEmail, globalSettings.accessibleWebsiteUrl + "processingPage/processChangeTSForm/"+form.getId());
 		}
 		else {                          // the workflow has ended
 			String text = String.format("Change of Torah Studies Form #%d has just been completely approved", form.getId());
@@ -94,7 +94,7 @@ public class EmailServiceImpl implements EmailService {
 		int totalSteps = form.getTotalSteps();
 		if (currentStep <= totalSteps) { // the workflow is still live
 			nextApproverEmail = userRepository.findByUsername(form.getCurrentApprover()).get().getEmail();
-			this.sendNewApprovalHtmlMessage(nextApproverEmail, globalSettings.accessibleWebsiteUrl + "shoppingCart/processLeaveOfAbForm/"+form.getId());
+			this.sendNewApprovalHtmlMessage(nextApproverEmail, globalSettings.accessibleWebsiteUrl + "processingPage/processLeaveOfAbForm/"+form.getId());
 		}
 		else {                          // the workflow has ended
 			String text = String.format("Leave Of Absence Form #%d has just been completely approved", form.getId());
