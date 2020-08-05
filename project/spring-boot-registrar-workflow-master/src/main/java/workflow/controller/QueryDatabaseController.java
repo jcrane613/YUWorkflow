@@ -60,6 +60,7 @@ public class QueryDatabaseController {
 	public ModelAndView queryGlobalFirstName(@PathVariable("type") String type, @PathVariable("input") String input) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/queryReturn");
+		boolean noneFound = false;
 		switch (type){
 			case "firstName":
 			{
@@ -112,6 +113,12 @@ public class QueryDatabaseController {
 				break;
 			}
 		}
+		if ( ((ArrayList)modelAndView.getModel().get("AllForms")).isEmpty()
+			 && ((ArrayList)modelAndView.getModel().get("AllChangeTS")).isEmpty()
+			 && ((ArrayList)modelAndView.getModel().get("AllLeaveOfAb")).isEmpty()) {
+			noneFound = true;
+		}
+		modelAndView.addObject("noneFound", noneFound);
 		return modelAndView;
 	}
 

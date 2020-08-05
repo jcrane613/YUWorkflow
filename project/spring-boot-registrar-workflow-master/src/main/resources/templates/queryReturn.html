@@ -12,10 +12,13 @@
 
 <div class="container">
 
-    <h1 class="jumbotron" th:if="${form == null AND changeTS == null AND leaveOfAb == null}">
+    <h1 class="jumbotron" th:if="${noneFound}">
         No form found with this search query
         <br></br>
+	</h1>
+	<h1>
         <a th:href="@{'/queryDatabase'}" class="col-md-6">Return to the search bar</a>
+        <br></br>
     </h1>
     <div class="panel-default well col-md-6" th:each="form : ${AllForms}">
         <div class="panel-heading">
