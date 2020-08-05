@@ -77,7 +77,7 @@ To run that application, use the java -jar command, as follows:
 $ java -jar target/registrar-workflow-0.0.1-SNAPSHOT.jar
 ```
 
-Once the app starts, go to the web browser and for admin access visit `http://localhost:8070/admin/dashboard and login using:`
+Once the app starts, go to the web browser and for admin access visit http://localhost:8070/admin/dashboard and login using:
 
 Admin username: **admin**
 
