@@ -77,13 +77,13 @@ To run that application, use the java -jar command, as follows:
 $ java -jar target/registrar-workflow-0.0.1-SNAPSHOT.jar
 ```
 
-To exit the application, press **ctrl-c**.
-
-Once the app starts, go to the web browser and visit `http://localhost:8070/home`
+Once the app starts, go to the web browser and for admin access visit `http://localhost:8070/admin/dashboard and login using:`
 
 Admin username: **admin**
 
 Admin password: **admin**
+
+For regular user access visit http://localhost:8070/userDashboard and login using:
 
 User username: **approver1**
 
@@ -92,6 +92,8 @@ User password: **password**
 You can view the rest of the pre-populated usernames in the H2 Console
 
 You can also register new users in the **Registration** tab
+
+To exit the application, press **ctrl-c**.
 
 ## Helper Tools
 
