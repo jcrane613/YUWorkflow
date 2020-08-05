@@ -22,8 +22,8 @@ public interface FormRepository extends JpaRepository<Form , Long> {
     //Query Searches
     List<Form> findByName(String name);
     List<Form> findByLastName(String lastName);
-    List<Form> findByEmail(String email);
-    List<Form> findByPhone(String phone);
+    List<Form> findByEmailContaining(String email);
+    List<Form> findByPhoneContaining(String phone);
     List<Form> findByLastNameAndName(String lastName, String name);
     List<Form> findByYuid(String yuid);
 }

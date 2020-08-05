@@ -84,8 +84,8 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 	public List<ChangeTS> findByYuid(String yuid) {return changeTSFormRepository.findByYuid(yuid);}
 
 	@Override
-	public List<ChangeTS> findByStudentEmail(String studentEmail) {
-		return changeTSFormRepository.findByEmail(studentEmail);
+	public List<ChangeTS> findByEmail(String email) {
+		return changeTSFormRepository.findByEmail(email);
 	}
 
 	@Override

@@ -130,7 +130,7 @@ public class ProcessingPageController {
         Form form = formService.findById(formId).orElse(null);
     	if (form != null) processingPageService.denyForm(form);
         try {
-			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
+			emailService.sendStudentDenialMessage(form.getEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
@@ -142,7 +142,7 @@ public class ProcessingPageController {
     	ChangeTS form = changeTSService.findById(formId).orElse(null);
     	if (form != null) processingPageService.denyChangeTSForm(form);
         try {
-			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
+			emailService.sendStudentDenialMessage(form.getEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}		
@@ -154,7 +154,7 @@ public class ProcessingPageController {
     	LeaveOfAb form = leaveOfAbService.findById(formId).orElse(null);
     	if (form != null) processingPageService.denyLeaveOfAbForm(form);
         try {
-			emailService.sendStudentDenialMessage(form.getStudentEmail(), form.getTrackingId(), form.getDenyer());;
+			emailService.sendStudentDenialMessage(form.getEmail(), form.getTrackingId(), form.getDenyer());;
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}		

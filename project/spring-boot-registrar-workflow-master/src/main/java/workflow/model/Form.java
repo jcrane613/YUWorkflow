@@ -27,7 +27,7 @@ public class Form {
 	private String lastName;
 
 	@Column(name = "email")
-    @Email(message = "*Please provide a valid Email")
+   // @Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email address")
 	private String email;
 
@@ -91,12 +91,12 @@ public class Form {
 		this.lastName = lastName;
 	}
 
-	public String getStudentEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setStudentEmail(String studentEmail) {
-		this.email = studentEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getMajor() {

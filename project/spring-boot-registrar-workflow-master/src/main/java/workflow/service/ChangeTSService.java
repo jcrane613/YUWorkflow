@@ -29,7 +29,7 @@ public interface ChangeTSService {
 	List<ChangeTS> findByName(String name);
 	List<ChangeTS> findByLastName(String lastName);
 	List<ChangeTS> findByYuid(String yuid);
-	List<ChangeTS> findByStudentEmail(String studentEmail);
+	List<ChangeTS> findByEmail(String email);
 	List<ChangeTS> findByPhoneNumber(String phoneNumber);
 	List<ChangeTS> findByLastNameAndName(String lastName, String name);
 

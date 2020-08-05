@@ -78,8 +78,8 @@ public class LeaveOfAbServiceImpl implements LeaveOfAbService {
 	public List<LeaveOfAb> findByYuid(String yuid) {return leaveOfAbRepository.findByYuid(yuid);}
 
 	@Override
-	public List<LeaveOfAb> findByStudentEmail(String studentEmail) {
-		return leaveOfAbRepository.findByEmail(studentEmail);
+	public List<LeaveOfAb> findByEmail(String email) {
+		return leaveOfAbRepository.findByEmail(email);
 	}
 
 	@Override

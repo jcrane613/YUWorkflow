@@ -132,12 +132,12 @@ public class ChangeTS {
 		this.lastName = lastName;
 	}
 
-	public String getStudentEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setStudentEmail(String studentEmail) {
-		this.email = studentEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getApprover1() {

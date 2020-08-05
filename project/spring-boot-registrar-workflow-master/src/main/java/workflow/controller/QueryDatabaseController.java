@@ -74,9 +74,9 @@ public class QueryDatabaseController {
 			}
 			case "studentEmail":
 			{
-				modelAndView.addObject("AllForms", formService.findByStudentEmail(input));
-				modelAndView.addObject("AllChangeTS", changeTSService.findByStudentEmail(input));
-				modelAndView.addObject("AllLeaveOfAb", leaveOfAbService.findByStudentEmail(input));
+				modelAndView.addObject("AllForms", formService.findByEmail(input));
+				modelAndView.addObject("AllChangeTS", changeTSService.findByEmail(input));
+				modelAndView.addObject("AllLeaveOfAb", leaveOfAbService.findByEmail(input));
 				break;
 			}
 			case "phoneNumber":

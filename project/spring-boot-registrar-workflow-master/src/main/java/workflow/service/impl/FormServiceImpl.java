@@ -74,13 +74,13 @@ public class FormServiceImpl implements FormService {
 	@Override
 	public List<Form> findByYuid(String yuid) {return formRepository.findByYuid(yuid);}
 	@Override
-	public List<Form> findByStudentEmail(String studentEmail) {
-		return formRepository.findByEmail(studentEmail);
+	public List<Form> findByEmail(String email) {
+		return formRepository.findByEmailContaining(email);
 	}
 
 	@Override
 	public List<Form> findByPhoneNumber(String phoneNumber) {
-		return formRepository.findByPhone(phoneNumber);
+		return formRepository.findByPhoneContaining(phoneNumber);
 	}
 
 	@Override

@@ -44,9 +44,9 @@
 
             <div class="form-group">
                 Email:
-                <label th:if="${#fields.hasErrors('studentEmail')}" th:errors="*{studentEmail}"
+                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                        class="alert alert-danger"></label>
-                <input type="text" th:field="*{studentEmail}" placeholder="Student Email"
+                <input type="text" th:field="*{email}" placeholder="Student Email"
                        class="form-control input-lg"/>
             </div>
             <div class="form-group">
