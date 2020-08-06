@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class GlobalSettings {
 	public boolean studentRemindersAllowed = false;
 	public int daysBeforeReminder = 7;
-	public String registrarEmail = "yaircaplan@gmail.com";
+	public String registrarEmail = "yuredteam@gmail.com";
 	public String accessibleWebsiteUrl = "http://localhost:8070/";
 	
 	// Routing Tables
