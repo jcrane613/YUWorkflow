@@ -28,7 +28,6 @@ public interface FormService {
 	List<Form> findByLastName(String lastName);
 	List<Form> findByYuid(String yuid);
 	List<Form> findByEmail(String email);
-	List<Form> findByPhone(String phone);
 	List<Form> findByLastNameAndName(String lastName, String name);
 
 }

@@ -160,21 +160,45 @@ public class EmailServiceImpl implements EmailService {
    }
 
    @Override
-   public void sendInitialStudentMessage(String studentEmail, String trackingId) throws MessagingException {
-	   MimeMessage mimeMessage = emailSender.createMimeMessage();
+   public void sendInitialStudentMessage(String studentEmail, String trackingId, String name, String major, String type) throws MessagingException {
+	   String subject = null;
+	   String formType = null;
+	   switch (type)
+	   {
+		   case "form":
+		   {
+			   subject = "Received Major Declaration Form";
+			   formType = "Major Declaration Form";
+			   break;
+		   }
+		   case "changeTS":
+		   {
+			   subject = "Received Change of Torah Studies Form";
+			   formType = "Change of Torah Studies Form";
+			   break;
+		   }
+		   case "leaveOfAb":
+		   {
+			   subject = "Received Leave of Absence Form";
+			   formType = "Leave of Absence Form";
+			   break;
+		   }
+	   }
+   	    MimeMessage mimeMessage = emailSender.createMimeMessage();
 	   MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 	   String trackingUrl = globalSettings.accessibleWebsiteUrl + "tracking/" + trackingId;
 	   String htmlMsg = String.format(
-			   "<h3>Your form has been submitted!</h3>"
+	   		   "<h3>Dear %s,</h3>"
+			   +"<h3>Your %s has been submitted!</h3>"
 			   + "<br></br>"
 			   + "<h4> Please click <a href=\"%s\">here</a> to track it,"
 			   + " or visit <a href=\""
 			   + globalSettings.accessibleWebsiteUrl
 			   + "tracking/\"> the tracking portal </a> and enter your tracking code: %s</h4>"
-			   , trackingUrl, trackingId);
+			   , name, formType, trackingUrl, trackingId);
 	   helper.setText(htmlMsg, true);
 	   helper.setTo(studentEmail);
-	   helper.setSubject("Registrar Forms Update");
+	   helper.setSubject(subject);
 	   helper.setFrom("yuredteam@gmail.com");
 	   emailSender.send(mimeMessage);
    }
