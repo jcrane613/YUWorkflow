@@ -18,7 +18,7 @@ public interface EmailService {
 
 	public void sendStudentApprovalMessage(String studentEmail, String trackingId) throws MessagingException;
 
-	public void sendInitialStudentMessage(String studentEmail, String trackingId) throws MessagingException;
+	public void sendInitialStudentMessage(String studentEmail, String trackingId, String name, String major, String type) throws MessagingException;
 
 
 }

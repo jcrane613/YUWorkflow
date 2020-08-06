@@ -79,13 +79,6 @@ public class QueryDatabaseController {
 				modelAndView.addObject("AllLeaveOfAb", leaveOfAbService.findByEmail(input));
 				break;
 			}
-			case "phoneNumber":
-			{
-				modelAndView.addObject("AllForms", formService.findByPhone(input));
-				modelAndView.addObject("AllChangeTS", changeTSService.findByPhone(input));
-				modelAndView.addObject("AllLeaveOfAb", leaveOfAbService.findByPhone(input));
-				break;
-			}
 			case "bothNames":
 			{
 				String[] currencies = input.split(" ");

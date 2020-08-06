@@ -1,10 +1,8 @@
 package workflow.repository;
 
 import workflow.model.ChangeTS;
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,7 +24,6 @@ public interface ChangeTSRepository extends JpaRepository<ChangeTS, Long> {
 	List<ChangeTS> findByName(String name);
 	List<ChangeTS> findByLastName(String lastName);
 	List<ChangeTS> findByEmail(String email);
-	List<ChangeTS> findByPhone(String phone);
 	List<ChangeTS> findByLastNameAndName(String lastName, String name);
 	List<ChangeTS> findByYuid(String yuid);
 

@@ -68,7 +68,7 @@ public class FormController {
 				e.printStackTrace();
 			}
 			try {
-				emailService.sendInitialStudentMessage(form.getEmail(), form.getTrackingId());
+				emailService.sendInitialStudentMessage(form.getEmail(), form.getTrackingId(), form.getName(), form.getMajor(),"form");
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -110,7 +110,7 @@ public class FormController {
 				e.printStackTrace();
 			}
 			try {
-				emailService.sendInitialStudentMessage(changeTS.getEmail(), changeTS.getTrackingId());
+				emailService.sendInitialStudentMessage(changeTS.getEmail(), changeTS.getTrackingId(), changeTS.getName(), changeTS.getSwitchIntoProgam(), "changeTS");
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -154,7 +154,7 @@ public class FormController {
 				e.printStackTrace();
 			}
 			try {
-				emailService.sendInitialStudentMessage(leaveOfAb.getEmail(), leaveOfAb.getTrackingId());
+				emailService.sendInitialStudentMessage(leaveOfAb.getEmail(), leaveOfAb.getTrackingId(), leaveOfAb.getName(), leaveOfAb.getSchool(), "leaveOfAb");
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}

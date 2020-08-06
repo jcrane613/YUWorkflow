@@ -88,10 +88,6 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 		return changeTSFormRepository.findByEmail(email);
 	}
 
-	@Override
-	public List<ChangeTS> findByPhone(String phone) {
-		return changeTSFormRepository.findByPhone(phone);
-	}
 
 	@Override
 	public List<ChangeTS> findByLastNameAndName(String lastName, String name) {
