@@ -64,7 +64,7 @@ public class EmailServiceImpl implements EmailService {
 	   }
 	   else {                          // the workflow has ended
 		   String text = String.format("Form #%d has just been completely approved", form.getId());
-		   this.sendSimpleMessage("yaircaplan@gmail.com", "Registrar Form Completion Notification", text);
+		   this.sendSimpleMessage(globalSettings.registrarEmail, "Registrar Form Completion Notification", text);
 		   this.sendStudentApprovalMessage(form.getEmail(), form.getTrackingId());
 	   }
    }
@@ -81,7 +81,7 @@ public class EmailServiceImpl implements EmailService {
 	   }
 	   else {                          // the workflow has ended
 		   String text = String.format("Change of Torah Studies Form #%d has just been completely approved", form.getId());
-		   this.sendSimpleMessage("yaircaplan@gmail.com", "Registrar Form Completion Notification", text);
+		   this.sendSimpleMessage(globalSettings.registrarEmail, "Registrar Form Completion Notification", text);
 		   this.sendStudentApprovalMessage(form.getEmail(), form.getTrackingId());
 	   }
    }
@@ -98,7 +98,7 @@ public class EmailServiceImpl implements EmailService {
 	   }
 	   else {                          // the workflow has ended
 		   String text = String.format("Leave Of Absence Form #%d has just been completely approved", form.getId());
-		   this.sendSimpleMessage("yaircaplan@gmail.com", "Registrar Form Completion Notification", text);
+		   this.sendSimpleMessage(globalSettings.registrarEmail, "Registrar Form Completion Notification", text);
 		   this.sendStudentApprovalMessage(form.getEmail(), form.getTrackingId());
 	   }
    }
