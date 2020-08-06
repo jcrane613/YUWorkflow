@@ -26,6 +26,7 @@ public interface ChangeTSRepository extends JpaRepository<ChangeTS, Long> {
 	List<ChangeTS> findByEmail(String email);
 	List<ChangeTS> findByLastNameAndName(String lastName, String name);
 	List<ChangeTS> findByYuid(String yuid);
+	List<ChangeTS> findByNameContains(String name);
 
 
 }

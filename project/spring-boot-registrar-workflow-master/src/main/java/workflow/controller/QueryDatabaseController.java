@@ -79,6 +79,13 @@ public class QueryDatabaseController {
 				modelAndView.addObject("AllLeaveOfAb", leaveOfAbService.findByEmail(input));
 				break;
 			}
+			case "nameContains":
+			{
+				modelAndView.addObject("AllForms", formService.findByEmail(input));
+				modelAndView.addObject("AllChangeTS", changeTSService.findByNameContains(input));
+				modelAndView.addObject("AllLeaveOfAb", leaveOfAbService.findByEmail(input));
+				break;
+			}
 			case "bothNames":
 			{
 				String[] currencies = input.split(" ");

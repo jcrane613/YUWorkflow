@@ -93,4 +93,9 @@ public class ChangeTSServiceImpl implements ChangeTSService {
 	public List<ChangeTS> findByLastNameAndName(String lastName, String name) {
 		return changeTSFormRepository.findByLastNameAndName(lastName, name);
 	}
+	@Override
+	public List<ChangeTS> findByNameContains(String name) {
+		return changeTSFormRepository.findByNameContains(name);
+	}
+
 }

@@ -31,6 +31,6 @@ public interface ChangeTSService {
 	List<ChangeTS> findByYuid(String yuid);
 	List<ChangeTS> findByEmail(String email);
 	List<ChangeTS> findByLastNameAndName(String lastName, String name);
-
+	List<ChangeTS> findByNameContains(String name);
 
 }
