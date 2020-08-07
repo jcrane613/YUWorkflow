@@ -3,27 +3,27 @@
 
 
 ## About
-This java-based web app was built for Yeshiva University's registrar office to allow for form 
-submission and tracking for students as well as multilevel, dynamic approval workflows for 
-deans and administrators. 
+This java-based web app was built for Yeshiva University's registrar office to allow for form
+submission and tracking for students as well as multilevel, dynamic approval workflows for
+deans and administrators.
 
 
 ## Functionality
 
 ### Core Functionality
-Students have the ability to fill out and submit a form. 
+Students have the ability to fill out and submit a form.
 
 ![Form Submission](media/formSubmission.gif)
 
-On submission, the student receives 
+On submission, the student receives
 an email confirmation that their form has been received.
 
-The user (dean/administrator/office) who is first in the submitted form's 
-unique workflow will receive an email notifying them that they have a form 
-to approve. 
+The user (dean/administrator/office) who is first in the submitted form's
+unique workflow will receive an email notifying them that they have a form
+to approve.
 
-The user can login and view their personal dashboard which lists 
-all forms that require their approval and choose to approve, deny, and/or comment 
+The user can login and view their personal dashboard which lists
+all forms that require their approval and choose to approve, deny, and/or comment
 on each form.
 
 ![Form Approval](media/approval.gif)
@@ -34,8 +34,8 @@ Each approval triggers the next step in the workflow, sending an email to the su
 
 If the workflow has been completed, the student will receive an email notifying them whether their form has been approved or denied.
 
-### Additional Features 
-1. **Form Tracking Page** 
+### Additional Features
+1. **Form Tracking Page**
 - In their submission confirmation email, student receive a tracking number for their form which they can use to track the status of their form in the workflow, comment on it, and withdraw the form.
 
 ![Student Email](media/student_email.gif)
@@ -52,6 +52,9 @@ If the workflow has been completed, the student will receive an email notifying 
 
 3. **Query Page**
 
+- An administrator account can search across all documents, both those that have finished their workflow as well as those still in the process, based on various fields such as name, email, and id number.
+
+![Search](media/search.gif)
 
 ## Technologies Used
 - **Spring Boot**
@@ -69,7 +72,7 @@ To create an executable jar run:
 
 ```bash
 $ mvn clean package
-``` 
+```
 
 To run that application, use the java -jar command, as follows:
 
@@ -105,6 +108,6 @@ You will need to be authenticated to be able to see this page.
 
 Go to the web browser and visit `http://localhost:8070/h2-console`
 
-In field **JDBC URL** put 
+In field **JDBC URL** put
 ```
 jdbc:h2:mem:form_db
