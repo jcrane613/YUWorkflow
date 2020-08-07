@@ -27,7 +27,7 @@ public class Form {
 	private String lastName;
 
 	@Column(name = "email")
-   // @Email(message = "*Please provide a valid Email")
+    @Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide your email address")
 	private String email;
 
