@@ -1,5 +1,5 @@
 # Spring Boot Form Submission and Approval Workflow Web App
-CREDIT to Dusan Reljic, who's Spring Boot Shopping Cart Application served as a helpful template and reference for our architecture
+CREDIT to Dusan Reljic, who's [Spring Boot Shopping Cart Application](https://github.com/reljicd/spring-boot-shopping-cart) served as a helpful template and reference for our architecture
 
 
 ## About
