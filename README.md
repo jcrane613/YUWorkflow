@@ -7,7 +7,7 @@ This java-based web app was built for Yeshiva University's registrar office to a
 submission and tracking for students as well as multilevel, dynamic approval workflows for
 deans and administrators.
 
-Check out the video demo ![here](media)
+Check out the video demo [here](https://youtu.be/7ZVgk1sXcb4)
 
 
 ## Functionality
